@@ -39,24 +39,84 @@ const railItems = [
 export function AppRail() {
   const pathname = usePathname();
   const [railExpanded, setRailExpanded] = useState(false);
-  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelCollapsed, setPanelCollapsed] = useState(false);
+  const [panelHovered, setPanelHovered] = useState(false);
 
-  // Hide the projects panel by default on narrow viewports.
+  // Collapse the projects panel to icons-only on narrow viewports.
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
-    const apply = () => setPanelOpen(mq.matches);
+    const apply = () => setPanelCollapsed(!mq.matches);
     apply();
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
   }, []);
 
+  const projectLink = (p: (typeof projects)[number], withName: boolean) => {
+    const active = pathname.startsWith(`/apps/${p.slug}`);
+    return (
+      <Link
+        key={p.id}
+        href={`/apps/${p.slug}/ai-chat`}
+        aria-label={p.name}
+        className={cn(
+          "flex items-center gap-2.5 rounded-xl transition-all",
+          withName ? "px-2.5 py-2 text-[13px]" : "justify-center p-1.5",
+          active
+            ? withName
+              ? "bg-background font-medium text-brand shadow-soft ring-1 ring-border"
+              : "bg-background shadow-soft ring-1 ring-border"
+            : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
+        )}
+      >
+        <ProjectLogo project={p} size="sm" className="rounded-full" />
+        {withName && <span className="truncate">{p.name}</span>}
+      </Link>
+    );
+  };
+
+  const expandedPanelContent = (
+    <>
+      <div className="flex items-center justify-between px-1 pb-3">
+        <span className="text-[13px] font-medium">Projects</span>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              aria-label="Collapse projects panel"
+              onClick={() => {
+                setPanelCollapsed(true);
+                setPanelHovered(false);
+              }}
+              className="grid size-6 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+            >
+              <PanelLeftClose className="size-3.5" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>Collapse projects panel</TooltipContent>
+        </Tooltip>
+      </div>
+      <Button asChild className="w-full gap-1.5">
+        <Link href="/apps/new">
+          <Plus className="size-4" /> Add new project
+        </Link>
+      </Button>
+      {/* Project list — same vertical middle as the rail menu */}
+      <nav
+        aria-label="Projects"
+        className="absolute inset-x-4 top-1/2 flex -translate-y-1/2 flex-col gap-1"
+      >
+        {projects.map((p) => projectLink(p, true))}
+      </nav>
+    </>
+  );
+
   return (
     <div className="sticky top-0 z-30 flex h-svh shrink-0">
-      {/* 1st level — icon rail (collapsible: icons ⇄ icons + labels) */}
+      {/* 1st level — icon rail */}
       <motion.aside
         animate={{ width: railExpanded ? 184 : 64 }}
         transition={{ type: "spring", stiffness: 380, damping: 36 }}
-        className="flex flex-col overflow-hidden border-r bg-sidebar py-3 text-sidebar-foreground"
+        className="relative flex flex-col overflow-hidden border-r bg-sidebar py-3 text-sidebar-foreground"
       >
         <div className={cn("flex items-center gap-2 px-3.5", railExpanded ? "justify-between" : "justify-center")}>
           <Link href="/apps" aria-label="Agile Coder home" className="flex min-w-0 items-center gap-2">
@@ -78,10 +138,13 @@ export function AppRail() {
           </Link>
         </div>
 
-        {/* Menu — vertically centered */}
+        {/* Menu — anchored to the exact vertical middle */}
         <nav
           aria-label="Main"
-          className={cn("flex flex-1 flex-col justify-center gap-1.5", railExpanded ? "px-3" : "items-center px-0")}
+          className={cn(
+            "absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col gap-1.5",
+            railExpanded ? "px-3" : "items-center",
+          )}
         >
           {railItems.map((item) => {
             const active =
@@ -115,7 +178,7 @@ export function AppRail() {
           })}
         </nav>
 
-        <div className={cn("flex flex-col gap-2", railExpanded ? "items-start px-3" : "items-center")}>
+        <div className={cn("mt-auto flex flex-col gap-2", railExpanded ? "items-start px-3" : "items-center")}>
           <Tooltip>
             <TooltipTrigger asChild>
               <button
@@ -134,25 +197,6 @@ export function AppRail() {
             </TooltipTrigger>
             <TooltipContent side="right">{railExpanded ? "Collapse menu" : "Expand menu"}</TooltipContent>
           </Tooltip>
-          {!panelOpen && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  aria-label="Show projects panel"
-                  onClick={() => setPanelOpen(true)}
-                  className={cn(
-                    "flex items-center gap-2.5 rounded-xl text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground",
-                    railExpanded ? "w-full px-3 py-2 text-[13px]" : "size-10 justify-center",
-                  )}
-                >
-                  <PanelLeftOpen className="size-4.5 shrink-0" />
-                  {railExpanded && "Projects panel"}
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="right">Show projects panel</TooltipContent>
-            </Tooltip>
-          )}
           <div className={cn("flex items-center gap-2", railExpanded ? "px-1.5" : "flex-col")}>
             <ThemeToggle />
             <DropdownMenu>
@@ -176,31 +220,72 @@ export function AppRail() {
         </div>
       </motion.aside>
 
-      {/* 2nd level — projects panel (collapsible) */}
-      <AnimatePresence initial={false}>
-        {panelOpen && (
-          <motion.aside
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 216, opacity: 1 }}
-            exit={{ width: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 380, damping: 36 }}
-            className="overflow-hidden border-r bg-sidebar text-sidebar-foreground"
-          >
-            <div className="flex h-full w-[216px] flex-col p-4">
+      {/* 2nd level — projects panel: expanded, or icons-only with hover flyout */}
+      <div
+        className="relative"
+        onMouseEnter={() => setPanelHovered(true)}
+        onMouseLeave={() => setPanelHovered(false)}
+      >
+        <motion.aside
+          animate={{ width: panelCollapsed ? 60 : 216 }}
+          transition={{ type: "spring", stiffness: 380, damping: 36 }}
+          className="relative h-full overflow-hidden border-r bg-sidebar text-sidebar-foreground"
+        >
+          {panelCollapsed ? (
+            <div className="flex h-full w-[60px] flex-col items-center py-4">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    aria-label="Expand projects panel"
+                    onClick={() => setPanelCollapsed(false)}
+                    className="grid size-8 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+                  >
+                    <PanelLeftOpen className="size-4" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="right">Expand projects panel</TooltipContent>
+              </Tooltip>
+              {/* Icons only — same vertical middle as the rail menu */}
+              <nav
+                aria-label="Projects"
+                className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 flex-col items-center gap-2"
+              >
+                {projects.map((p) => projectLink(p, false))}
+              </nav>
+            </div>
+          ) : (
+            <div className="relative h-full w-[216px] p-4">{expandedPanelContent}</div>
+          )}
+        </motion.aside>
+
+        {/* Hover flyout over the collapsed strip */}
+        <AnimatePresence>
+          {panelCollapsed && panelHovered && (
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ type: "spring", stiffness: 420, damping: 34 }}
+              className="absolute inset-y-0 left-0 z-40 w-[216px] border-r bg-sidebar p-4 text-sidebar-foreground shadow-elevation-high"
+            >
               <div className="flex items-center justify-between px-1 pb-3">
                 <span className="text-[13px] font-medium">Projects</span>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button
                       type="button"
-                      aria-label="Hide projects panel"
-                      onClick={() => setPanelOpen(false)}
+                      aria-label="Pin projects panel open"
+                      onClick={() => {
+                        setPanelCollapsed(false);
+                        setPanelHovered(false);
+                      }}
                       className="grid size-6 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
                     >
-                      <PanelLeftClose className="size-3.5" />
+                      <PanelLeftOpen className="size-3.5" />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent>Hide projects panel</TooltipContent>
+                  <TooltipContent>Pin open</TooltipContent>
                 </Tooltip>
               </div>
               <Button asChild className="w-full gap-1.5">
@@ -208,32 +293,16 @@ export function AppRail() {
                   <Plus className="size-4" /> Add new project
                 </Link>
               </Button>
-
-              {/* Project list — vertically centered */}
-              <nav className="flex flex-1 flex-col justify-center gap-1" aria-label="Projects">
-                {projects.map((p) => {
-                  const active = pathname.startsWith(`/apps/${p.slug}`);
-                  return (
-                    <Link
-                      key={p.id}
-                      href={`/apps/${p.slug}/ai-chat`}
-                      className={cn(
-                        "flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] transition-all",
-                        active
-                          ? "bg-background font-medium text-brand shadow-soft ring-1 ring-border"
-                          : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
-                      )}
-                    >
-                      <ProjectLogo project={p} size="sm" />
-                      <span className="truncate">{p.name}</span>
-                    </Link>
-                  );
-                })}
+              <nav
+                aria-label="Projects"
+                className="absolute inset-x-4 top-1/2 flex -translate-y-1/2 flex-col gap-1"
+              >
+                {projects.map((p) => projectLink(p, true))}
               </nav>
-            </div>
-          </motion.aside>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
