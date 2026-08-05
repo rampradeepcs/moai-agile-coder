@@ -3,7 +3,23 @@
 import { Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, ChevronRight } from "lucide-react";
+import {
+  ArrowLeft,
+  Bot,
+  ChevronRight,
+  Coins,
+  Cpu,
+  FileCode2,
+  FileText,
+  GitBranch,
+  Info,
+  MessageSquareText,
+  Network,
+  Rocket,
+  Settings2,
+  Timer,
+  UsersRound,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BasicDetailsTab } from "@/components/configure/basic-details";
 import { InfoArchitectureTab } from "@/components/configure/info-architecture";
@@ -20,24 +36,24 @@ import { SprintManagement } from "@/components/configure/sprint-management";
 import { ReleaseManagement } from "@/components/configure/release-management";
 
 const sections = [
-  { id: "app-settings", title: "App settings", subtitle: "Configure application" },
-  { id: "documents", title: "Documents", subtitle: "Requirement & design documents" },
-  { id: "tokens", title: "Token Management", subtitle: "Manage your project's AI token" },
-  { id: "teams", title: "Team Management", subtitle: "Create teams, assign members, and manage responsibilities." },
-  { id: "workforce", title: "Project Workforce", subtitle: "Manage team members & AI agents" },
-  { id: "sprints", title: "Sprint Management", subtitle: "Create sprints, assign work, and monitor sprint progress." },
-  { id: "releases", title: "Release Management", subtitle: "Manage releases, and deployment readiness." },
+  { id: "app-settings", title: "App settings", subtitle: "Configure application", icon: Settings2, iconClass: "bg-brand-subtle text-brand" },
+  { id: "documents", title: "Documents", subtitle: "Requirement & design documents", icon: FileText, iconClass: "bg-info-subtle text-info" },
+  { id: "tokens", title: "Token Management", subtitle: "Manage your project's AI token", icon: Coins, iconClass: "bg-warning-subtle text-warning" },
+  { id: "teams", title: "Team Management", subtitle: "Create teams, assign members, and manage responsibilities.", icon: UsersRound, iconClass: "bg-teal-subtle text-teal" },
+  { id: "workforce", title: "Project Workforce", subtitle: "Manage team members & AI agents", icon: Bot, iconClass: "bg-pink-subtle text-pink" },
+  { id: "sprints", title: "Sprint Management", subtitle: "Create sprints, assign work, and monitor sprint progress.", icon: Timer, iconClass: "bg-success-subtle text-success" },
+  { id: "releases", title: "Release Management", subtitle: "Manage releases, and deployment readiness.", icon: Rocket, iconClass: "bg-danger-subtle text-danger" },
 ] as const;
 
 type SectionId = (typeof sections)[number]["id"] | "kanban";
 
 const appSettingsTabs = [
-  { id: "basic", label: "Basic details" },
-  { id: "ia", label: "Information architecture" },
-  { id: "stack", label: "Tech stack & AI" },
-  { id: "repository", label: "Repository" },
-  { id: "setup", label: "Setup files" },
-  { id: "prompts", label: "Prompts" },
+  { id: "basic", label: "Basic details", icon: Info },
+  { id: "ia", label: "Information architecture", icon: Network },
+  { id: "stack", label: "Tech stack & AI", icon: Cpu },
+  { id: "repository", label: "Repository", icon: GitBranch },
+  { id: "setup", label: "Setup files", icon: FileCode2 },
+  { id: "prompts", label: "Prompts", icon: MessageSquareText },
 ] as const;
 
 type AppSettingsTabId = (typeof appSettingsTabs)[number]["id"];
@@ -105,9 +121,14 @@ function ConfigureContent() {
               whileHover={{ y: -2 }}
               className="group flex items-center justify-between gap-4 rounded-2xl border bg-card px-6 py-5 text-left shadow-soft transition-shadow hover:shadow-elevation-mid"
             >
-              <span className="flex min-w-0 flex-col gap-0.5">
-                <span className="text-lg font-semibold tracking-tight">{s.title}</span>
-                <span className="truncate text-sm text-muted-foreground">{s.subtitle}</span>
+              <span className="flex min-w-0 items-center gap-4">
+                <span className={cn("grid size-11 shrink-0 place-items-center rounded-xl", s.iconClass)}>
+                  <s.icon className="size-5" aria-hidden />
+                </span>
+                <span className="flex min-w-0 flex-col gap-0.5">
+                  <span className="text-lg font-semibold tracking-tight">{s.title}</span>
+                  <span className="truncate text-sm text-muted-foreground">{s.subtitle}</span>
+                </span>
               </span>
               <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
             </motion.button>
@@ -136,12 +157,13 @@ function ConfigureContent() {
                 type="button"
                 onClick={() => go("app-settings", t.id)}
                 className={cn(
-                  "shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors",
+                  "flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors",
                   sub === t.id
                     ? "bg-brand-gradient text-white shadow-elevation-low"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground",
                 )}
               >
+                <t.icon className="size-3.5" aria-hidden />
                 {t.label}
               </button>
             ))}
