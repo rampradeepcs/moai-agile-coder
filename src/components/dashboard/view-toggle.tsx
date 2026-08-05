@@ -42,7 +42,7 @@ export function ViewToggle({
             {active && (
               <motion.span
                 layoutId="dashboard-view-pill"
-                className="absolute inset-0 rounded-full bg-brand"
+                className="absolute inset-0 rounded-full bg-brand-gradient shadow-elevation-low"
                 transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
               />
             )}

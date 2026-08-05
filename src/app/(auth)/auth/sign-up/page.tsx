@@ -49,7 +49,7 @@ export default function SignUpPage() {
             >
               <Button
                 size="lg"
-                className="w-full bg-foreground text-background hover:bg-foreground/85"
+                className="w-full"
               >
                 <GoogleIcon />
                 Continue with Google

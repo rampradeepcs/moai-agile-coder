@@ -54,7 +54,7 @@ function ConfigureContent() {
             className={cn(
               "shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors",
               active === t.id
-                ? "bg-primary text-primary-foreground shadow-elevation-low"
+                ? "bg-brand-gradient text-white shadow-elevation-low"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground",
             )}
           >

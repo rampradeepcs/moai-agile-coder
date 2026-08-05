@@ -278,7 +278,7 @@ export function ChatFlow({
                   animate={{ opacity: 1, y: 0 }}
                   className="flex justify-end"
                 >
-                  <span className="max-w-[80%] rounded-full bg-primary px-3 py-1.5 text-sm text-primary-foreground">
+                  <span className="max-w-[80%] rounded-full bg-brand-gradient px-3 py-1.5 text-sm text-white shadow-elevation-low">
                     {msg.text}
                   </span>
                 </motion.div>
@@ -518,7 +518,7 @@ function MultiOptions({
             className={cn(
               "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
               isSelected
-                ? "border-primary bg-primary text-primary-foreground"
+                ? "border-transparent bg-brand-gradient text-white shadow-elevation-low"
                 : "bg-card hover:border-primary/50"
             )}
           >

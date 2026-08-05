@@ -20,7 +20,7 @@ export function Logo({
       )}
       aria-label="Agile Coder home"
     >
-      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-elevation-low">
+      <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-elevation-low">
         <Sparkles className="size-4" />
       </span>
       {!compact && <span className="text-[15px]">Agile Coder</span>}

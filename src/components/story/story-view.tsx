@@ -330,7 +330,7 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
             <div className="space-y-3 p-4">
               {/* user bubble */}
               <div className="flex justify-end">
-                <p className="max-w-[85%] rounded-2xl rounded-br-md bg-primary px-3.5 py-2 text-sm text-primary-foreground">
+                <p className="max-w-[85%] rounded-2xl rounded-br-md bg-brand-gradient px-3.5 py-2 text-sm text-white shadow-elevation-low">
                   Start the dashboard design for this story
                 </p>
               </div>
@@ -404,7 +404,7 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
                       className={cn(
                         "max-w-[85%] px-3.5 py-2 text-sm",
                         m.role === "user"
-                          ? "rounded-2xl rounded-br-md bg-primary text-primary-foreground"
+                          ? "rounded-2xl rounded-br-md bg-brand-gradient text-white shadow-elevation-low"
                           : "rounded-2xl rounded-bl-md bg-muted",
                       )}
                     >

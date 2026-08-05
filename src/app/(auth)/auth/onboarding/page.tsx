@@ -69,7 +69,7 @@ export default function OnboardingPage() {
               key={i}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
-                i === step ? "w-6 bg-primary" : "w-1.5 bg-border",
+                i === step ? "w-6 bg-brand-gradient" : "w-1.5 bg-border",
                 i < step && "bg-primary/40"
               )}
             />

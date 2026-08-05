@@ -27,7 +27,7 @@ export function DocgenStepper({ current }: { current: number }) {
               aria-current={state === "active" ? "step" : undefined}
               className={cn(
                 "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors",
-                state === "active" && "bg-primary text-primary-foreground shadow-elevation-low",
+                state === "active" && "bg-brand-gradient text-white shadow-elevation-low",
                 state === "done" && "bg-brand-subtle text-brand",
                 state === "todo" && "border bg-card text-muted-foreground"
               )}
