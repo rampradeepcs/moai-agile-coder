@@ -41,6 +41,8 @@ export function AppRail() {
   const [railExpanded, setRailExpanded] = useState(false);
   const [panelCollapsed, setPanelCollapsed] = useState(false);
   const [panelHovered, setPanelHovered] = useState(false);
+  // AI-activity notifications are cleared once the project is visited.
+  const [seenActivity, setSeenActivity] = useState<Record<string, boolean>>({});
 
   // Collapse the projects panel to icons-only on narrow viewports.
   useEffect(() => {
@@ -53,24 +55,62 @@ export function AppRail() {
 
   const projectLink = (p: (typeof projects)[number], withName: boolean) => {
     const active = pathname.startsWith(`/apps/${p.slug}`);
-    return (
+    const activity = !seenActivity[p.id] && !active ? p.aiActivity : undefined;
+    const label = activity ? `${p.name} — ${activity.count} AI update${activity.count > 1 ? "s" : ""}: ${activity.message}` : p.name;
+
+    const logoWithBadge = (
+      <span className="relative inline-flex shrink-0">
+        <ProjectLogo project={p} size="sm" className="rounded-full" />
+        {activity && (
+          <span className="absolute -right-0.5 -top-0.5 flex size-2.5" aria-hidden>
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-70" />
+            <span className="relative inline-flex size-2.5 rounded-full bg-brand ring-2 ring-sidebar" />
+          </span>
+        )}
+      </span>
+    );
+
+    const link = (
       <Link
         key={p.id}
         href={`/apps/${p.slug}/ai-chat`}
-        aria-label={p.name}
+        aria-label={label}
+        onClick={() => setSeenActivity((prev) => ({ ...prev, [p.id]: true }))}
         className={cn(
           "flex items-center gap-2.5 rounded-xl transition-all",
           withName ? "px-2.5 py-2 text-[13px]" : "justify-center p-1.5",
           active
             ? withName
               ? "bg-background font-medium text-brand shadow-soft ring-1 ring-border"
-              : "bg-background shadow-soft ring-1 ring-border"
+              : "bg-brand-subtle shadow-soft ring-2 ring-brand"
             : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
+          !active && activity && withName && "bg-brand-subtle/40",
         )}
       >
-        <ProjectLogo project={p} size="sm" className="rounded-full" />
-        {withName && <span className="truncate">{p.name}</span>}
+        {logoWithBadge}
+        {withName && (
+          <>
+            <span className="truncate">{p.name}</span>
+            {activity && (
+              <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-brand-subtle px-1.5 py-0.5 text-[10px] font-semibold text-brand animate-pulse-soft">
+                <Sparkles className="size-2.5" aria-hidden />
+                {activity.count}
+              </span>
+            )}
+          </>
+        )}
       </Link>
+    );
+
+    if (withName) return link;
+    return (
+      <Tooltip key={p.id}>
+        <TooltipTrigger asChild>{link}</TooltipTrigger>
+        <TooltipContent side="right" className="flex max-w-56 flex-col gap-0.5">
+          <span className="font-medium">{p.name}</span>
+          {activity && <span className="text-[11px] opacity-80">✨ {activity.message}</span>}
+        </TooltipContent>
+      </Tooltip>
     );
   };
 

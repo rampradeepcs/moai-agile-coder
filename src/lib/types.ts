@@ -83,6 +83,8 @@ export interface Project {
   name: string;
   description: string;
   logo?: ProjectLogoSpec;
+  /** unseen work recently completed by AI agents on this project */
+  aiActivity?: { count: number; message: string };
   favourite?: boolean;
   status: "active" | "inactive" | "deprecated";
   platform: string;
