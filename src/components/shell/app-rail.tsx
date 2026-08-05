@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { UserAvatar } from "@/components/work/user-avatar";
 import { ProjectLogo } from "@/components/work/project-logo";
+import { BrandMark } from "@/components/marketing/logo";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -160,9 +161,7 @@ export function AppRail() {
       >
         <div className={cn("flex items-center gap-2 px-3.5", railExpanded ? "justify-between" : "justify-center")}>
           <Link href="/apps" aria-label="Agile Coder home" className="flex min-w-0 items-center gap-2">
-            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-gradient text-white shadow-elevation-low">
-              <Sparkles className="size-4.5" aria-hidden />
-            </span>
+            <BrandMark className="size-9 shrink-0 text-brand" />
             <AnimatePresence>
               {railExpanded && (
                 <motion.span
