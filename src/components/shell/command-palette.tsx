@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   Bot,
+  Sparkles,
   FileText,
   Kanban,
   LayoutDashboard,
@@ -79,6 +80,7 @@ export function CommandPalette() {
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Navigation">
+          <CommandItem onSelect={() => go("/apps/paw-care/ai-chat")}><Sparkles />AI chat</CommandItem>
           <CommandItem onSelect={() => go("/apps/paw-care/dashboard")}><LayoutDashboard />Dashboard</CommandItem>
           <CommandItem onSelect={() => go("/apps/paw-care/backlog")}><ListTodo />Backlog</CommandItem>
           <CommandItem onSelect={() => go("/apps/paw-care/kanban")}><Kanban />Kanban</CommandItem>

@@ -54,7 +54,7 @@ export default function AllApplicationsPage() {
               className="relative rounded-xl border bg-card p-4 shadow-elevation-low transition-shadow hover:shadow-elevation-mid"
             >
               <Link
-                href={`/apps/${p.slug}/dashboard`}
+                href={`/apps/${p.slug}/ai-chat`}
                 className="absolute inset-0 rounded-xl"
                 aria-label={`Open ${p.name}`}
               />

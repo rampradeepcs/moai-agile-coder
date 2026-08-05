@@ -28,10 +28,15 @@ export function NotificationsPopover() {
       <Tooltip>
         <TooltipTrigger asChild>
           <PopoverTrigger asChild>
-            <Button variant="ghost" size="icon" aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`} className="relative">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`}
+              className="relative size-9 rounded-full border bg-card text-muted-foreground shadow-soft transition-all hover:-translate-y-px hover:bg-card hover:text-foreground"
+            >
               <Bell className="size-4" />
               {unread > 0 && (
-                <span className="absolute right-1.5 top-1.5 grid size-3.5 place-items-center rounded-full bg-danger text-[8px] font-bold text-white">
+                <span className="absolute right-0.5 top-0.5 grid size-3.5 place-items-center rounded-full bg-danger text-[8px] font-bold text-white">
                   {unread}
                 </span>
               )}
