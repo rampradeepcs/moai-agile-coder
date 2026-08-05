@@ -2,7 +2,16 @@
 
 import * as React from "react";
 import { toast } from "sonner";
-import { MoreHorizontal, ExternalLink, ArrowRightLeft, Flag, Trash2 } from "lucide-react";
+import {
+  MoreHorizontal,
+  ExternalLink,
+  ArrowRightLeft,
+  Flag,
+  GripVertical,
+  Trash2,
+} from "lucide-react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
 import type { WorkItem } from "@/lib/types";
 import { memberById } from "@/lib/data";
@@ -19,18 +28,37 @@ import {
 
 export function ItemRow({
   item,
+  sortable = false,
   onOpen,
   onDelete,
 }: {
   item: WorkItem;
+  /** enables drag & drop re-arranging within the epic */
+  sortable?: boolean;
   onOpen: (item: WorkItem) => void;
   onDelete: (item: WorkItem) => void;
 }) {
   const status = statusConfig[item.status];
   const assignee = memberById(item.assigneeId);
 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: `item:${item.id}`,
+    data: { kind: "item", parentId: item.parentId },
+    disabled: !sortable,
+  });
+
   return (
     <div
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
       role="button"
       tabIndex={0}
       onClick={() => onOpen(item)}
@@ -40,8 +68,25 @@ export function ItemRow({
           onOpen(item);
         }
       }}
-      className="grid cursor-pointer grid-cols-[auto_auto_auto_1fr_auto_auto_auto_auto] items-center gap-3 border-t px-4 py-2.5 transition-colors hover:bg-accent/30"
+      className={cn(
+        "grid cursor-pointer grid-cols-[auto_auto_auto_auto_1fr_auto_auto_auto_auto] items-center gap-3 border-t bg-card px-3 py-2.5 transition-colors hover:bg-accent/30",
+        !sortable && "grid-cols-[auto_auto_auto_1fr_auto_auto_auto_auto] px-4",
+        isDragging && "relative z-10 opacity-90 shadow-elevation-mid ring-2 ring-brand/40",
+      )}
     >
+      {sortable && (
+        <button
+          type="button"
+          ref={setActivatorNodeRef}
+          {...attributes}
+          {...listeners}
+          aria-label={`Re-order ${item.key}`}
+          onClick={(e) => e.stopPropagation()}
+          className="flex cursor-grab touch-none items-center rounded p-0.5 text-muted-foreground/40 transition-colors hover:bg-accent/60 hover:text-foreground active:cursor-grabbing"
+        >
+          <GripVertical className="size-3.5" aria-hidden />
+        </button>
+      )}
       <status.icon className={cn("size-3.5", status.className.split(" ")[0])} aria-label={status.label} />
       <span className="font-mono text-[11px] text-muted-foreground">{item.key}</span>
       <TypeBadge type={item.type} />

@@ -7,11 +7,14 @@ import {
   ChevronRight,
   MoreHorizontal,
   Bot,
+  GripVertical,
   Puzzle,
   SquareCheck,
   Trash2,
   Sparkles,
 } from "lucide-react";
+import { useSortable, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
 import type { WorkItem } from "@/lib/types";
 import { memberById } from "@/lib/data";
@@ -33,6 +36,7 @@ export function EpicGroup({
   items,
   totalItems,
   open,
+  sortable = false,
   onToggle,
   onOpenItem,
   onDeleteEpic,
@@ -45,6 +49,8 @@ export function EpicGroup({
   /** all children, used for progress */
   totalItems: WorkItem[];
   open: boolean;
+  /** enables drag & drop re-arranging (off while filters are active) */
+  sortable?: boolean;
   onToggle: () => void;
   onOpenItem: (item: WorkItem) => void;
   onDeleteEpic: (epic: WorkItem) => void;
@@ -55,8 +61,25 @@ export function EpicGroup({
   const progress = totalItems.length > 0 ? (done / totalItems.length) * 100 : 0;
   const assignee = memberById(epic.assigneeId);
 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: `epic:${epic.id}`, data: { kind: "epic" }, disabled: !sortable });
+
   return (
-    <section className="overflow-hidden rounded-xl border bg-card shadow-elevation-low">
+    <section
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+      className={cn(
+        "overflow-hidden rounded-xl border bg-card shadow-elevation-low",
+        isDragging && "z-10 opacity-90 shadow-elevation-high ring-2 ring-brand/40",
+      )}
+    >
       <header
         role="button"
         tabIndex={0}
@@ -68,8 +91,21 @@ export function EpicGroup({
             onToggle();
           }
         }}
-        className="flex h-12 cursor-pointer items-center gap-3 px-4 transition-colors hover:bg-accent/40"
+        className="flex h-12 cursor-pointer items-center gap-2 px-3 transition-colors hover:bg-accent/40"
       >
+        {sortable && (
+          <button
+            type="button"
+            ref={setActivatorNodeRef}
+            {...attributes}
+            {...listeners}
+            aria-label={`Re-order epic ${epic.key}`}
+            onClick={(e) => e.stopPropagation()}
+            className="flex cursor-grab touch-none items-center rounded p-1 text-muted-foreground/50 transition-colors hover:bg-accent/60 hover:text-foreground active:cursor-grabbing"
+          >
+            <GripVertical className="size-4" aria-hidden />
+          </button>
+        )}
         <motion.span
           animate={{ rotate: open ? 90 : 0 }}
           transition={{ duration: 0.18, ease: "easeOut" }}
@@ -146,9 +182,20 @@ export function EpicGroup({
             className="overflow-hidden"
           >
             {items.length > 0 ? (
-              items.map((item) => (
-                <ItemRow key={item.id} item={item} onOpen={onOpenItem} onDelete={onDeleteItem} />
-              ))
+              <SortableContext
+                items={items.map((i) => `item:${i.id}`)}
+                strategy={verticalListSortingStrategy}
+              >
+                {items.map((item) => (
+                  <ItemRow
+                    key={item.id}
+                    item={item}
+                    sortable={sortable}
+                    onOpen={onOpenItem}
+                    onDelete={onDeleteItem}
+                  />
+                ))}
+              </SortableContext>
             ) : (
               <div className="flex items-center gap-2 border-t px-4 py-3 pl-11">
                 <span className="text-xs text-muted-foreground">No items yet —</span>

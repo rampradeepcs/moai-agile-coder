@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import * as React from "react";
 import { toast } from "sonner";
 import {
+  Maximize2,
   Play,
   Bot,
   Share2,
@@ -186,6 +188,12 @@ function TaskDetailBody({ item }: { item: WorkItem }) {
           <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-xs" onClick={() => quiet("Link copied to clipboard")}>
             <Share2 className="size-3.5" aria-hidden />
             Share
+          </Button>
+          <Button variant="outline" size="sm" className="ml-auto h-8 gap-1.5 text-xs" asChild>
+            <Link href={`/apps/paw-care/task/${item.key}`}>
+              <Maximize2 className="size-3.5" aria-hidden />
+              Full view
+            </Link>
           </Button>
         </div>
 

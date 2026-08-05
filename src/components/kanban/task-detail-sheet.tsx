@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Bot, ChevronDown, MessageSquare, Paperclip, Play, SendHorizontal, Upload } from "lucide-react";
+import { Bot, ChevronDown, Maximize2, MessageSquare, Paperclip, Play, SendHorizontal, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Priority, Status, WorkItem } from "@/lib/types";
 import { members, pipelines, sprints } from "@/lib/data";
@@ -109,6 +110,11 @@ export function TaskDetailSheet({
                   onClick={() => toast("Opening AI chat…", { description: `Context loaded for ${item.key}.` })}
                 >
                   <Bot className="size-3.5" aria-hidden /> AI chat
+                </Button>
+                <Button variant="outline" size="sm" className="ml-auto gap-1.5" asChild>
+                  <Link href={`/apps/paw-care/task/${item.key}`}>
+                    <Maximize2 className="size-3.5" aria-hidden /> Full view
+                  </Link>
                 </Button>
               </div>
             </SheetHeader>
