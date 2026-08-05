@@ -1,4 +1,5 @@
 import { Logo } from "@/components/marketing/logo";
+import { WorkflowAnimation } from "@/components/marketing/workflow-animation";
 
 /** Star field built from stacked box-shadow dots — no external images. */
 const STARS_SMALL =
@@ -18,7 +19,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       {/* Right — cosmic panel */}
       <div
         aria-hidden
-        className="relative hidden overflow-hidden lg:flex lg:flex-col lg:justify-end"
+        className="relative hidden overflow-hidden lg:flex lg:flex-col lg:justify-between"
         style={{ backgroundColor: "oklch(0.1 0.015 290)" }}
       >
         {/* Violet radial glow */}
@@ -65,6 +66,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
               "radial-gradient(80% 120% at 50% 120%, oklch(0.45 0.22 292 / 40%), transparent 70%)",
           }}
         />
+
+        {/* Workflow animation */}
+        <div className="relative flex flex-1 items-center justify-center px-12 pt-14">
+          <WorkflowAnimation />
+        </div>
 
         {/* Quote */}
         <div className="relative p-12 pb-14">
