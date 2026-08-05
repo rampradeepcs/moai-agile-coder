@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { projects, memberById } from "@/lib/data";
+import { ProjectLogo } from "@/components/work/project-logo";
 import { UserAvatar } from "@/components/work/user-avatar";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -61,14 +62,7 @@ export default function AllApplicationsPage() {
 
               <div className="flex items-start justify-between gap-2">
                 <div className="flex min-w-0 items-center gap-2.5">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-subtle text-sm font-bold text-brand">
-                    {p.name
-                      .split(" ")
-                      .map((w) => w[0])
-                      .slice(0, 2)
-                      .join("")
-                      .toUpperCase()}
-                  </span>
+                  <ProjectLogo project={p} size="lg" />
                   <span className="truncate text-sm font-semibold">
                     {p.name}
                   </span>

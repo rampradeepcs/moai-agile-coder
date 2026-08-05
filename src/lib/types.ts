@@ -69,11 +69,20 @@ export interface Sprint {
   state: "active" | "planned" | "done";
 }
 
+export interface ProjectLogoSpec {
+  /** key into the logo icon map (see components/work/project-logo.tsx) */
+  icon: string;
+  /** gradient stops for the mark's background */
+  from: string;
+  to: string;
+}
+
 export interface Project {
   id: string;
   slug: string;
   name: string;
   description: string;
+  logo?: ProjectLogoSpec;
   favourite?: boolean;
   status: "active" | "inactive" | "deprecated";
   platform: string;
