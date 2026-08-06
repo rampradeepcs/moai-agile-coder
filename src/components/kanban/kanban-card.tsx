@@ -2,11 +2,11 @@
 
 import { useDraggable } from "@dnd-kit/core";
 import { motion } from "framer-motion";
-import { ArrowRight, Bot, Flag, SquareArrowOutUpRight, Trash2 } from "lucide-react";
+import { ArrowRight, Bot, Clock, Flag, SquareArrowOutUpRight, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Member, WorkItem } from "@/lib/types";
 import { memberById, members } from "@/lib/data";
-import { TypeBadge } from "@/components/work/badges";
+import { PriorityBadge } from "@/components/work/badges";
 import { UserAvatar } from "@/components/work/user-avatar";
 import {
   ContextMenu,
@@ -35,28 +35,32 @@ export function KanbanCardView({ item, className }: { item: WorkItem; className?
   return (
     <div
       className={cn(
-        "flex flex-col gap-2 rounded-lg border border-l-2 bg-card p-2.5 shadow-elevation-low",
+        "flex flex-col gap-1.5 rounded-xl border bg-card p-3 shadow-elevation-low",
         "transition-[box-shadow,translate] duration-150",
         className,
       )}
-      style={{ borderLeftColor: "var(--pipeline)" }}
     >
-      <p className="text-[13px] font-medium leading-snug">{item.title}</p>
+      <p className="text-[13px] font-semibold leading-snug">{item.title}</p>
       {item.description && (
-        <p className="line-clamp-2 text-xs text-muted-foreground">{item.description}</p>
+        <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">{item.description}</p>
       )}
-      <div className="flex flex-wrap items-center gap-1.5">
-        <span className="rounded bg-muted px-1 py-0.5 font-mono text-[10px] text-muted-foreground">
-          {item.key}
+      <div className="mt-1 flex flex-wrap items-center gap-1.5">
+        <span className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+          #{item.key}
         </span>
-        <TypeBadge type={item.type} />
+        <span className="rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-medium capitalize text-muted-foreground">
+          {item.type}
+        </span>
+        <PriorityBadge priority={item.priority} />
+        {typeof item.points === "number" && item.points > 0 && (
+          <span className="inline-flex items-center gap-1 rounded-md bg-muted px-1.5 py-0.5 text-[10px] tabular-nums text-muted-foreground">
+            <Clock className="size-3" aria-hidden />
+            {item.points}d
+          </span>
+        )}
         {assignee && (
-          <span className="ml-auto flex min-w-0 max-w-[55%] items-center gap-1.5">
+          <span className="ml-auto shrink-0">
             <UserAvatar member={assignee} size="xs" showTooltip={false} />
-            <span className="flex min-w-0 flex-col leading-tight">
-              <span className="truncate text-[11px] font-medium">{assignee.name}</span>
-              <span className="truncate text-[10px] text-muted-foreground">{assignee.role}</span>
-            </span>
           </span>
         )}
       </div>

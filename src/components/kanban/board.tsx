@@ -11,8 +11,10 @@ import {
   type DragEndEvent,
   type DragStartEvent,
 } from "@dnd-kit/core";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Info } from "lucide-react";
+import { Info, Sparkles, X } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { Member, Pipeline, Stage, WorkItem } from "@/lib/types";
@@ -34,21 +36,14 @@ for (const pipeline of pipelines) {
   }
 }
 
-function AutoMoveRibbon() {
-  return (
-    <div className="flex w-6 shrink-0 items-center justify-center self-stretch" aria-hidden>
-      <span className="rounded-full bg-success-subtle px-1 py-3 text-[9px] font-medium tracking-wide text-success [writing-mode:vertical-rl]">
-        Completed tasks will be moved to To-do of next pipeline
-      </span>
-    </div>
-  );
-}
-
 export function KanbanBoard() {
   const [items, setItems] = useState<WorkItem[]>(() =>
     workItems.filter((w) => w.pipelineId && w.stageId),
   );
   const [search, setSearch] = useState("");
+  const [bannerOpen, setBannerOpen] = useState(true);
+  const pathname = usePathname();
+  const aiChatHref = pathname.replace(/\/kanban.*$/, "/ai-chat");
   const [filters, setFilters] = useState<Filters>(emptyFilters);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -219,13 +214,24 @@ export function KanbanBoard() {
 
       <div className="flex flex-col gap-4 px-6 py-5">
         {/* Info banner */}
-        <div className="flex items-center gap-2 rounded-lg bg-brand-subtle/50 px-3 py-2 text-xs text-muted-foreground">
-          <Info className="size-3.5 shrink-0 text-brand" aria-hidden />
-          <p>
-            When a task is moved to the <span className="font-medium text-brand">Completed stage</span>, it will
-            automatically move to the <span className="font-medium text-brand">To Do stage</span> of the next pipeline.
-          </p>
-        </div>
+        {bannerOpen && (
+          <div className="flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2 text-xs text-muted-foreground">
+            <Info className="size-3.5 shrink-0" aria-hidden />
+            <p className="min-w-0 flex-1">
+              When a task reaches the <span className="font-semibold text-foreground">Completed</span> stage of a
+              pipeline, it automatically moves into the{" "}
+              <span className="font-semibold text-foreground">To Do</span> stage of the next pipeline.
+            </p>
+            <button
+              type="button"
+              aria-label="Dismiss"
+              onClick={() => setBannerOpen(false)}
+              className="shrink-0 rounded-md p-1 transition-colors hover:bg-accent/60 hover:text-foreground"
+            >
+              <X className="size-3.5" aria-hidden />
+            </button>
+          </div>
+        )}
 
         {/* Board */}
         <DndContext
@@ -241,11 +247,10 @@ export function KanbanBoard() {
               initial="hidden"
               animate="show"
               variants={{ show: { transition: { staggerChildren: 0.03 } } }}
-              className="flex min-w-max items-stretch gap-2"
+              className="flex min-w-max items-stretch gap-4"
             >
-              {visiblePipelines.map((pipeline, index) => (
+              {visiblePipelines.map((pipeline) => (
                 <div key={pipeline.id} className="contents">
-                  {index > 0 && <AutoMoveRibbon />}
                   <PipelineColumn
                     pipeline={pipeline}
                     itemsByStage={itemsByStage}
@@ -266,6 +271,15 @@ export function KanbanBoard() {
           </DragOverlay>
         </DndContext>
       </div>
+
+      {/* Floating AI entry point */}
+      <Link
+        href={aiChatHref}
+        className="fixed bottom-6 right-6 z-30 inline-flex items-center gap-2 rounded-full bg-brand-gradient px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_12px_32px_-8px_oklch(0.54_0.25_293_/_65%)] transition-transform hover:-translate-y-0.5"
+      >
+        <Sparkles className="size-4" aria-hidden />
+        Ask Agile Coder AI
+      </Link>
 
       <TaskDetailSheet
         item={selectedItem}

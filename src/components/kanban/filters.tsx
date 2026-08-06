@@ -146,9 +146,9 @@ export function KanbanToolbar({
         <Input
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search this board"
+          placeholder="Search issues…"
           className="h-8 w-56 pl-8 text-xs"
-          aria-label="Search this board"
+          aria-label="Search issues"
         />
       </div>
 

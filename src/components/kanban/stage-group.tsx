@@ -59,11 +59,11 @@ export function StageGroup({
             className={cn("size-3.5 shrink-0 text-muted-foreground transition-transform", !open && "-rotate-90")}
             aria-hidden
           />
-          <span className="min-w-0 flex-1 truncate text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+          <span className="min-w-0 flex-1 truncate text-[13px] font-medium">
             {stage.name}
           </span>
           {stageAgent && <UserAvatar member={stageAgent} size="xs" />}
-          <span className="rounded-full bg-muted px-1.5 py-px text-[10px] font-medium text-muted-foreground">
+          <span className="px-1 text-[11px] tabular-nums text-muted-foreground">
             {items.length}
           </span>
         </CollapsibleTrigger>
