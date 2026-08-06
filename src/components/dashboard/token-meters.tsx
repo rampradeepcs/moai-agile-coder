@@ -23,10 +23,10 @@ function Meter({
 }) {
   const pct = Math.min(100, (value / max) * 100);
   return (
-    <div className="flex min-w-40 flex-col gap-1.5">
+    <div className="flex w-full min-w-0 flex-col gap-1.5">
       <div className="flex items-baseline justify-between gap-3">
-        <span className="text-xs text-muted-foreground">{label}</span>
-        <span className={cn("text-xs font-semibold tabular-nums", danger && "text-danger")}>
+        <span className="truncate text-xs text-muted-foreground">{label}</span>
+        <span className={cn("shrink-0 text-xs font-semibold tabular-nums", danger && "text-danger")}>
           {value.toLocaleString()}
           {showMax && (
             <span className="font-normal text-muted-foreground">
@@ -52,7 +52,7 @@ function Meter({
 export function TokenMeters({ project }: { project: Project }) {
   const usagePct = (project.tokensUsed / project.tokensAssigned) * 100;
   return (
-    <div className="flex flex-1 flex-wrap items-center gap-x-8 gap-y-3">
+    <div className="grid w-full min-w-0 flex-1 grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-3">
       <Meter
         label="Tokens used"
         value={project.tokensUsed}

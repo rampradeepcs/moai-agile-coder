@@ -15,11 +15,13 @@ export default function DashboardPage() {
   const project = projects.find((p) => p.slug === params.slug) ?? projects[0];
 
   return (
-    <div className="flex flex-col gap-5 px-6 py-5">
-      {/* Common top strip */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+    <div className="flex min-w-0 flex-col gap-5 overflow-x-clip px-4 py-5 sm:px-6">
+      {/* Common top strip — meters stack on mobile, toggle drops to its own row */}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <TokenMeters project={project} />
-        <ViewToggle value={view} onChange={setView} />
+        <div className="flex justify-start lg:shrink-0">
+          <ViewToggle value={view} onChange={setView} />
+        </div>
       </div>
 
       <AnimatePresence mode="wait" initial={false}>

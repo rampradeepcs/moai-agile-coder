@@ -16,6 +16,7 @@ import {
 } from "recharts";
 import { ChevronDown, TrendingUp } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
 import {
   Table,
   TableBody,
@@ -27,6 +28,7 @@ import {
 import { tokenStats } from "@/lib/data";
 import {
   axisTick,
+  gridProps,
   tooltipContentStyle,
   tooltipItemStyle,
   tooltipLabelStyle,
@@ -36,12 +38,12 @@ import {
 
 const container: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.06 } },
+  show: { transition: { staggerChildren: 0.04 } },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 8 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
 };
 
 /* ————— derived data ————— */
@@ -70,40 +72,68 @@ const balanceCells = [
   { label: "Tokens assigned to this project", value: tokenStats.assigned.toLocaleString() },
   { label: "Total used", value: tokenStats.totalUsed.toLocaleString() },
   { label: "Remaining", value: tokenStats.remaining.toLocaleString() },
-  { label: "Usage", value: `${tokenStats.usagePct}%` },
+  { label: "Usage", value: `${tokenStats.usagePct}%`, pct: tokenStats.usagePct },
 ];
+
+const breakdownTotal = tokenStats.breakdown.reduce((sum, entry) => sum + entry.value, 0);
+const byUserTotal = tokenStats.byUser.reduce((sum, entry) => sum + entry.value, 0);
 
 const TOTAL_USED_ALL_USERS = 98200;
 
-const cardClass = "rounded-xl border bg-card p-5 shadow-elevation-low";
+const cardClass = "rounded-2xl bg-card p-5 shadow-soft";
+
+/** Shared donut legend row — dot, label, value + percentage right-aligned. */
+function LegendRow({
+  label,
+  value,
+  pct,
+  color,
+}: {
+  label: string;
+  value: number;
+  pct: number;
+  color: string;
+}) {
+  return (
+    <div className="-mx-2 flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors hover:bg-accent/40">
+      <span className="size-2 shrink-0 rounded-full" style={{ background: color }} aria-hidden />
+      <span className="flex-1 truncate text-xs text-muted-foreground">{label}</span>
+      <span className="text-sm font-semibold tabular-nums">{value.toLocaleString()}</span>
+      <span className="w-9 shrink-0 text-right text-[11px] text-muted-foreground tabular-nums">{pct}%</span>
+    </div>
+  );
+}
 
 /* ————— view ————— */
 
 export function TokensView() {
   return (
-    <motion.div variants={container} initial="hidden" animate="show" className="grid gap-4 lg:grid-cols-2">
+    <motion.div variants={container} initial="hidden" animate="show" className="grid min-w-0 grid-cols-1 gap-4 xl:grid-cols-2">
       {/* Token balance overview */}
-      <motion.div variants={item} className={`${cardClass} lg:col-span-2`}>
-        <div className="flex items-center justify-between gap-3">
+      <motion.div variants={item} className={`${cardClass} xl:col-span-2`}>
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-sm font-semibold">Token balance overview</h3>
           <button
             type="button"
-            className="inline-flex items-center gap-1 rounded-md border bg-surface px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-1 rounded-full bg-surface px-3 py-1 text-xs font-medium text-muted-foreground shadow-elevation-low transition-colors hover:text-foreground"
           >
             Last 7 days
             <ChevronDown className="size-3.5" aria-hidden />
           </button>
         </div>
-        <div className="mt-4 flex flex-wrap items-center gap-6">
-          <span className="text-4xl font-semibold tracking-tight tabular-nums">
-            {tokenStats.assigned.toLocaleString()}
-          </span>
+        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="flex flex-col">
+            <span className="text-brand-gradient text-4xl font-bold tracking-tight tabular-nums">
+              {tokenStats.assigned.toLocaleString()}
+            </span>
+            <span className="text-xs text-muted-foreground">Available tokens</span>
+          </div>
           <div className="h-14 w-36">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={sparkline} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient id="balanceSparkFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="var(--success)" stopOpacity={0.3} />
+                    <stop offset="0%" stopColor="var(--success)" stopOpacity={0.35} />
                     <stop offset="100%" stopColor="var(--success)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
@@ -120,18 +150,24 @@ export function TokensView() {
         </div>
         <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
           {balanceCells.map((cell) => (
-            <div key={cell.label} className="flex flex-col gap-1 rounded-lg border bg-surface p-3">
+            <div key={cell.label} className="flex flex-col gap-1 rounded-xl bg-surface p-3">
               <span className="text-xs text-muted-foreground">{cell.label}</span>
               <span className="text-lg font-semibold tabular-nums">{cell.value}</span>
+              {cell.pct !== undefined && (
+                <Progress
+                  value={cell.pct}
+                  className="mt-1 h-1.5 w-full [&>[data-slot=progress-indicator]]:bg-brand"
+                />
+              )}
             </div>
           ))}
         </div>
       </motion.div>
 
       {/* Usage breakdown */}
-      <motion.div variants={item} className={cardClass}>
+      <motion.div variants={item} className={`${cardClass} min-w-0`}>
         <h3 className="mb-2 text-sm font-semibold">Usage breakdown</h3>
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+        <div className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
           <div className="relative h-44 w-44 shrink-0">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -156,33 +192,29 @@ export function TokensView() {
                 />
               </PieChart>
             </ResponsiveContainer>
-          </div>
-          <div className="flex min-w-48 flex-col gap-2">
-            {tokenStats.breakdown.map((entry, i) => (
-              <span key={entry.label} className="inline-flex items-center gap-1.5 text-xs">
-                <span
-                  className="size-1.5 rounded-full"
-                  style={{ background: chartColors[i % chartColors.length] }}
-                  aria-hidden
-                />
-                <span className="text-muted-foreground">{entry.label}:</span>
-                <span className="font-medium tabular-nums">{entry.value.toLocaleString()} tokens</span>
+            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-xl font-bold tracking-tight tabular-nums">
+                {breakdownTotal.toLocaleString()}
               </span>
+              <span className="text-[10px] text-muted-foreground">Tokens used</span>
+            </div>
+          </div>
+          <div className="flex w-full min-w-0 flex-1 flex-col gap-1">
+            {tokenStats.breakdown.map((entry, i) => (
+              <LegendRow
+                key={entry.label}
+                label={entry.label}
+                value={entry.value}
+                pct={Math.round((entry.value / breakdownTotal) * 100)}
+                color={chartColors[i % chartColors.length]}
+              />
             ))}
           </div>
-        </div>
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {tokenStats.breakdown.map((entry) => (
-            <div key={entry.label} className="flex flex-col gap-0.5 rounded-lg border bg-surface p-3">
-              <span className="truncate text-xs text-muted-foreground">{entry.label}</span>
-              <span className="text-sm font-semibold tabular-nums">{entry.value.toLocaleString()}</span>
-            </div>
-          ))}
         </div>
       </motion.div>
 
       {/* User usage breakdown */}
-      <motion.div variants={item} className={cardClass}>
+      <motion.div variants={item} className={`${cardClass} min-w-0`}>
         <h3 className="mb-2 text-sm font-semibold">User usage breakdown</h3>
         <div className="flex flex-col items-center gap-4">
           <div className="relative h-48 w-48">
@@ -210,7 +242,7 @@ export function TokensView() {
               </PieChart>
             </ResponsiveContainer>
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-xl font-semibold tabular-nums">
+              <span className="text-xl font-bold tracking-tight tabular-nums">
                 {TOTAL_USED_ALL_USERS.toLocaleString()}
               </span>
               <span className="max-w-24 text-center text-[10px] leading-tight text-muted-foreground">
@@ -218,26 +250,24 @@ export function TokensView() {
               </span>
             </div>
           </div>
-          <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
+          <div className="grid w-full grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-x-6">
             {tokenStats.byUser.map((entry, i) => (
-              <div key={entry.name} className="flex items-center gap-2">
-                <span
-                  className="size-2 rounded-full"
-                  style={{ background: chartColors[i % chartColors.length] }}
-                  aria-hidden
-                />
-                <span className="flex-1 truncate text-xs text-muted-foreground">{entry.name}</span>
-                <span className="text-xs font-semibold tabular-nums">{entry.value.toLocaleString()}</span>
-              </div>
+              <LegendRow
+                key={entry.name}
+                label={entry.name}
+                value={entry.value}
+                pct={Math.round((entry.value / byUserTotal) * 100)}
+                color={chartColors[i % chartColors.length]}
+              />
             ))}
           </div>
         </div>
       </motion.div>
 
       {/* Token usage trend */}
-      <motion.div variants={item} className={`${cardClass} lg:col-span-2`}>
+      <motion.div variants={item} className={`${cardClass} min-w-0 overflow-hidden xl:col-span-2`}>
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2.5">
             <h3 className="text-sm font-semibold">Token usage trend</h3>
             <span className="inline-flex items-center gap-1 rounded-full bg-success-subtle px-2 py-0.5 text-[11px] font-medium text-success">
               <TrendingUp className="size-3" aria-hidden />
@@ -252,16 +282,16 @@ export function TokensView() {
             </TabsList>
           </Tabs>
         </div>
-        <div className="h-64">
+        <div className="h-[260px] w-full min-w-0">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={tokenStats.trend} margin={{ top: 8, right: 12, bottom: 0, left: -8 }}>
               <defs>
                 <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.25} />
+                  <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.28} />
                   <stop offset="100%" stopColor="var(--chart-1)" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid vertical={false} stroke="var(--border)" />
+              <CartesianGrid {...gridProps} />
               <XAxis dataKey="month" tick={axisTick} axisLine={false} tickLine={false} />
               <YAxis tick={axisTick} axisLine={false} tickLine={false} />
               <Tooltip
@@ -292,28 +322,32 @@ export function TokensView() {
       </motion.div>
 
       {/* Module usage breakdown */}
-      <motion.div variants={item} className={`${cardClass} lg:col-span-2`}>
+      <motion.div variants={item} className={`${cardClass} min-w-0 xl:col-span-2`}>
         <h3 className="mb-3 text-sm font-semibold">Module usage breakdown</h3>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-xs text-muted-foreground">Module</TableHead>
-              <TableHead className="text-xs text-muted-foreground">LLM model</TableHead>
-              <TableHead className="text-right text-xs text-muted-foreground">Tokens</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {tokenStats.byModule.map((row) => (
-              <TableRow key={row.module}>
-                <TableCell className="font-medium text-brand">{row.module}</TableCell>
-                <TableCell className="font-mono text-xs text-muted-foreground">{row.llm}</TableCell>
-                <TableCell className="text-right font-medium tabular-nums">
-                  {row.tokens.toLocaleString()}
-                </TableCell>
+        <div className="scrollbar-thin -mx-2 overflow-x-auto px-2">
+          <Table className="min-w-[480px]">
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-xs text-muted-foreground">Module</TableHead>
+                <TableHead className="text-xs text-muted-foreground">LLM model</TableHead>
+                <TableHead className="text-right text-xs text-muted-foreground">Tokens</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {tokenStats.byModule.map((row) => (
+                <TableRow key={row.module} className="transition-colors hover:bg-accent/30">
+                  <TableCell className="font-medium whitespace-nowrap text-brand">{row.module}</TableCell>
+                  <TableCell className="font-mono text-xs whitespace-nowrap text-muted-foreground">
+                    {row.llm}
+                  </TableCell>
+                  <TableCell className="text-right font-medium tabular-nums">
+                    {row.tokens.toLocaleString()}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </motion.div>
     </motion.div>
   );

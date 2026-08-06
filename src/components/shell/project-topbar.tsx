@@ -92,7 +92,7 @@ export function ProjectTopbar({ project }: { project: Project }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
           <CircleAction
             label="Search (⌘K)"
             onClick={() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
