@@ -267,16 +267,11 @@ export function SprintView() {
               <div
                 key={sprint.id}
                 className={cn(
-                  "min-w-[180px] flex-1 snap-start rounded-2xl",
-                  isActive && "bg-brand-gradient p-[1.5px]",
+                  "relative flex min-w-[180px] flex-1 snap-start flex-col items-center gap-3 overflow-hidden rounded-2xl bg-surface p-4",
+                  isActive &&
+                    "ring-2 ring-brand/70 shadow-[0_10px_30px_-10px_oklch(0.54_0.25_293_/_45%)]",
                 )}
               >
-                <div
-                  className={cn(
-                    "relative flex h-full flex-col items-center gap-3 overflow-hidden bg-surface p-4",
-                    isActive ? "rounded-[14.5px]" : "rounded-2xl",
-                  )}
-                >
                   {/* subtle radial tint behind the ring */}
                   <div
                     className="pointer-events-none absolute inset-0"
@@ -308,7 +303,6 @@ export function SprintView() {
                       Active
                     </span>
                   )}
-                </div>
               </div>
             );
           })}
