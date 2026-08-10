@@ -64,7 +64,7 @@ export function StageGroup({
           </span>
           {stageAgent && <UserAvatar member={stageAgent} size="xs" />}
           <span className="px-1 text-[11px] tabular-nums text-muted-foreground">
-            {items.length}
+            {String(items.length).padStart(2, "0")}
           </span>
         </CollapsibleTrigger>
 

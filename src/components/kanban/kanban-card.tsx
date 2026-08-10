@@ -2,7 +2,7 @@
 
 import { useDraggable } from "@dnd-kit/core";
 import { motion } from "framer-motion";
-import { ArrowRight, Bot, Clock, Flag, SquareArrowOutUpRight, Trash2 } from "lucide-react";
+import { ArrowRight, Bot, Flag, SquareArrowOutUpRight, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Member, WorkItem } from "@/lib/types";
 import { memberById, members } from "@/lib/data";
@@ -35,34 +35,30 @@ export function KanbanCardView({ item, className }: { item: WorkItem; className?
   return (
     <div
       className={cn(
-        "flex flex-col gap-1.5 rounded-xl border bg-card p-3 shadow-elevation-low",
-        "transition-[box-shadow,translate] duration-150",
+        "flex flex-col gap-1.5 rounded-xl bg-muted/50 p-3",
+        "transition-[box-shadow,translate,background-color] duration-150",
         className,
       )}
     >
-      <p className="text-[13px] font-semibold leading-snug">{item.title}</p>
+      <div className="flex items-start justify-between gap-2">
+        <p className="min-w-0 text-[13px] font-semibold leading-snug">{item.title}</p>
+        {assignee && (
+          <span className="shrink-0">
+            <UserAvatar member={assignee} size="xs" showTooltip={false} />
+          </span>
+        )}
+      </div>
       {item.description && (
         <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">{item.description}</p>
       )}
       <div className="mt-1 flex flex-wrap items-center gap-1.5">
-        <span className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+        <span className="rounded-md bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
           #{item.key}
         </span>
-        <span className="rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-medium capitalize text-muted-foreground">
+        <PriorityBadge priority={item.priority} />
+        <span className="rounded-md bg-info-subtle px-1.5 py-0.5 text-[10px] font-medium capitalize text-info">
           {item.type}
         </span>
-        <PriorityBadge priority={item.priority} />
-        {typeof item.points === "number" && item.points > 0 && (
-          <span className="inline-flex items-center gap-1 rounded-md bg-muted px-1.5 py-0.5 text-[10px] tabular-nums text-muted-foreground">
-            <Clock className="size-3" aria-hidden />
-            {item.points}d
-          </span>
-        )}
-        {assignee && (
-          <span className="ml-auto shrink-0">
-            <UserAvatar member={assignee} size="xs" showTooltip={false} />
-          </span>
-        )}
       </div>
     </div>
   );
@@ -87,7 +83,7 @@ export function KanbanCard({ item, actions }: { item: WorkItem; actions: CardAct
         >
           <KanbanCardView
             item={item}
-            className="hover:-translate-y-0.5 hover:shadow-elevation-mid"
+            className="hover:-translate-y-0.5 hover:bg-muted/70 hover:shadow-elevation-low"
           />
         </motion.div>
       </ContextMenuTrigger>

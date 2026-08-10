@@ -36,6 +36,18 @@ for (const pipeline of pipelines) {
   }
 }
 
+function AutoMoveRibbon() {
+  return (
+    <div className="flex w-7 shrink-0 flex-col items-center self-stretch py-10" aria-hidden>
+      <span className="w-px flex-1 border-l border-dashed border-success/50" />
+      <span className="my-1 rounded-full bg-success-subtle px-1 py-3 text-[9px] font-medium tracking-wide text-success [writing-mode:vertical-rl]">
+        Completed tasks will be moved to To do of next pipeline
+      </span>
+      <span className="w-px flex-1 border-l border-dashed border-success/50" />
+    </div>
+  );
+}
+
 export function KanbanBoard() {
   const [items, setItems] = useState<WorkItem[]>(() =>
     workItems.filter((w) => w.pipelineId && w.stageId),
@@ -215,7 +227,7 @@ export function KanbanBoard() {
       <div className="flex flex-col gap-4 px-6 py-5">
         {/* Info banner */}
         {bannerOpen && (
-          <div className="flex items-center gap-2 rounded-xl bg-muted/60 px-3 py-2 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2 px-1 py-1 text-xs text-muted-foreground">
             <Info className="size-3.5 shrink-0" aria-hidden />
             <p className="min-w-0 flex-1">
               When a task reaches the <span className="font-semibold text-foreground">Completed</span> stage of a
@@ -247,10 +259,11 @@ export function KanbanBoard() {
               initial="hidden"
               animate="show"
               variants={{ show: { transition: { staggerChildren: 0.03 } } }}
-              className="flex min-w-max items-stretch gap-4"
+              className="flex min-w-max items-stretch gap-2"
             >
-              {visiblePipelines.map((pipeline) => (
+              {visiblePipelines.map((pipeline, index) => (
                 <div key={pipeline.id} className="contents">
+                  {index > 0 && <AutoMoveRibbon />}
                   <PipelineColumn
                     pipeline={pipeline}
                     itemsByStage={itemsByStage}
