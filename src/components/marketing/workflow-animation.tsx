@@ -61,7 +61,7 @@ export function WorkflowAnimation() {
           <p className="text-sm font-semibold" style={{ color: "oklch(0.97 0.005 286)" }}>
             Agile Coder is working…
           </p>
-          <p className="text-xs" style={{ color: "oklch(0.72 0.02 290)" }}>
+          <p className="text-xs" style={{ color: "oklch(0.72 0.02 262)" }}>
             from idea to release, one pipeline
           </p>
         </div>
@@ -78,8 +78,8 @@ export function WorkflowAnimation() {
           <motion.span
             className="absolute left-[18.5px] z-10 size-1.5 rounded-full"
             style={{
-              background: "oklch(0.75 0.18 300)",
-              boxShadow: "0 0 12px 3px oklch(0.65 0.22 295 / 75%)",
+              background: "oklch(0.72 0.16 255)",
+              boxShadow: "0 0 12px 3px oklch(0.62 0.2 260 / 75%)",
             }}
             animate={{ top: stages.map((_, i) => i * 68 + 20) }}
             transition={{ duration: (stages.length * STEP_MS) / 1000, repeat: Infinity, ease: "linear" }}
@@ -101,7 +101,7 @@ export function WorkflowAnimation() {
                 className={cn(
                   "relative flex h-14 items-center gap-3 rounded-2xl border px-3 backdrop-blur-sm transition-colors",
                   state === "active"
-                    ? "border-white/25 bg-white/10 shadow-[0_8px_32px_-8px_oklch(0.5_0.25_295/60%)]"
+                    ? "border-white/25 bg-white/10 shadow-[0_8px_32px_-8px_oklch(0.5_0.22_262/60%)]"
                     : "border-white/10 bg-white/[0.04]",
                 )}
               >
@@ -124,7 +124,7 @@ export function WorkflowAnimation() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
                         className="block truncate text-[11px]"
-                        style={{ color: "oklch(0.7 0.03 290)" }}
+                        style={{ color: "oklch(0.7 0.03 262)" }}
                       >
                         {stage.artifact}
                       </motion.span>
