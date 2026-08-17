@@ -22,7 +22,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         className="relative hidden overflow-hidden lg:flex lg:flex-col lg:justify-between"
         style={{ backgroundColor: "oklch(0.1 0.015 262)" }}
       >
-        {/* Violet radial glow */}
+        {/* Blue radial glow */}
         <div
           className="absolute inset-0"
           style={{

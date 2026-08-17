@@ -102,7 +102,7 @@ export default function AllApplicationsPage() {
                 </span>
                 <span
                   className={cn(
-                    "ml-auto rounded-full px-2 py-0.5 text-[11px] font-medium",
+                    "ml-auto rounded-md px-2 py-0.5 text-[11px] font-medium",
                     status.className,
                   )}
                 >

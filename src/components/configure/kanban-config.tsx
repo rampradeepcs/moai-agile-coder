@@ -56,7 +56,7 @@ function StageCard({ stage }: { stage: Stage }) {
             </span>
           </span>
         ) : (
-          <span className="mt-1 inline-flex rounded-full bg-muted px-1.5 py-px text-[10px] text-muted-foreground">
+          <span className="mt-1 inline-flex rounded-md bg-muted px-1.5 py-px text-[10px] text-muted-foreground">
             Manual
           </span>
         )}
@@ -67,7 +67,7 @@ function StageCard({ stage }: { stage: Stage }) {
 
 function PinnedChip({ name }: { name: string }) {
   return (
-    <div className="rounded-full border border-dashed px-3 py-1.5 text-center text-[11px] font-medium text-muted-foreground">
+    <div className="rounded-lg border border-dashed px-3 py-1.5 text-center text-[11px] font-medium text-muted-foreground">
       {name}
     </div>
   );

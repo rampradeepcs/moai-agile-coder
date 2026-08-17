@@ -73,7 +73,7 @@ export function KpiCard({
   return (
     <div
       className={cn(
-        "flex flex-col gap-1 rounded-2xl bg-card p-5 shadow-soft",
+        "flex flex-col gap-1 rounded-xl bg-card p-5 shadow-soft",
         "transition-colors duration-200 ease-out",
         className,
       )}
@@ -96,7 +96,7 @@ export function KpiCard({
         {delta && (
           <span
             className={cn(
-              "inline-flex shrink-0 items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[11px] font-medium",
+              "inline-flex shrink-0 items-center gap-0.5 rounded-md px-1.5 py-0.5 text-[11px] font-medium",
               positive ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger",
             )}
           >

@@ -276,7 +276,7 @@ export function TaskDetailSheet({
             <Collapsible defaultOpen={siblings.length > 0}>
               <CollapsibleTrigger className="group flex w-full items-center gap-1.5 text-left">
                 <span className="text-sm font-semibold">Mapped tasks</span>
-                <span className="rounded-full bg-muted px-1.5 py-px text-[10px] font-medium text-muted-foreground">
+                <span className="rounded-md bg-muted px-1.5 py-px text-[10px] font-medium text-muted-foreground">
                   {siblings.length}
                 </span>
                 <ChevronDown

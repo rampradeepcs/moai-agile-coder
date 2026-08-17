@@ -80,7 +80,7 @@ const byUserTotal = tokenStats.byUser.reduce((sum, entry) => sum + entry.value, 
 
 const TOTAL_USED_ALL_USERS = 98200;
 
-const cardClass = "rounded-2xl bg-card p-5 shadow-soft";
+const cardClass = "rounded-xl bg-card p-5 shadow-soft";
 
 /** Shared donut legend row — dot, label, value + percentage right-aligned. */
 function LegendRow({
@@ -115,7 +115,7 @@ export function TokensView() {
           <h3 className="text-sm font-semibold">Token balance overview</h3>
           <button
             type="button"
-            className="inline-flex items-center gap-1 rounded-full bg-surface px-3 py-1 text-xs font-medium text-muted-foreground shadow-elevation-low transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-1 rounded-lg bg-surface px-3 py-1 text-xs font-medium text-muted-foreground shadow-elevation-low transition-colors hover:text-foreground"
           >
             Last 7 days
             <ChevronDown className="size-3.5" aria-hidden />
@@ -269,7 +269,7 @@ export function TokensView() {
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2.5">
             <h3 className="text-sm font-semibold">Token usage trend</h3>
-            <span className="inline-flex items-center gap-1 rounded-full bg-success-subtle px-2 py-0.5 text-[11px] font-medium text-success">
+            <span className="inline-flex items-center gap-1 rounded-md bg-success-subtle px-2 py-0.5 text-[11px] font-medium text-success">
               <TrendingUp className="size-3" aria-hidden />
               +15% compared to last month
             </span>

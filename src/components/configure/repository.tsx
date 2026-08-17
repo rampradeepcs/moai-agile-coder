@@ -18,7 +18,7 @@ export function RepositoryTab() {
           <Label htmlFor="repo-url" className="text-xs text-muted-foreground">
             Repository URL
           </Label>
-          <span className="inline-flex items-center gap-1 rounded-full bg-success-subtle px-2 py-0.5 text-[11px] font-medium text-success">
+          <span className="inline-flex items-center gap-1 rounded-md bg-success-subtle px-2 py-0.5 text-[11px] font-medium text-success">
             <span aria-hidden>●</span> Repo connected
           </span>
         </div>

@@ -148,7 +148,7 @@ export default function OnboardingPage() {
                     onClick={() => setRole(opt)}
                     aria-pressed={role === opt}
                     className={cn(
-                      "rounded-full border bg-card px-4 py-2 text-sm transition-all hover:border-primary/40",
+                      "rounded-lg border bg-card px-4 py-2 text-sm transition-all hover:border-primary/40",
                       role === opt
                         ? "border-primary bg-brand-subtle font-medium text-brand ring-1 ring-primary/40"
                         : "text-muted-foreground hover:text-foreground"
@@ -206,7 +206,7 @@ export default function OnboardingPage() {
               <h1 className="text-2xl font-bold tracking-tight text-balance">
                 Pick your plan
               </h1>
-              <div className="mt-6 rounded-2xl border border-primary bg-card p-6 shadow-elevation-mid">
+              <div className="mt-6 rounded-xl border border-primary bg-card p-6 shadow-elevation-mid">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h2 className="font-semibold tracking-tight">Agile coder Pro</h2>
@@ -226,7 +226,7 @@ export default function OnboardingPage() {
                         onClick={() => setBilling(b)}
                         aria-pressed={billing === b}
                         className={cn(
-                          "flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium capitalize transition-colors",
+                          "flex items-center gap-1.5 rounded-lg px-3 py-1 text-xs font-medium capitalize transition-colors",
                           billing === b
                             ? "bg-card text-foreground shadow-elevation-low"
                             : "text-muted-foreground"
@@ -234,7 +234,7 @@ export default function OnboardingPage() {
                       >
                         {b}
                         {b === "yearly" && (
-                          <span className="rounded-full bg-success-subtle px-1.5 py-px text-[10px] font-semibold text-success">
+                          <span className="rounded-md bg-success-subtle px-1.5 py-px text-[10px] font-semibold text-success">
                             -20%
                           </span>
                         )}

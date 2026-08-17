@@ -56,10 +56,10 @@ const stagger = {
 export default function LandingPage() {
   return (
     <div className="relative min-h-svh overflow-x-clip">
-      {/* Background — violet glow + faint masked grid */}
+      {/* Background — soft blue glow + faint masked grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-18rem] h-[34rem] w-[54rem] -translate-x-1/2 rounded-full bg-primary/25 blur-[120px]" />
-        <div className="absolute left-1/3 top-[-10rem] h-[22rem] w-[26rem] -translate-x-1/2 rounded-full bg-pink/15 blur-[100px]" />
+        <div className="absolute left-1/2 top-[-18rem] h-[34rem] w-[54rem] -translate-x-1/2 rounded-full bg-primary/15 blur-[120px]" />
+        <div className="absolute left-1/3 top-[-10rem] h-[22rem] w-[26rem] -translate-x-1/2 rounded-full bg-info/10 blur-[100px]" />
         <div
           className="absolute inset-0"
           style={{
@@ -106,7 +106,7 @@ export default function LandingPage() {
       >
         <motion.div
           variants={fadeUp}
-          className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3.5 py-1.5 text-xs font-medium text-muted-foreground shadow-elevation-low"
+          className="inline-flex items-center gap-1.5 rounded-lg border bg-card px-3.5 py-1.5 text-xs font-medium text-muted-foreground shadow-elevation-low"
         >
           <span className="text-primary">✦</span> AI-native project management
         </motion.div>
@@ -116,7 +116,7 @@ export default function LandingPage() {
           className="mt-6 text-6xl font-bold tracking-tight text-balance sm:text-7xl"
         >
           Agile{" "}
-          <span className="bg-gradient-to-r from-primary to-pink bg-clip-text text-transparent">
+          <span className="text-primary">
             Execution
           </span>
         </motion.h1>
@@ -141,7 +141,7 @@ export default function LandingPage() {
             <Link
               key={s}
               href="/apps/new"
-              className="rounded-full border bg-card px-3.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+              className="rounded-lg border bg-card px-3.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
             >
               {s}
             </Link>
@@ -161,7 +161,7 @@ export default function LandingPage() {
           <motion.div
             key={f.title}
             variants={fadeUp}
-            className="rounded-2xl border bg-card p-6 shadow-elevation-low transition-shadow hover:shadow-elevation-mid"
+            className="rounded-xl border bg-card p-6 shadow-elevation-low transition-shadow hover:shadow-elevation-mid"
           >
             <div className="flex size-10 items-center justify-center rounded-lg bg-brand-subtle text-brand">
               <f.icon className="size-5" />
@@ -182,7 +182,7 @@ export default function LandingPage() {
       >
         <motion.div
           variants={fadeUp}
-          className="grid grid-cols-2 gap-8 rounded-2xl border bg-card px-8 py-10 shadow-elevation-low sm:grid-cols-4"
+          className="grid grid-cols-2 gap-8 rounded-xl border bg-card px-8 py-10 shadow-elevation-low sm:grid-cols-4"
         >
           {STATS.map((s) => (
             <div key={s.label} className="text-center">

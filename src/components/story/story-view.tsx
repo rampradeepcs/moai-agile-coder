@@ -321,7 +321,7 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
           <div className="flex items-center gap-2 border-b px-4 py-3">
             <Bot className="size-4 text-brand" aria-hidden />
             <h2 className="text-sm font-semibold">AI chat</h2>
-            <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-success-subtle px-2 py-0.5 text-[10px] font-medium text-success">
+            <span className="ml-auto inline-flex items-center gap-1 rounded-md bg-success-subtle px-2 py-0.5 text-[10px] font-medium text-success">
               <span aria-hidden>●</span> Echo online
             </span>
           </div>
@@ -330,14 +330,14 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
             <div className="space-y-3 p-4">
               {/* user bubble */}
               <div className="flex justify-end">
-                <p className="max-w-[85%] rounded-2xl rounded-br-md bg-brand-gradient px-3.5 py-2 text-sm text-white shadow-elevation-low">
+                <p className="max-w-[85%] rounded-xl rounded-br-md bg-brand-gradient px-3.5 py-2 text-sm text-white shadow-elevation-low">
                   Start the dashboard design for this story
                 </p>
               </div>
 
               {/* agent message */}
               <div className="flex justify-start">
-                <div className="max-w-[90%] rounded-2xl rounded-bl-md bg-muted px-3.5 py-2.5">
+                <div className="max-w-[90%] rounded-xl rounded-bl-md bg-muted px-3.5 py-2.5">
                   <p className="text-sm font-medium">
                     Starting design for &ldquo;PawCare Dashboard&rdquo;…
                   </p>
@@ -349,7 +349,7 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
               </div>
 
               {/* progress checklist */}
-              <div className="rounded-2xl border bg-muted/40 p-3.5">
+              <div className="rounded-xl border bg-muted/40 p-3.5">
                 <ul className="space-y-2.5">
                   {progressSteps.map((step, i) => {
                     const done = i < currentStep;
@@ -404,8 +404,8 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
                       className={cn(
                         "max-w-[85%] px-3.5 py-2 text-sm",
                         m.role === "user"
-                          ? "rounded-2xl rounded-br-md bg-brand-gradient text-white shadow-elevation-low"
-                          : "rounded-2xl rounded-bl-md bg-muted",
+                          ? "rounded-xl rounded-br-md bg-brand-gradient text-white shadow-elevation-low"
+                          : "rounded-xl rounded-bl-md bg-muted",
                       )}
                     >
                       {m.text}
@@ -422,7 +422,7 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
             <button
               type="button"
               onClick={() => send("User Authentication")}
-              className="mb-2 rounded-full border px-2.5 py-1 text-[11px] text-muted-foreground transition-colors hover:border-brand hover:text-brand"
+              className="mb-2 rounded-md border px-2.5 py-1 text-[11px] text-muted-foreground transition-colors hover:border-brand hover:text-brand"
             >
               User Authentication
             </button>

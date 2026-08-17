@@ -52,7 +52,7 @@ function FilterPill({
           <Icon className="size-3.5 text-muted-foreground" aria-hidden />
           {label}
           {selected.length > 0 && (
-            <span className="rounded-full bg-brand px-1.5 py-px text-[10px] font-semibold text-white">
+            <span className="rounded-md bg-brand px-1.5 py-px text-[10px] font-semibold text-white">
               {selected.length}
             </span>
           )}

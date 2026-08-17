@@ -40,7 +40,7 @@ function AutoMoveRibbon() {
   return (
     <div className="flex w-7 shrink-0 flex-col items-center self-stretch py-10" aria-hidden>
       <span className="w-px flex-1 border-l border-dashed border-success/50" />
-      <span className="my-1 rounded-full bg-success-subtle px-1 py-3 text-[9px] font-medium tracking-wide text-success [writing-mode:vertical-rl]">
+      <span className="my-1 rounded-md bg-success-subtle px-1 py-3 text-[9px] font-medium tracking-wide text-success [writing-mode:vertical-rl]">
         Completed tasks will be moved to To do of next pipeline
       </span>
       <span className="w-px flex-1 border-l border-dashed border-success/50" />
@@ -288,7 +288,7 @@ export function KanbanBoard() {
       {/* Floating AI entry point */}
       <Link
         href={aiChatHref}
-        className="fixed bottom-6 right-6 z-30 inline-flex items-center gap-2 rounded-full bg-brand-gradient px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_8px_24px_-8px_rgb(37_99_235_/_55%)] transition-colors hover:bg-primary/90"
+        className="fixed bottom-6 right-6 z-30 inline-flex items-center gap-2 rounded-lg bg-brand-gradient px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_8px_24px_-8px_rgb(37_99_235_/_55%)] transition-colors hover:bg-primary/90"
       >
         <Sparkles className="size-4" aria-hidden />
         Ask Agile Coder AI

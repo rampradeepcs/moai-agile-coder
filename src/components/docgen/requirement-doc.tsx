@@ -226,7 +226,7 @@ export function RequirementDoc({ onApprove }: { onApprove: () => void }) {
                 key={section.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="rounded-2xl border bg-card p-5 shadow-elevation-low"
+                className="rounded-xl border bg-card p-5 shadow-elevation-low"
               >
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="font-semibold tracking-tight">{section.title}</h2>

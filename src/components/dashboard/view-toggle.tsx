@@ -33,7 +33,7 @@ export function ViewToggle({
             aria-selected={active}
             onClick={() => onChange(option.id)}
             className={cn(
-              "relative rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
+              "relative rounded-lg px-4 py-1.5 text-sm font-medium transition-colors",
               active
                 ? "text-primary-foreground"
                 : "text-muted-foreground hover:text-foreground",

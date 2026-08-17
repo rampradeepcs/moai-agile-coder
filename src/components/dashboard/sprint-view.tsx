@@ -129,7 +129,7 @@ const deadlines = [
   { title: "App store submission", sub: "Milestone", date: "Jun 30", dot: "bg-success" },
 ];
 
-const cardClass = "rounded-2xl bg-card p-5 shadow-soft";
+const cardClass = "rounded-xl bg-card p-5 shadow-soft";
 
 /** Legend rendered as small colored-dot chips. */
 function LegendChips({
@@ -142,7 +142,7 @@ function LegendChips({
       {items.map((legend) => (
         <span
           key={legend.label}
-          className="inline-flex items-center gap-1.5 rounded-full bg-muted/60 px-2 py-0.5 text-[11px] font-medium text-muted-foreground"
+          className="inline-flex items-center gap-1.5 rounded-md bg-muted/60 px-2 py-0.5 text-[11px] font-medium text-muted-foreground"
         >
           {legend.dashed ? (
             <span
@@ -267,7 +267,7 @@ export function SprintView() {
               <div
                 key={sprint.id}
                 className={cn(
-                  "relative flex min-w-[180px] flex-1 snap-start flex-col items-center gap-3 overflow-hidden rounded-2xl bg-surface p-4",
+                  "relative flex min-w-[180px] flex-1 snap-start flex-col items-center gap-3 overflow-hidden rounded-xl bg-surface p-4",
                   isActive &&
                     "ring-2 ring-brand/70 shadow-[0_8px_24px_-10px_rgb(37_99_235_/_35%)]",
                 )}
@@ -299,7 +299,7 @@ export function SprintView() {
                     </ProgressRing>
                   </div>
                   {isActive && (
-                    <span className="relative rounded-full bg-brand-gradient px-2.5 py-0.5 text-[11px] font-medium text-white shadow-elevation-low">
+                    <span className="relative rounded-md bg-brand-gradient px-2.5 py-0.5 text-[11px] font-medium text-white shadow-elevation-low">
                       Active
                     </span>
                   )}
@@ -495,7 +495,7 @@ export function SprintView() {
                   <p className="truncate text-sm font-medium">{deadline.title}</p>
                   <p className="text-xs text-muted-foreground">{deadline.sub}</p>
                 </div>
-                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-muted px-2.5 py-1 text-[11px] font-medium">
+                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-[11px] font-medium">
                   <CalendarDays className="size-3 text-muted-foreground" aria-hidden />
                   {deadline.date}
                 </span>

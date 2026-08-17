@@ -132,7 +132,7 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
 
           <div className="mt-6 space-y-4 pb-8">
             {/* Logo */}
-            <section className="rounded-2xl border bg-card p-5 shadow-elevation-low">
+            <section className="rounded-xl border bg-card p-5 shadow-elevation-low">
               <div className="flex items-center justify-between gap-2">
                 <h2 className="font-semibold tracking-tight">Logo</h2>
                 <Button variant="ghost" size="xs" onClick={() => setRegenTarget("logo options")}>
@@ -164,7 +164,7 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
             </section>
 
             {/* Color theory */}
-            <section className="rounded-2xl border bg-card p-5 shadow-elevation-low">
+            <section className="rounded-xl border bg-card p-5 shadow-elevation-low">
               <div className="flex items-center justify-between gap-2">
                 <h2 className="font-semibold tracking-tight">Color theory</h2>
                 <Button
@@ -205,13 +205,13 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                       </p>
                       <div className="mt-2.5 flex gap-1.5">
                         <span
-                          className="rounded-full px-2 py-0.5 text-[10px] font-medium"
+                          className="rounded-md px-2 py-0.5 text-[10px] font-medium"
                           style={{ backgroundColor: t.primary, color: "#ffffff" }}
                         >
                           Primary
                         </span>
                         <span
-                          className="rounded-full px-2 py-0.5 text-[10px] font-medium"
+                          className="rounded-md px-2 py-0.5 text-[10px] font-medium"
                           style={{ backgroundColor: t.accent, color: t.id === "from-logo" ? "#431407" : "#ffffff" }}
                         >
                           Accent
@@ -228,7 +228,7 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
             </section>
 
             {/* Typography */}
-            <section className="rounded-2xl border bg-card p-5 shadow-elevation-low">
+            <section className="rounded-xl border bg-card p-5 shadow-elevation-low">
               <div className="flex items-center justify-between gap-2">
                 <h2 className="font-semibold tracking-tight">Typography</h2>
                 <Button
@@ -248,7 +248,7 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                     onClick={() => setFont(f.id)}
                     aria-pressed={font === f.id}
                     className={cn(
-                      "rounded-full border px-4 py-2 text-sm transition-all",
+                      "rounded-lg border px-4 py-2 text-sm transition-all",
                       f.className,
                       font === f.id
                         ? "border-primary bg-brand-subtle font-medium text-brand ring-1 ring-primary/40"
@@ -263,7 +263,7 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
             </section>
 
             {/* Icons */}
-            <section className="rounded-2xl border bg-card p-5 shadow-elevation-low">
+            <section className="rounded-xl border bg-card p-5 shadow-elevation-low">
               <div className="flex items-center justify-between gap-2">
                 <h2 className="font-semibold tracking-tight">Icons</h2>
                 <Button
@@ -283,7 +283,7 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                     onClick={() => setIconSet(set)}
                     aria-pressed={iconSet === set}
                     className={cn(
-                      "flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm transition-all",
+                      "flex items-center gap-1.5 rounded-lg border px-3.5 py-1.5 text-sm transition-all",
                       iconSet === set
                         ? "border-primary bg-brand-subtle font-medium text-brand ring-1 ring-primary/40"
                         : "bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"

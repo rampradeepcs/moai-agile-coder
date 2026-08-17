@@ -108,7 +108,7 @@ export function ProjectTopbar({ project }: { project: Project }) {
           <NotificationsPopover />
           <Tooltip>
             <TooltipTrigger asChild>
-              <span className="flex h-9 items-center gap-1.5 rounded-full bg-muted px-3 text-[13px] font-semibold">
+              <span className="flex h-9 items-center gap-1.5 rounded-lg bg-muted px-3 text-[13px] font-semibold">
                 <Flame className="size-4 text-brand" aria-hidden />
                 {tokensLeft.toLocaleString()}
               </span>

@@ -254,7 +254,7 @@ export function ChatFlow({
               key={s}
               type="button"
               onClick={() => start(s)}
-              className="rounded-full border bg-card px-3.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+              className="rounded-lg border bg-card px-3.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
             >
               {s}
             </button>
@@ -278,7 +278,7 @@ export function ChatFlow({
                   animate={{ opacity: 1, y: 0 }}
                   className="flex justify-end"
                 >
-                  <span className="max-w-[80%] rounded-full bg-brand-gradient px-3 py-1.5 text-sm text-white shadow-elevation-low">
+                  <span className="max-w-[80%] rounded-xl bg-brand-gradient px-3 py-1.5 text-sm text-white shadow-elevation-low">
                     {msg.text}
                   </span>
                 </motion.div>
@@ -318,7 +318,7 @@ export function ChatFlow({
             onChange={(e) => setFreeText(e.target.value)}
             placeholder="Write a message"
             aria-label="Write a message"
-            className="h-10 rounded-full px-4"
+            className="h-10 rounded-lg px-4"
           />
           <Button
             type="submit"
@@ -378,7 +378,7 @@ function BotCard({
       <span className="mt-1 flex size-7 shrink-0 items-center justify-center rounded-lg bg-brand-subtle text-brand">
         <Sparkles className="size-3.5" />
       </span>
-      <div className="rounded-2xl bg-muted p-4">
+      <div className="rounded-xl bg-muted p-4">
         <p className="text-sm leading-relaxed">{node.question(appName)}</p>
 
         {active && node.kind === "single" && node.options && (
@@ -458,7 +458,7 @@ function ChipRow({ options, onPick }: { options: string[]; onPick: (v: string) =
           key={opt}
           type="button"
           onClick={() => onPick(opt)}
-          className="rounded-full border bg-card px-3 py-1.5 text-xs font-medium transition-colors hover:border-primary/50 hover:bg-brand-subtle hover:text-brand"
+          className="rounded-lg border bg-card px-3 py-1.5 text-xs font-medium transition-colors hover:border-primary/50 hover:bg-brand-subtle hover:text-brand"
         >
           {opt}
         </button>
@@ -484,7 +484,7 @@ function NameOptions({ options, onPick }: { options: string[]; onPick: (v: strin
           onChange={(e) => setCustom(e.target.value)}
           placeholder="Something else…"
           aria-label="Custom app name"
-          className="h-8 max-w-52 rounded-full bg-card px-3 text-xs"
+          className="h-8 max-w-52 rounded-lg bg-card px-3 text-xs"
         />
         <Button type="submit" size="sm" variant="outline" disabled={!custom.trim()}>
           Use name
@@ -516,7 +516,7 @@ function MultiOptions({
             onClick={() => toggle(opt)}
             aria-pressed={isSelected}
             className={cn(
-              "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
+              "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors",
               isSelected
                 ? "border-transparent bg-brand-gradient text-white shadow-elevation-low"
                 : "bg-card hover:border-primary/50"
@@ -529,7 +529,6 @@ function MultiOptions({
       })}
       <Button
         size="sm"
-        className="rounded-full"
         disabled={selected.length === 0}
         onClick={() => onDone(selected)}
       >
@@ -550,7 +549,7 @@ function TypingIndicator() {
       <span className="flex size-7 items-center justify-center rounded-lg bg-brand-subtle text-brand">
         <Sparkles className="size-3.5" />
       </span>
-      <span className="flex items-center gap-1 rounded-2xl bg-muted px-4 py-3">
+      <span className="flex items-center gap-1 rounded-xl bg-muted px-4 py-3">
         {[0, 1, 2].map((i) => (
           <motion.span
             key={i}

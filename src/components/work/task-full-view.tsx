@@ -278,7 +278,7 @@ export function TaskFullView({ item, slug }: { item: WorkItem; slug: string }) {
                 ) : (
                   <span className="flex flex-wrap gap-1.5">
                     {dependencies.map((d) => (
-                      <span key={d.id} className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
+                      <span key={d.id} className="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
                         <Link2 className="size-3" aria-hidden />
                         {d.key}
                       </span>

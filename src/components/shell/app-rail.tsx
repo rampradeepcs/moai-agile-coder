@@ -156,7 +156,7 @@ export function AppRail() {
                           onClick={() => openProject(p.slug)}
                           className="group flex w-full items-center gap-2.5 rounded-xl py-1.5 pl-8 pr-2 text-[13px] text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
                         >
-                          <ProjectLogo project={p} size="sm" className="rounded-full" />
+                          <ProjectLogo project={p} size="sm" className="rounded-lg" />
                           <span className="min-w-0 flex-1 truncate text-left">{p.name}</span>
                           <ExternalLink
                             className="size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100"
@@ -198,7 +198,7 @@ export function AppRail() {
                           )}
                         >
                           <span className="relative inline-flex shrink-0">
-                            <ProjectLogo project={p} size="sm" className="rounded-full" />
+                            <ProjectLogo project={p} size="sm" className="rounded-lg" />
                             {activity && (
                               <span className="absolute -right-0.5 -top-0.5 flex size-2.5" aria-hidden>
                                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-70" />
@@ -258,7 +258,7 @@ export function AppRail() {
                           onClick={() => openProject(p.slug)}
                           className="group flex w-full items-center gap-2.5 rounded-lg px-2 py-1.5 text-[13px] transition-colors hover:bg-accent/60"
                         >
-                          <ProjectLogo project={p} size="sm" className="rounded-full" />
+                          <ProjectLogo project={p} size="sm" className="rounded-lg" />
                           <span className="min-w-0 flex-1 truncate text-left">{p.name}</span>
                           <ExternalLink
                             className="size-3 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
@@ -293,7 +293,7 @@ export function AppRail() {
                               : "hover:bg-accent/60",
                           )}
                         >
-                          <ProjectLogo project={p} size="sm" className="rounded-full" />
+                          <ProjectLogo project={p} size="sm" className="rounded-lg" />
                         </Link>
                       </TooltipTrigger>
                       <TooltipContent side="right">{p.name}</TooltipContent>

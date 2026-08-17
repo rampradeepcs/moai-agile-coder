@@ -247,7 +247,7 @@ export function SprintManagement({ onBack }: { onBack: () => void }) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: gi * 0.05, duration: 0.25, ease: "easeOut" }}
-              className="overflow-hidden rounded-2xl border bg-card shadow-soft"
+              className="overflow-hidden rounded-xl border bg-card shadow-soft"
             >
               {/* Group header */}
               <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3">

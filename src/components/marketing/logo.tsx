@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Official Agile Coder brand mark — seven-blade pinwheel with the
- * violet gradient from the brand asset (self-colored; size via className).
+ * blue gradient from the brand asset (self-colored; size via className).
  */
 export function BrandMark({ className }: { className?: string }) {
   return (

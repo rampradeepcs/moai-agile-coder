@@ -46,11 +46,11 @@ export function WorkflowAnimation() {
     <div className="relative w-[400px] max-w-full">
       {/* AI orb */}
       <div className="mb-6 flex items-center gap-3">
-        <span className="relative grid size-11 place-items-center rounded-2xl bg-brand-gradient text-white shadow-elevation-mid">
+        <span className="relative grid size-11 place-items-center rounded-xl bg-brand-gradient text-white shadow-elevation-mid">
           <Bot className="size-5" aria-hidden />
           {!reduceMotion && (
             <motion.span
-              className="absolute inset-0 rounded-2xl bg-brand-gradient"
+              className="absolute inset-0 rounded-xl bg-brand-gradient"
               animate={{ opacity: [0.5, 0, 0.5], scale: [1, 1.35, 1] }}
               transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
               style={{ zIndex: -1 }}
@@ -99,7 +99,7 @@ export function WorkflowAnimation() {
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 26 }}
                 className={cn(
-                  "relative flex h-14 items-center gap-3 rounded-2xl border px-3 backdrop-blur-sm transition-colors",
+                  "relative flex h-14 items-center gap-3 rounded-xl border px-3 backdrop-blur-sm transition-colors",
                   state === "active"
                     ? "border-white/25 bg-white/10 shadow-[0_8px_32px_-8px_oklch(0.5_0.22_262/60%)]"
                     : "border-white/10 bg-white/[0.04]",

@@ -40,7 +40,7 @@ export function PromptCard({
   return (
     <div
       className={cn(
-        "w-full max-w-2xl rounded-2xl border bg-card p-3 shadow-elevation-high",
+        "w-full max-w-2xl rounded-xl border bg-card p-3 shadow-elevation-high",
         className
       )}
     >

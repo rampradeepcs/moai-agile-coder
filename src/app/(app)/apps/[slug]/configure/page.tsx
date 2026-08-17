@@ -119,7 +119,7 @@ function ConfigureContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04, duration: 0.25, ease: "easeOut" }}
               whileHover={{ y: -2 }}
-              className="group flex items-center justify-between gap-4 rounded-2xl border bg-card px-6 py-5 text-left shadow-soft transition-shadow hover:shadow-elevation-mid"
+              className="group flex items-center justify-between gap-4 rounded-xl border bg-card px-6 py-5 text-left shadow-soft transition-shadow hover:shadow-elevation-mid"
             >
               <span className="flex min-w-0 items-center gap-4">
                 <span className={cn("grid size-11 shrink-0 place-items-center rounded-xl", s.iconClass)}>
@@ -157,7 +157,7 @@ function ConfigureContent() {
                 type="button"
                 onClick={() => go("app-settings", t.id)}
                 className={cn(
-                  "flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors",
+                  "flex shrink-0 items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-medium transition-colors",
                   sub === t.id
                     ? "bg-brand-gradient text-white shadow-elevation-low"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground",

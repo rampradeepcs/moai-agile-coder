@@ -392,7 +392,7 @@ function TaskDetailBody({ item }: { item: WorkItem }) {
                           type="button"
                           onClick={() => setDepTab(t.value)}
                           className={cn(
-                            "rounded-full border px-2 py-0.5 text-[11px] font-medium transition-colors",
+                            "rounded-md border px-2 py-0.5 text-[11px] font-medium transition-colors",
                             depTab === t.value
                               ? "border-transparent bg-brand text-white"
                               : "text-muted-foreground hover:bg-accent",

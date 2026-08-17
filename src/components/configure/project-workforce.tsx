@@ -90,7 +90,7 @@ const memberManager = (m: Member) => (m.id === "u1" ? "—" : "Ram Pradeep");
 
 function ActiveChip() {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-success-subtle px-2 py-0.5 text-[11px] font-medium text-success">
+    <span className="inline-flex items-center gap-1.5 rounded-md bg-success-subtle px-2 py-0.5 text-[11px] font-medium text-success">
       <span className="size-1.5 rounded-full bg-success" aria-hidden />
       Active
     </span>
@@ -156,7 +156,7 @@ export function ProjectWorkforce({ onBack }: { onBack: () => void }) {
           <span className="text-sm text-muted-foreground">{m.role}</span>
         </div>
 
-        <div className="rounded-2xl border bg-card p-5 shadow-soft">
+        <div className="rounded-xl border bg-card p-5 shadow-soft">
           <h3 className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">
             Basic details
           </h3>
@@ -180,7 +180,7 @@ export function ProjectWorkforce({ onBack }: { onBack: () => void }) {
           </div>
         </div>
 
-        <div className="rounded-2xl border bg-card p-5 shadow-soft">
+        <div className="rounded-xl border bg-card p-5 shadow-soft">
           <h3 className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">
             Assigned projects
           </h3>
@@ -251,7 +251,7 @@ export function ProjectWorkforce({ onBack }: { onBack: () => void }) {
               aria-selected={active}
               onClick={() => setTab(option.id)}
               className={cn(
-                "relative rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
+                "relative rounded-lg px-4 py-1.5 text-xs font-medium transition-colors",
                 active ? "text-white" : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -273,7 +273,7 @@ export function ProjectWorkforce({ onBack }: { onBack: () => void }) {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="overflow-x-auto rounded-2xl border bg-card shadow-soft"
+        className="overflow-x-auto rounded-xl border bg-card shadow-soft"
       >
         {tab === "employees" ? (
           <Table>

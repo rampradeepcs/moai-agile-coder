@@ -184,7 +184,7 @@ export function TokenManagement({ onBack }: { onBack: () => void }) {
 
       <motion.div variants={container} initial="hidden" animate="show" className="flex flex-col gap-4">
         {/* Hero + meters */}
-        <motion.div variants={item} className="rounded-2xl border bg-card p-6 shadow-soft">
+        <motion.div variants={item} className="rounded-xl border bg-card p-6 shadow-soft">
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
             <div className="flex flex-col gap-1">
               <span className="text-4xl font-semibold tracking-tight tabular-nums">
@@ -208,7 +208,7 @@ export function TokenManagement({ onBack }: { onBack: () => void }) {
 
         <div className="grid gap-4 lg:grid-cols-2">
           {/* Module usage breakdown */}
-          <motion.div variants={item} className="rounded-2xl border bg-card p-5 shadow-soft">
+          <motion.div variants={item} className="rounded-xl border bg-card p-5 shadow-soft">
             <h3 className="mb-3 text-sm font-semibold">Module Usage Breakdown</h3>
             <Table>
               <TableHeader>
@@ -233,7 +233,7 @@ export function TokenManagement({ onBack }: { onBack: () => void }) {
           </motion.div>
 
           {/* User usage breakdown */}
-          <motion.div variants={item} className="rounded-2xl border bg-card p-5 shadow-soft">
+          <motion.div variants={item} className="rounded-xl border bg-card p-5 shadow-soft">
             <h3 className="mb-2 text-sm font-semibold">User Usage Breakdown</h3>
             <div className="flex flex-col items-center gap-5">
               <div className="relative h-52 w-52">
@@ -293,7 +293,7 @@ export function TokenManagement({ onBack }: { onBack: () => void }) {
           <DialogHeader>
             <div className="flex flex-wrap items-center justify-between gap-2 pr-6">
               <DialogTitle>Add tokens</DialogTitle>
-              <span className="inline-flex items-center rounded-full bg-success-subtle px-2.5 py-1 text-[11px] font-medium text-success">
+              <span className="inline-flex items-center rounded-md bg-success-subtle px-2.5 py-1 text-[11px] font-medium text-success">
                 Total available balance: {TOTAL_AVAILABLE_BALANCE.toLocaleString()}
               </span>
             </div>
@@ -324,7 +324,7 @@ export function TokenManagement({ onBack }: { onBack: () => void }) {
                     type="button"
                     onClick={() => setAmount(String(q.value))}
                     className={cn(
-                      "rounded-full border px-3 py-1 text-xs font-medium transition-colors",
+                      "rounded-lg border px-3 py-1 text-xs font-medium transition-colors",
                       selected
                         ? "bg-brand-subtle text-brand ring-1 ring-brand"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground",

@@ -91,7 +91,7 @@ export default function AiChatPage() {
                   )}
                   <div
                     className={cn(
-                      "max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
+                      "max-w-[80%] rounded-xl px-4 py-2.5 text-sm leading-relaxed",
                       m.role === "user"
                         ? "bg-brand-gradient text-white shadow-elevation-low"
                         : "border bg-card shadow-soft",
@@ -106,7 +106,7 @@ export default function AiChatPage() {
                   <span className="grid size-7 place-items-center rounded-lg bg-brand-subtle text-brand">
                     <Sparkles className="size-3.5" aria-hidden />
                   </span>
-                  <span className="flex gap-1 rounded-2xl border bg-card px-4 py-3 shadow-soft" aria-label="AI is thinking">
+                  <span className="flex gap-1 rounded-xl border bg-card px-4 py-3 shadow-soft" aria-label="AI is thinking">
                     {[0, 1, 2].map((i) => (
                       <span
                         key={i}
@@ -125,7 +125,7 @@ export default function AiChatPage() {
 
       {/* Composer */}
       <div className="relative px-6 pb-6">
-        <div className="relative mx-auto max-w-5xl rounded-3xl border bg-card shadow-elevation-mid focus-within:ring-2 focus-within:ring-ring/40">
+        <div className="relative mx-auto max-w-5xl rounded-2xl border bg-card shadow-elevation-mid focus-within:ring-2 focus-within:ring-ring/40">
           <textarea
             value={draft}
             onChange={(e) => setDraft(e.target.value)}

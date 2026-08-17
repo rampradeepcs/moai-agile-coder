@@ -211,7 +211,7 @@ function StatusChip({ status }: { status: Team["status"] }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium",
+        "inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-medium",
         status === "active"
           ? "bg-success-subtle text-success"
           : "bg-muted text-muted-foreground",
@@ -478,7 +478,7 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
                 aria-selected={active}
                 onClick={() => setView(option.id)}
                 className={cn(
-                  "relative flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-medium transition-colors",
+                  "relative flex items-center gap-1.5 rounded-lg px-3.5 py-1 text-xs font-medium transition-colors",
                   active ? "text-white" : "text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -502,7 +502,7 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col items-center gap-2 rounded-2xl border bg-card px-6 py-16 text-center shadow-soft"
+          className="flex flex-col items-center gap-2 rounded-xl border bg-card px-6 py-16 text-center shadow-soft"
         >
           <span className="text-base font-semibold">No teams found!</span>
           <span className="max-w-sm text-sm text-muted-foreground">
@@ -528,7 +528,7 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ delay: i * 0.03, duration: 0.25, ease: "easeOut" }}
                   className={cn(
-                    "group relative overflow-hidden rounded-2xl border bg-card p-5 pl-6 shadow-soft transition-shadow hover:shadow-elevation-mid",
+                    "group relative overflow-hidden rounded-xl border bg-card p-5 pl-6 shadow-soft transition-shadow hover:shadow-elevation-mid",
                     color.className,
                   )}
                 >
@@ -569,7 +569,7 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="overflow-x-auto rounded-2xl border bg-card shadow-soft"
+          className="overflow-x-auto rounded-xl border bg-card shadow-soft"
         >
           <Table>
             <TableHeader>
@@ -646,7 +646,7 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
                     type="button"
                     onClick={() => setDraft((d) => ({ ...d, name: n }))}
                     className={cn(
-                      "rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-colors",
+                      "rounded-md border px-2.5 py-0.5 text-[11px] font-medium transition-colors",
                       draft.name === n
                         ? "bg-brand-subtle text-brand ring-1 ring-brand"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground",
