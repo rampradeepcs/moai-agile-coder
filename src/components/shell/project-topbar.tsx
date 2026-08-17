@@ -42,7 +42,7 @@ function CircleAction({ label, onClick, children }: { label: string; onClick?: (
           type="button"
           aria-label={label}
           onClick={onClick}
-          className="grid size-9 place-items-center rounded-full border bg-card text-muted-foreground shadow-soft transition-all hover:-translate-y-px hover:text-foreground"
+          className="grid size-9 place-items-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
         >
           {children}
         </button>
@@ -76,7 +76,7 @@ export function ProjectTopbar({ project }: { project: Project }) {
             </BreadcrumbList>
           </Breadcrumb>
           <div className="flex min-w-0 flex-wrap items-center gap-3">
-            <h1 className="truncate text-2xl font-bold tracking-tight">{project.name}</h1>
+            <h1 className="truncate text-xl font-semibold tracking-tight">{project.name}</h1>
             <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <Users2 className="size-3.5" aria-hidden />
               {pipelines.length} active teams
@@ -108,7 +108,7 @@ export function ProjectTopbar({ project }: { project: Project }) {
           <NotificationsPopover />
           <Tooltip>
             <TooltipTrigger asChild>
-              <span className="flex h-9 items-center gap-1.5 rounded-full border bg-card px-3 text-[13px] font-semibold shadow-soft">
+              <span className="flex h-9 items-center gap-1.5 rounded-full bg-muted px-3 text-[13px] font-semibold">
                 <Flame className="size-4 text-brand" aria-hidden />
                 {tokensLeft.toLocaleString()}
               </span>
@@ -116,7 +116,7 @@ export function ProjectTopbar({ project }: { project: Project }) {
             <TooltipContent>AI tokens remaining</TooltipContent>
           </Tooltip>
           <Button
-            className="gap-1.5 rounded-full bg-brand-gradient text-white shadow-elevation-mid transition-transform hover:-translate-y-px hover:opacity-95"
+            className="h-9 gap-1.5 rounded-lg bg-primary px-4 text-white transition-colors hover:bg-primary/90"
             onClick={() => toast("Starting application…", { description: "AI agents are picking up the next stage." })}
           >
             <Play className="size-3.5 fill-current" /> Start application
@@ -126,7 +126,7 @@ export function ProjectTopbar({ project }: { project: Project }) {
 
       <nav
         aria-label="Project sections"
-        className="inline-flex w-fit max-w-full items-center gap-1 overflow-x-auto rounded-2xl border bg-card p-1 shadow-soft"
+        className="inline-flex w-fit max-w-full items-center gap-1 overflow-x-auto rounded-xl bg-muted p-1.5"
       >
         {tabs.map((tab) => {
           const href = `/apps/${project.slug}/${tab.segment}`;
@@ -136,18 +136,18 @@ export function ProjectTopbar({ project }: { project: Project }) {
               key={tab.segment}
               href={href}
               className={cn(
-                "relative flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2 text-[13px] font-medium transition-colors",
-                active ? "text-brand" : "text-muted-foreground hover:text-foreground",
+                "relative flex shrink-0 items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+                active ? "text-white" : "text-foreground/80 hover:text-foreground",
               )}
             >
               {active && (
                 <motion.span
                   layoutId="project-tab-pill"
-                  className="absolute inset-0 rounded-xl bg-background shadow-soft ring-1 ring-border"
+                  className="absolute inset-0 rounded-lg bg-primary"
                   transition={{ type: "spring", stiffness: 500, damping: 40 }}
                 />
               )}
-              <tab.icon className="relative size-3.5" aria-hidden />
+              <tab.icon className="relative size-4" aria-hidden />
               <span className="relative">{tab.label}</span>
             </Link>
           );

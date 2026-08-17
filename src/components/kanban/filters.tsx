@@ -83,7 +83,7 @@ function FilterPill({
         <Button
           variant="outline"
           size="sm"
-          className={cn("gap-1 rounded-full text-xs", active && "border-brand/40 text-brand")}
+          className={cn("gap-1 text-xs", active && "border-brand/40 text-brand")}
         >
           {label}
           {active && (

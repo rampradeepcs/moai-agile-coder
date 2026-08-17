@@ -269,7 +269,7 @@ export function SprintView() {
                 className={cn(
                   "relative flex min-w-[180px] flex-1 snap-start flex-col items-center gap-3 overflow-hidden rounded-2xl bg-surface p-4",
                   isActive &&
-                    "ring-2 ring-brand/70 shadow-[0_10px_30px_-10px_oklch(0.54_0.22_262_/_45%)]",
+                    "ring-2 ring-brand/70 shadow-[0_8px_24px_-10px_rgb(37_99_235_/_35%)]",
                 )}
               >
                   {/* subtle radial tint behind the ring */}

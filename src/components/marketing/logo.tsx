@@ -17,32 +17,32 @@ export function BrandMark({ className }: { className?: string }) {
       <path d="M25.8368 16.8479L27.1371 10.5158L27.8721 8.4239L30.2467 7.74546L23.2361 6.33203L21.9357 12.6642L21.2007 14.7561L18.8262 15.4345L25.8368 16.8479Z" fill="url(#ac_lg6)" />
       <defs>
         <linearGradient id="ac_lg0" x1="14.4169" y1="0.689753" x2="22.3423" y2="1.1603" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#7021F3" />
-          <stop offset="1" stopColor="#B897F1" />
+          <stop stopColor="#2563EB" />
+          <stop offset="1" stopColor="#8FB0F5" />
         </linearGradient>
         <linearGradient id="ac_lg1" x1="6.5217" y1="5.11065" x2="14.5057" y2="5.80704" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#7021F3" />
-          <stop offset="1" stopColor="#B897F1" />
+          <stop stopColor="#2563EB" />
+          <stop offset="1" stopColor="#8FB0F5" />
         </linearGradient>
         <linearGradient id="ac_lg2" x1="2.27091" y1="12.3479" x2="13.1627" y2="13.5103" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#7021F3" />
-          <stop offset="1" stopColor="#B897F1" />
+          <stop stopColor="#2563EB" />
+          <stop offset="1" stopColor="#8FB0F5" />
         </linearGradient>
         <linearGradient id="ac_lg3" x1="8.61248" y1="18.9677" x2="14.176" y2="19.2368" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#7021F3" />
-          <stop offset="1" stopColor="#B897F1" />
+          <stop stopColor="#2563EB" />
+          <stop offset="1" stopColor="#8FB0F5" />
         </linearGradient>
         <linearGradient id="ac_lg4" x1="15.5286" y1="19.7539" x2="24.1717" y2="20.3536" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#7021F3" />
-          <stop offset="1" stopColor="#B897F1" />
+          <stop stopColor="#2563EB" />
+          <stop offset="1" stopColor="#8FB0F5" />
         </linearGradient>
         <linearGradient id="ac_lg5" x1="20.7404" y1="16.0304" x2="31.2177" y2="17.3764" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#7021F3" />
-          <stop offset="1" stopColor="#B897F1" />
+          <stop stopColor="#2563EB" />
+          <stop offset="1" stopColor="#8FB0F5" />
         </linearGradient>
         <linearGradient id="ac_lg6" x1="20.7296" y1="6.85783" x2="29.8879" y2="7.68592" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#7021F3" />
-          <stop offset="1" stopColor="#B897F1" />
+          <stop stopColor="#2563EB" />
+          <stop offset="1" stopColor="#8FB0F5" />
         </linearGradient>
       </defs>
     </svg>

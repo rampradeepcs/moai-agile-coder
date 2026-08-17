@@ -98,129 +98,137 @@
 }
 
 :root {
-  /* Light — airy near-white surfaces with soft floating cards */
-  --background: oklch(0.972 0.002 286);
-  --foreground: oklch(0.19 0.01 286);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.19 0.01 286);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.19 0.01 286);
-  --primary: oklch(0.54 0.22 262);
-  --primary-foreground: oklch(0.985 0.005 286);
-  --secondary: oklch(0.955 0.004 286);
-  --secondary-foreground: oklch(0.25 0.01 286);
-  --muted: oklch(0.955 0.004 286);
-  --muted-foreground: oklch(0.5 0.012 286);
-  --accent: oklch(0.945 0.01 260);
-  --accent-foreground: oklch(0.25 0.02 260);
-  --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: oklch(0.985 0.005 286);
-  --border: oklch(0.94 0.003 286);
-  --input: oklch(0.925 0.003 286);
-  --ring: oklch(0.54 0.22 262 / 55%);
+  /*
+   * Light — "New concept" (Figma 3062-26945).
+   * Flat, neutral-grey surface stack: page #f9f9fa → recessed panel #efeff0 → white group → recessed card.
+   * Solid royal blue #2563eb accent, no gradients, hairline borders, near-flat shadows.
+   */
+  --background: #f9f9fa;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #efeff0;
+  --secondary-foreground: #2a2a2b;
+  --muted: #efeff0;
+  --muted-foreground: #6f7074;
+  --accent: #e9e9eb;
+  --accent-foreground: #1a1a1a;
+  --destructive: #dc4256;
+  --destructive-foreground: #ffffff;
+  --border: #e6e6e8;
+  --input: #e2e2e5;
+  --ring: color-mix(in srgb, #2563eb 55%, transparent);
 
-  --brand: oklch(0.54 0.22 262);
-  --brand-subtle: oklch(0.94 0.04 260);
-  --success: oklch(0.6 0.15 155);
-  --success-subtle: oklch(0.95 0.04 155);
-  --warning: oklch(0.72 0.15 70);
-  --warning-subtle: oklch(0.96 0.05 85);
-  --danger: oklch(0.6 0.22 25);
-  --danger-subtle: oklch(0.955 0.025 20);
-  --info: oklch(0.56 0.18 258);
-  --info-subtle: oklch(0.95 0.03 258);
-  --pink: oklch(0.62 0.22 350);
-  --pink-subtle: oklch(0.955 0.03 350);
-  --teal: oklch(0.62 0.12 195);
-  --teal-subtle: oklch(0.95 0.035 195);
+  --brand: #2563eb;
+  --brand-subtle: #e4ebfa;
+  --success: #0f9f5f;
+  --success-subtle: #d7ebe4;
+  --warning: #b8860b;
+  --warning-subtle: #f1ecd8;
+  --danger: #d9435a;
+  --danger-subtle: #eddcdf;
+  --info: #2563eb;
+  --info-subtle: #dfe5f0;
+  --pink: #d9435a;
+  --pink-subtle: #eddcdf;
+  --teal: #0f8f9c;
+  --teal-subtle: #d8ecee;
 
-  --surface: oklch(0.977 0.002 286);
-  --surface-raised: oklch(1 0 0);
-  --surface-overlay: oklch(1 0 0);
+  /* Recessed panel / raised group / recessed card — the kanban + list surface stack */
+  --surface: #efeff0;
+  --surface-raised: #f9f9fa;
+  --surface-overlay: #efeff0;
 
-  --chart-1: oklch(0.55 0.22 262);
-  --chart-2: oklch(0.58 0.21 293);
-  --chart-3: oklch(0.65 0.15 155);
-  --chart-4: oklch(0.75 0.14 75);
-  --chart-5: oklch(0.65 0.2 25);
-  --chart-6: oklch(0.65 0.2 350);
+  --chart-1: #2563eb;
+  --chart-2: #7c3aed;
+  --chart-3: #02c874;
+  --chart-4: #e5a521;
+  --chart-5: #e2536a;
+  --chart-6: #ec4899;
 
-  --elevation-low: 0 2px 6px oklch(0.25 0.05 260 / 5%), 0 8px 20px -6px oklch(0.25 0.05 260 / 8%);
-  --elevation-mid: 0 4px 10px oklch(0.25 0.05 260 / 6%), 0 16px 40px -10px oklch(0.25 0.05 260 / 13%);
-  --elevation-high: 0 8px 16px oklch(0.25 0.05 260 / 7%), 0 32px 72px -16px oklch(0.25 0.05 260 / 20%);
+  --elevation-low: 0 1px 2px rgb(0 0 0 / 4%), 0 1px 3px rgb(0 0 0 / 3%);
+  --elevation-mid: 0 2px 4px rgb(0 0 0 / 4%), 0 8px 20px -6px rgb(0 0 0 / 8%);
+  --elevation-high: 0 4px 8px rgb(0 0 0 / 5%), 0 20px 48px -12px rgb(0 0 0 / 14%);
 
-  --radius: 0.875rem;
+  --radius: 0.625rem;
 
-  --sidebar: oklch(0.96 0.003 286);
-  --sidebar-foreground: oklch(0.19 0.01 286);
-  --sidebar-primary: oklch(0.54 0.22 262);
-  --sidebar-primary-foreground: oklch(0.985 0.005 286);
-  --sidebar-accent: oklch(0.925 0.008 260);
-  --sidebar-accent-foreground: oklch(0.25 0.02 260);
-  --sidebar-border: oklch(0.915 0.004 286);
-  --sidebar-ring: oklch(0.54 0.22 262 / 55%);
+  --sidebar: #efeff0;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: #2563eb;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e4e4e6;
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: #e2e2e4;
+  --sidebar-ring: color-mix(in srgb, #2563eb 55%, transparent);
 }
 
 .dark {
-  /* Dark — OLED friendly, near-black with violet cast */
-  --background: oklch(0.135 0.012 262);
-  --foreground: oklch(0.93 0.005 286);
-  --card: oklch(0.18 0.014 262);
-  --card-foreground: oklch(0.93 0.005 286);
-  --popover: oklch(0.195 0.014 262);
-  --popover-foreground: oklch(0.93 0.005 286);
-  --primary: oklch(0.64 0.2 262);
-  --primary-foreground: oklch(0.985 0.005 286);
-  --secondary: oklch(0.23 0.014 262);
-  --secondary-foreground: oklch(0.93 0.005 286);
-  --muted: oklch(0.23 0.014 262);
-  --muted-foreground: oklch(0.65 0.012 286);
-  --accent: oklch(0.25 0.022 260);
-  --accent-foreground: oklch(0.93 0.008 260);
-  --destructive: oklch(0.65 0.2 25);
-  --destructive-foreground: oklch(0.985 0.005 286);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.64 0.2 262 / 60%);
+  /*
+   * Dark — "Concept Dark" (Figma 3062-26945).
+   * Neutral near-black: page #161718 → panel #121314 → group #101112 → card #1a1b1d. Same solid blue.
+   */
+  --background: #161718;
+  --foreground: #ececed;
+  --card: #121314;
+  --card-foreground: #ececed;
+  --popover: #1a1b1d;
+  --popover-foreground: #ececed;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #1e1f20;
+  --secondary-foreground: #ececed;
+  --muted: #1e1f20;
+  --muted-foreground: #8e8f92;
+  --accent: #232426;
+  --accent-foreground: #ececed;
+  --destructive: #e05a70;
+  --destructive-foreground: #ffffff;
+  --border: rgb(255 255 255 / 7%);
+  --input: rgb(255 255 255 / 11%);
+  --ring: color-mix(in srgb, #2563eb 60%, transparent);
 
-  --brand: oklch(0.64 0.2 262);
-  --brand-subtle: oklch(0.28 0.06 262);
-  --success: oklch(0.7 0.15 158);
-  --success-subtle: oklch(0.26 0.05 158);
-  --warning: oklch(0.78 0.14 75);
-  --warning-subtle: oklch(0.28 0.05 80);
-  --danger: oklch(0.66 0.2 25);
-  --danger-subtle: oklch(0.26 0.06 22);
-  --info: oklch(0.68 0.15 258);
-  --info-subtle: oklch(0.27 0.05 258);
-  --pink: oklch(0.7 0.19 350);
-  --pink-subtle: oklch(0.27 0.06 350);
-  --teal: oklch(0.72 0.11 195);
-  --teal-subtle: oklch(0.26 0.045 195);
+  --brand: #4d82f0;
+  --brand-subtle: #1c232e;
+  --success: #41d596;
+  --success-subtle: #142922;
+  --warning: #e0c343;
+  --warning-subtle: #2e2a16;
+  --danger: #e28591;
+  --danger-subtle: #2a1a1d;
+  --info: #86aff1;
+  --info-subtle: #1c232e;
+  --pink: #e28591;
+  --pink-subtle: #2a1a1d;
+  --teal: #5cc7cf;
+  --teal-subtle: #142729;
 
-  --surface: oklch(0.135 0.012 262);
-  --surface-raised: oklch(0.18 0.014 262);
-  --surface-overlay: oklch(0.215 0.015 262);
+  --surface: #121314;
+  --surface-raised: #101112;
+  --surface-overlay: #1a1b1d;
 
-  --chart-1: oklch(0.66 0.2 262);
-  --chart-2: oklch(0.66 0.21 293);
-  --chart-3: oklch(0.72 0.15 158);
-  --chart-4: oklch(0.78 0.14 75);
-  --chart-5: oklch(0.66 0.2 25);
-  --chart-6: oklch(0.7 0.19 350);
+  --chart-1: #4d82f0;
+  --chart-2: #9b6cf5;
+  --chart-3: #41d596;
+  --chart-4: #e0c343;
+  --chart-5: #e28591;
+  --chart-6: #f472b6;
 
-  --elevation-low: 0 2px 6px oklch(0 0 0 / 40%), 0 8px 20px -6px oklch(0 0 0 / 38%);
-  --elevation-mid: 0 4px 10px oklch(0 0 0 / 42%), 0 16px 40px -10px oklch(0 0 0 / 52%);
-  --elevation-high: 0 8px 16px oklch(0 0 0 / 46%), 0 32px 72px -16px oklch(0 0 0 / 64%);
+  --elevation-low: 0 1px 2px rgb(0 0 0 / 30%), 0 1px 3px rgb(0 0 0 / 24%);
+  --elevation-mid: 0 2px 4px rgb(0 0 0 / 34%), 0 8px 20px -6px rgb(0 0 0 / 40%);
+  --elevation-high: 0 4px 8px rgb(0 0 0 / 38%), 0 20px 48px -12px rgb(0 0 0 / 55%);
 
-  --sidebar: oklch(0.16 0.012 262);
-  --sidebar-foreground: oklch(0.93 0.005 286);
-  --sidebar-primary: oklch(0.64 0.2 262);
-  --sidebar-primary-foreground: oklch(0.985 0.005 286);
-  --sidebar-accent: oklch(0.24 0.018 260);
-  --sidebar-accent-foreground: oklch(0.93 0.008 290);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.64 0.2 262 / 60%);
+  --sidebar: #101112;
+  --sidebar-foreground: #ececed;
+  --sidebar-primary: #2563eb;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1e1f20;
+  --sidebar-accent-foreground: #ececed;
+  --sidebar-border: rgb(255 255 255 / 7%);
+  --sidebar-ring: color-mix(in srgb, #2563eb 60%, transparent);
 }
 
 @layer base {
@@ -248,44 +256,47 @@
   }
   /* Kanban column header hues used across board + configurator */
   .pipeline-pm {
-    --pipeline: oklch(0.55 0.24 295);
-    --pipeline-soft: oklch(0.55 0.24 295 / 12%);
+    --pipeline: #7c3aed;
+    --pipeline-soft: rgb(124 58 237 / 12%);
   }
   .pipeline-design {
-    --pipeline: oklch(0.52 0.22 275);
-    --pipeline-soft: oklch(0.52 0.22 275 / 12%);
+    --pipeline: #2563eb;
+    --pipeline-soft: rgb(37 99 235 / 12%);
   }
   .pipeline-frontend {
-    --pipeline: oklch(0.67 0.16 160);
-    --pipeline-soft: oklch(0.67 0.16 160 / 12%);
+    --pipeline: #02c874;
+    --pipeline-soft: rgb(2 200 116 / 12%);
   }
   .pipeline-backend {
-    --pipeline: oklch(0.75 0.15 70);
-    --pipeline-soft: oklch(0.75 0.15 70 / 14%);
+    --pipeline: #e5a521;
+    --pipeline-soft: rgb(229 165 33 / 14%);
   }
   .pipeline-testing {
-    --pipeline: oklch(0.62 0.22 15);
-    --pipeline-soft: oklch(0.62 0.22 15 / 12%);
+    --pipeline: #e2536a;
+    --pipeline-soft: rgb(226 83 106 / 12%);
   }
   .pipeline-marketing {
-    --pipeline: oklch(0.8 0.14 90);
-    --pipeline-soft: oklch(0.8 0.14 90 / 14%);
+    --pipeline: #ec4899;
+    --pipeline-soft: rgb(236 72 153 / 14%);
   }
 
-  /* Brand gradient — primary CTAs, active nav, send buttons */
+  /*
+   * Brand accent — the new concept is flat: primary CTAs, active nav and send
+   * buttons are solid #2563eb. Class names are kept so every call site stays valid.
+   */
   .bg-brand-gradient {
-    background-image: linear-gradient(90deg, oklch(0.66 0.17 255), oklch(0.5 0.24 263));
+    background-image: none;
+    background-color: var(--primary);
   }
   .text-brand-gradient {
-    background-image: linear-gradient(90deg, oklch(0.66 0.17 255), oklch(0.5 0.24 263));
-    background-clip: text;
-    color: transparent;
+    background-image: none;
+    color: var(--brand);
   }
-  /* Soft floating panel shadow used by the pill tab bar and circular actions */
+  /* Panels in the concept sit flat on the page — a hairline edge, no float. */
   .shadow-soft {
-    box-shadow: 0 2px 6px oklch(0.25 0.05 260 / 5%), 0 14px 34px -12px oklch(0.25 0.05 260 / 14%);
+    box-shadow: 0 0 0 1px var(--border), 0 1px 2px rgb(0 0 0 / 3%);
   }
   .dark .shadow-soft {
-    box-shadow: 0 2px 6px oklch(0 0 0 / 42%), 0 14px 34px -12px oklch(0 0 0 / 56%);
+    box-shadow: 0 0 0 1px var(--border), 0 1px 2px rgb(0 0 0 / 30%);
   }
 }

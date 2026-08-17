@@ -48,7 +48,7 @@ function FilterPill({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 gap-1.5 rounded-full px-3 text-xs font-medium">
+        <Button variant="outline" size="sm" className="h-8 gap-1.5 px-3 text-xs font-medium">
           <Icon className="size-3.5 text-muted-foreground" aria-hidden />
           {label}
           {selected.length > 0 && (

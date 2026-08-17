@@ -74,7 +74,7 @@ export function KpiCard({
     <div
       className={cn(
         "flex flex-col gap-1 rounded-2xl bg-card p-5 shadow-soft",
-        "transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-elevation-mid",
+        "transition-colors duration-200 ease-out",
         className,
       )}
     >

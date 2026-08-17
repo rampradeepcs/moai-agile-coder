@@ -32,7 +32,7 @@ export function NotificationsPopover() {
               variant="ghost"
               size="icon"
               aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`}
-              className="relative size-9 rounded-full border bg-card text-muted-foreground shadow-soft transition-all hover:-translate-y-px hover:bg-card hover:text-foreground"
+              className="relative size-9 rounded-full bg-muted text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               <Bell className="size-4" />
               {unread > 0 && (

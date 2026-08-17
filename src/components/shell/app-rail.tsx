@@ -194,7 +194,7 @@ export function AppRail() {
                             "flex items-center gap-2.5 rounded-xl py-2 pl-2.5 pr-8 text-[13px] transition-all",
                             isCurrent
                               ? "bg-brand-subtle font-medium text-brand ring-1 ring-brand/30"
-                              : "bg-background text-foreground shadow-soft ring-1 ring-border hover:-translate-y-px",
+                              : "bg-background text-foreground ring-1 ring-border hover:bg-accent/60",
                           )}
                         >
                           <span className="relative inline-flex shrink-0">

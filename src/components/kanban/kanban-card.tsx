@@ -6,7 +6,7 @@ import { ArrowRight, Bot, Flag, SquareArrowOutUpRight, Trash2 } from "lucide-rea
 import { cn } from "@/lib/utils";
 import type { Member, WorkItem } from "@/lib/types";
 import { memberById, members } from "@/lib/data";
-import { PriorityBadge } from "@/components/work/badges";
+import { PriorityBadge, typeChipClass } from "@/components/work/badges";
 import { UserAvatar } from "@/components/work/user-avatar";
 import {
   ContextMenu,
@@ -35,13 +35,13 @@ export function KanbanCardView({ item, className }: { item: WorkItem; className?
   return (
     <div
       className={cn(
-        "flex flex-col gap-1.5 rounded-xl bg-muted/50 p-3",
+        "flex flex-col gap-1.5 rounded-lg bg-surface-overlay p-3.5",
         "transition-[box-shadow,translate,background-color] duration-150",
         className,
       )}
     >
       <div className="flex items-start justify-between gap-2">
-        <p className="min-w-0 text-[13px] font-semibold leading-snug">{item.title}</p>
+        <p className="min-w-0 text-sm font-medium leading-snug">{item.title}</p>
         {assignee && (
           <span className="shrink-0">
             <UserAvatar member={assignee} size="xs" showTooltip={false} />
@@ -52,11 +52,11 @@ export function KanbanCardView({ item, className }: { item: WorkItem; className?
         <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">{item.description}</p>
       )}
       <div className="mt-1 flex flex-wrap items-center gap-1.5">
-        <span className="rounded-md bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+        <span className="rounded-md bg-surface-raised px-1.5 py-0.5 text-[11px] text-foreground/80 dark:bg-muted">
           #{item.key}
         </span>
         <PriorityBadge priority={item.priority} />
-        <span className="rounded-md bg-info-subtle px-1.5 py-0.5 text-[10px] font-medium capitalize text-info">
+        <span className={cn("rounded-md px-1.5 py-0.5 text-[11px] font-medium capitalize", typeChipClass[item.type])}>
           {item.type}
         </span>
       </div>
@@ -83,7 +83,7 @@ export function KanbanCard({ item, actions }: { item: WorkItem; actions: CardAct
         >
           <KanbanCardView
             item={item}
-            className="hover:-translate-y-0.5 hover:bg-muted/70 hover:shadow-elevation-low"
+            className="hover:bg-accent/70 dark:hover:bg-accent"
           />
         </motion.div>
       </ContextMenuTrigger>

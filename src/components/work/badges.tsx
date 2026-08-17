@@ -22,9 +22,14 @@ const typeConfig: Record<WorkItemType, { label: string; icon: React.ElementType;
   feature: { label: "Feature", icon: Puzzle, className: "bg-teal-subtle text-teal" },
   story: { label: "Story", icon: Layers, className: "bg-info-subtle text-info" },
   task: { label: "Task", icon: SquareCheck, className: "bg-warning-subtle text-warning" },
-  subtask: { label: "Subtask", icon: ListChecks, className: "bg-muted text-muted-foreground" },
+  subtask: { label: "Subtask", icon: ListChecks, className: "bg-warning-subtle text-warning" },
   bug: { label: "Bug", icon: Bug, className: "bg-danger-subtle text-danger" },
 };
+
+/** Tinted chip colours per work-item type — shared with compact card chips. */
+export const typeChipClass: Record<WorkItemType, string> = Object.fromEntries(
+  Object.entries(typeConfig).map(([k, v]) => [k, v.className]),
+) as Record<WorkItemType, string>;
 
 export function TypeBadge({ type, className }: { type: WorkItemType; className?: string }) {
   const c = typeConfig[type];
@@ -45,7 +50,7 @@ export function TypeBadge({ type, className }: { type: WorkItemType; className?:
 const priorityConfig: Record<Priority, { label: string; className: string; bar: string }> = {
   low: { label: "Low", className: "bg-success-subtle text-success", bar: "bg-success" },
   medium: { label: "Medium", className: "bg-warning-subtle text-warning", bar: "bg-warning" },
-  high: { label: "High", className: "bg-pink-subtle text-pink", bar: "bg-pink" },
+  high: { label: "High", className: "bg-danger-subtle text-danger", bar: "bg-danger" },
   critical: { label: "Critical", className: "bg-danger-subtle text-danger", bar: "bg-danger" },
 };
 
@@ -54,12 +59,11 @@ export function PriorityBadge({ priority, className }: { priority: Priority; cla
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md px-1.5 py-0.5 text-[11px] font-medium",
+        "inline-flex items-center rounded-md px-1.5 py-0.5 text-[11px] font-medium",
         c.className,
         className,
       )}
     >
-      <span className={cn("size-1.5 rounded-full", c.bar)} aria-hidden />
       {c.label}
     </span>
   );

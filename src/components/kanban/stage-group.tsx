@@ -51,25 +51,25 @@ export function StageGroup({
     <Collapsible open={open} onOpenChange={setOpen}>
       <div
         ref={setNodeRef}
-        className="rounded-lg transition-colors"
+        className="rounded-lg bg-surface-raised transition-colors"
         style={{ backgroundColor: isOver ? "var(--pipeline-soft)" : undefined }}
       >
-        <CollapsibleTrigger className="flex w-full items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left transition-colors hover:bg-muted/60">
+        <CollapsibleTrigger className="flex h-10 w-full items-center gap-2 rounded-lg px-2.5 text-left transition-colors hover:bg-accent/60">
           <ChevronDown
             className={cn("size-3.5 shrink-0 text-muted-foreground transition-transform", !open && "-rotate-90")}
             aria-hidden
           />
-          <span className="min-w-0 flex-1 truncate text-[13px] font-medium">
+          <span className="min-w-0 flex-1 truncate text-sm font-medium">
             {stage.name}
           </span>
           {stageAgent && <UserAvatar member={stageAgent} size="xs" />}
-          <span className="px-1 text-[11px] tabular-nums text-muted-foreground">
+          <span className="rounded-md bg-surface px-1.5 py-0.5 text-[11px] font-medium tabular-nums text-muted-foreground">
             {String(items.length).padStart(2, "0")}
           </span>
         </CollapsibleTrigger>
 
         <CollapsibleContent>
-          <div className="flex flex-col gap-2 px-1 pb-2 pt-0.5">
+          <div className="flex flex-col gap-2 px-2 pb-2 pt-0.5">
             {items.map((item) => (
               <KanbanCard key={item.id} item={item} actions={actions} />
             ))}
@@ -86,7 +86,7 @@ export function StageGroup({
 
         {/* Collapsed stage still needs a visible drop target while dragging */}
         {!open && dragActive && (
-          <div className="px-1 pb-2">
+          <div className="px-2 pb-2">
             <DropPlaceholder active={isOver} />
           </div>
         )}

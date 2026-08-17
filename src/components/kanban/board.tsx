@@ -288,7 +288,7 @@ export function KanbanBoard() {
       {/* Floating AI entry point */}
       <Link
         href={aiChatHref}
-        className="fixed bottom-6 right-6 z-30 inline-flex items-center gap-2 rounded-full bg-brand-gradient px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_12px_32px_-8px_oklch(0.54_0.22_262_/_65%)] transition-transform hover:-translate-y-0.5"
+        className="fixed bottom-6 right-6 z-30 inline-flex items-center gap-2 rounded-full bg-brand-gradient px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_8px_24px_-8px_rgb(37_99_235_/_55%)] transition-colors hover:bg-primary/90"
       >
         <Sparkles className="size-4" aria-hidden />
         Ask Agile Coder AI

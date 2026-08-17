@@ -145,7 +145,7 @@ export default function AiChatPage() {
             onClick={send}
             aria-label="Send message"
             disabled={!draft.trim() || thinking}
-            className="absolute bottom-4 right-4 grid size-10 place-items-center rounded-full bg-brand-gradient text-white shadow-elevation-mid transition-all enabled:hover:-translate-y-px enabled:hover:opacity-95 disabled:opacity-40"
+            className="absolute bottom-4 right-4 grid size-10 place-items-center rounded-full bg-primary text-white transition-colors enabled:hover:bg-primary/90 disabled:opacity-40"
           >
             <Send className="size-4" aria-hidden />
           </button>
