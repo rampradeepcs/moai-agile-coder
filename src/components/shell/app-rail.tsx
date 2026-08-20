@@ -5,10 +5,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Box,
+  ChartColumn,
   ChevronDown,
+  CreditCard,
   ExternalLink,
+  LayoutDashboard,
   PanelLeftClose,
   PanelLeftOpen,
+  Settings,
   Sparkles,
   Users,
   X,
@@ -121,6 +125,13 @@ export function AppRail() {
         {expanded ? (
           <>
             <nav aria-label="Main" className="flex flex-col gap-0.5">
+              <Link
+                href="/dashboard"
+                className={cn(menuItem, pathname.startsWith("/dashboard") && "bg-brand-subtle text-brand")}
+              >
+                <LayoutDashboard className="size-4 shrink-0" aria-hidden />
+                Dashboard
+              </Link>
               <Link href="/apps/new" className={menuItem}>
                 <Sparkles className="size-4 shrink-0" aria-hidden />
                 New chat
@@ -172,6 +183,35 @@ export function AppRail() {
               <Link href="/users" className={cn(menuItem, pathname.startsWith("/users") && "bg-brand-subtle text-brand")}>
                 <Users className="size-4 shrink-0" aria-hidden />
                 Workforce
+              </Link>
+
+              <p className="mb-1 mt-3 px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                Workspace
+              </p>
+              <Link
+                href="/usage"
+                className={cn(
+                  menuItem,
+                  (pathname.startsWith("/usage") || pathname.startsWith("/credits")) &&
+                    "bg-brand-subtle text-brand",
+                )}
+              >
+                <ChartColumn className="size-4 shrink-0" aria-hidden />
+                Usage
+              </Link>
+              <Link
+                href="/subscription"
+                className={cn(menuItem, pathname.startsWith("/subscription") && "bg-brand-subtle text-brand")}
+              >
+                <CreditCard className="size-4 shrink-0" aria-hidden />
+                Subscription
+              </Link>
+              <Link
+                href="/settings"
+                className={cn(menuItem, pathname.startsWith("/settings") && "bg-brand-subtle text-brand")}
+              >
+                <Settings className="size-4 shrink-0" aria-hidden />
+                Settings
               </Link>
             </nav>
 
@@ -227,6 +267,10 @@ export function AppRail() {
           <>
             {/* Collapsed — icon rail with flyout for All projects */}
             <nav aria-label="Main" className="flex flex-col items-center gap-1.5">
+              <RailIcon label="Dashboard" href="/dashboard" active={pathname.startsWith("/dashboard")}>
+                <LayoutDashboard className="size-4.5" aria-hidden />
+              </RailIcon>
+
               <RailIcon label="New chat" href="/apps/new">
                 <Sparkles className="size-4.5" aria-hidden />
               </RailIcon>
@@ -273,6 +317,22 @@ export function AppRail() {
 
               <RailIcon label="Workforce" href="/users" active={pathname.startsWith("/users")}>
                 <Users className="size-4.5" aria-hidden />
+              </RailIcon>
+
+              <RailIcon
+                label="Usage"
+                href="/usage"
+                active={pathname.startsWith("/usage") || pathname.startsWith("/credits")}
+              >
+                <ChartColumn className="size-4.5" aria-hidden />
+              </RailIcon>
+
+              <RailIcon label="Subscription" href="/subscription" active={pathname.startsWith("/subscription")}>
+                <CreditCard className="size-4.5" aria-hidden />
+              </RailIcon>
+
+              <RailIcon label="Settings" href="/settings" active={pathname.startsWith("/settings")}>
+                <Settings className="size-4.5" aria-hidden />
               </RailIcon>
             </nav>
 
