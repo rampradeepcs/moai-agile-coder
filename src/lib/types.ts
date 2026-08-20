@@ -92,6 +92,8 @@ export interface Project {
   tokensAssigned: number;
   tokensUsed: number;
   memberIds: string[];
+  /** members (humans + AI agents) currently working on this project */
+  workingIds?: string[];
 }
 
 export interface ActivityEvent {

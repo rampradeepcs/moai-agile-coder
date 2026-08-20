@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { projects, memberById } from "@/lib/data";
+import { projects } from "@/lib/data";
 import { ProjectLogo } from "@/components/work/project-logo";
-import { UserAvatar } from "@/components/work/user-avatar";
+import { ActiveMembers } from "@/components/work/active-members";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Plus, Star } from "lucide-react";
@@ -129,14 +129,7 @@ export default function AllApplicationsPage() {
                 </p>
               </div>
 
-              <div className="mt-3 flex -space-x-2">
-                {p.memberIds.map((id) => {
-                  const m = memberById(id);
-                  return m ? (
-                    <UserAvatar key={id} member={m} size="sm" />
-                  ) : null;
-                })}
-              </div>
+              <ActiveMembers project={p} className="relative z-10 mt-3" />
             </motion.div>
           );
         })}

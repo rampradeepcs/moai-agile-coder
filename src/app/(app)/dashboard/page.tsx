@@ -30,6 +30,7 @@ import {
 } from "@/components/dashboard/chart-style";
 import { GlobalHeader } from "@/components/shell/global-header";
 import { ProjectLogo } from "@/components/work/project-logo";
+import { ActiveMembers } from "@/components/work/active-members";
 import { UserAvatar } from "@/components/work/user-avatar";
 import { Button } from "@/components/ui/button";
 
@@ -212,6 +213,7 @@ export default function GlobalDashboardPage() {
                   <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
                     {p.description}
                   </p>
+                  <ActiveMembers project={p} />
                   <div className="mt-auto flex flex-col gap-1.5">
                     <div className="flex items-center justify-between text-[11px] text-muted-foreground">
                       <span>Credits</span>

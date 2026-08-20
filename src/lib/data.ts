@@ -45,6 +45,7 @@ export const projects: Project[] = [
     tokensAssigned: 100000,
     tokensUsed: 98280,
     memberIds: ["u1", "u2", "u3", "u4", "u5", "u6"],
+    workingIds: ["u1", "u4", "a1", "a7", "a9"],
   },
   {
     id: "p2",
@@ -60,6 +61,7 @@ export const projects: Project[] = [
     tokensAssigned: 60000,
     tokensUsed: 21400,
     memberIds: ["u1", "u3", "u4"],
+    workingIds: ["u3", "a5"],
   },
   {
     id: "p3",
@@ -74,6 +76,7 @@ export const projects: Project[] = [
     tokensAssigned: 40000,
     tokensUsed: 39800,
     memberIds: ["u2", "u5"],
+    workingIds: [],
   },
 ];
 
