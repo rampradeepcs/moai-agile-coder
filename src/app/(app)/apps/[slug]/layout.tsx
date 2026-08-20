@@ -2,6 +2,10 @@ import { notFound } from "next/navigation";
 import { projects } from "@/lib/data";
 import { ProjectTopbar } from "@/components/shell/project-topbar";
 
+export function generateStaticParams() {
+  return projects.map((p) => ({ slug: p.slug }));
+}
+
 export default async function ProjectLayout({
   children,
   params,

@@ -1,5 +1,9 @@
-import { workItemByKey, workItems } from "@/lib/data";
+import { projects, workItemByKey, workItems } from "@/lib/data";
 import { StoryView } from "@/components/story/story-view";
+
+export function generateStaticParams() {
+  return projects.flatMap((p) => workItems.map((w) => ({ slug: p.slug, id: w.key })));
+}
 
 export default async function StoryPage({
   params,
