@@ -43,6 +43,9 @@ const SERIES = [
 export default function GlobalDashboardPage() {
   const activeProjects = projects.filter((p) => p.status === "active").length;
   const usedPct = Math.round((creditBalance.used / creditBalance.total) * 100);
+  const workingAgents = new Set(
+    projects.flatMap((p) => p.workingIds ?? []).filter((id) => memberById(id)?.kind === "agent"),
+  ).size;
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-6">
@@ -84,7 +87,7 @@ export default function GlobalDashboardPage() {
         <KpiCard
           label="AI agents"
           value={String(agentCount)}
-          sub="4 working right now"
+          sub={`${workingAgents} working right now`}
           icon={Bot}
           iconClass="bg-pink-subtle text-pink"
         />

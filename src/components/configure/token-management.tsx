@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useParams } from "next/navigation";
 import { motion, type Variants } from "framer-motion";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { ArrowLeft, CheckCircle2, Plus, Printer } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { tokenStats } from "@/lib/data";
+import { tokenStats, projects } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -120,7 +121,9 @@ function Meter({
 /* ————— view ————— */
 
 export function TokenManagement({ onBack }: { onBack: () => void }) {
-  const [available, setAvailable] = useState(125450);
+  const params = useParams<{ slug: string }>();
+  const project = projects.find((p) => p.slug === params.slug) ?? projects[0];
+  const [available, setAvailable] = useState(project.tokensAssigned - project.tokensUsed);
 
   // Add-tokens flow
   const [addOpen, setAddOpen] = useState(false);

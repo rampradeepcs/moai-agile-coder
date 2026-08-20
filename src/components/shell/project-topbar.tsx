@@ -20,6 +20,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/types";
 import { memberById, pipelines } from "@/lib/data";
+import { creditBalance } from "@/lib/workspace-data";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -56,7 +57,7 @@ export function ProjectTopbar({ project }: { project: Project }) {
   const pathname = usePathname();
   const memberList = project.memberIds.map(memberById).filter(Boolean).slice(0, 3);
   const extra = project.memberIds.length + 18 - memberList.length;
-  const tokensLeft = project.tokensAssigned - project.tokensUsed + 19264;
+  const tokensLeft = creditBalance.remaining;
 
   return (
     <header className="sticky top-0 z-20 flex flex-col gap-4 bg-background/90 px-6 pb-4 pt-4 backdrop-blur">

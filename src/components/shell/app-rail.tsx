@@ -8,6 +8,7 @@ import {
   ChartColumn,
   ChevronDown,
   CreditCard,
+  LifeBuoy,
   ExternalLink,
   LayoutDashboard,
   PanelLeftClose,
@@ -213,6 +214,13 @@ export function AppRail() {
                 <Settings className="size-4 shrink-0" aria-hidden />
                 Settings
               </Link>
+              <Link
+                href="/support"
+                className={cn(menuItem, pathname.startsWith("/support") && "bg-brand-subtle text-brand")}
+              >
+                <LifeBuoy className="size-4 shrink-0" aria-hidden />
+                Support
+              </Link>
             </nav>
 
             {/* Active projects — browser-tab style */}
@@ -333,6 +341,10 @@ export function AppRail() {
 
               <RailIcon label="Settings" href="/settings" active={pathname.startsWith("/settings")}>
                 <Settings className="size-4.5" aria-hidden />
+              </RailIcon>
+
+              <RailIcon label="Support" href="/support" active={pathname.startsWith("/support")}>
+                <LifeBuoy className="size-4.5" aria-hidden />
               </RailIcon>
             </nav>
 

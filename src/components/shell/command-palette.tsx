@@ -1,19 +1,23 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   Bot,
-  Sparkles,
+  ChartColumn,
+  CreditCard,
   FileText,
   Kanban,
   LayoutDashboard,
   LayoutGrid,
+  LifeBuoy,
   ListTodo,
   Moon,
   Plus,
   Search,
+  Settings,
   Settings2,
+  Sparkles,
   Sun,
   Users,
 } from "lucide-react";
@@ -35,7 +39,11 @@ import { TypeBadge } from "@/components/work/badges";
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
+  // Project-scoped entries follow the project you're in; fall back to the first project.
+  const slugInPath = pathname.match(/^\/apps\/([^/]+)/)?.[1];
+  const currentSlug = projects.some((p) => p.slug === slugInPath) ? slugInPath : projects[0].slug;
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -71,7 +79,7 @@ export function CommandPalette() {
         <CommandSeparator />
         <CommandGroup heading="Tasks">
           {workItems.slice(0, 7).map((w) => (
-            <CommandItem key={w.id} value={`${w.key} ${w.title}`} onSelect={() => go(`/apps/paw-care/backlog?item=${w.key}`)}>
+            <CommandItem key={w.id} value={`${w.key} ${w.title}`} onSelect={() => go(`/apps/${currentSlug}/backlog?item=${w.key}`)}>
               <span className="font-mono text-xs text-muted-foreground">{w.key}</span>
               <span className="truncate">{w.title}</span>
               <span className="ml-auto"><TypeBadge type={w.type} /></span>
@@ -79,13 +87,22 @@ export function CommandPalette() {
           ))}
         </CommandGroup>
         <CommandSeparator />
-        <CommandGroup heading="Navigation">
-          <CommandItem onSelect={() => go("/apps/paw-care/ai-chat")}><Sparkles />AI chat</CommandItem>
-          <CommandItem onSelect={() => go("/apps/paw-care/dashboard")}><LayoutDashboard />Dashboard</CommandItem>
-          <CommandItem onSelect={() => go("/apps/paw-care/backlog")}><ListTodo />Backlog</CommandItem>
-          <CommandItem onSelect={() => go("/apps/paw-care/kanban")}><Kanban />Kanban</CommandItem>
-          <CommandItem onSelect={() => go("/apps/paw-care/configure")}><Settings2 />Configure</CommandItem>
-          <CommandItem onSelect={() => go("/users")}><Users />Users</CommandItem>
+        <CommandGroup heading="Project">
+          <CommandItem onSelect={() => go(`/apps/${currentSlug}/ai-chat`)}><Sparkles />AI chat</CommandItem>
+          <CommandItem onSelect={() => go(`/apps/${currentSlug}/dashboard`)}><LayoutDashboard />Project dashboard</CommandItem>
+          <CommandItem onSelect={() => go(`/apps/${currentSlug}/backlog`)}><ListTodo />Backlog</CommandItem>
+          <CommandItem onSelect={() => go(`/apps/${currentSlug}/kanban`)}><Kanban />Kanban</CommandItem>
+          <CommandItem onSelect={() => go(`/apps/${currentSlug}/configure`)}><Settings2 />Configure</CommandItem>
+        </CommandGroup>
+        <CommandSeparator />
+        <CommandGroup heading="Workspace">
+          <CommandItem onSelect={() => go("/dashboard")}><LayoutDashboard />Workspace dashboard</CommandItem>
+          <CommandItem onSelect={() => go("/usage")}><ChartColumn />Usage &amp; utilisation</CommandItem>
+          <CommandItem onSelect={() => go("/subscription")}><CreditCard />Subscription</CommandItem>
+          <CommandItem onSelect={() => go("/credits")}><Plus />Add credits</CommandItem>
+          <CommandItem onSelect={() => go("/settings")}><Settings />Settings</CommandItem>
+          <CommandItem onSelect={() => go("/support")}><LifeBuoy />Support</CommandItem>
+          <CommandItem onSelect={() => go("/users")}><Users />Workforce</CommandItem>
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Commands">
@@ -98,7 +115,7 @@ export function CommandPalette() {
             <Bot />
             Ask AI to create a task
           </CommandItem>
-          <CommandItem onSelect={() => go("/apps/paw-care/configure?tab=documents")}>
+          <CommandItem onSelect={() => go(`/apps/${currentSlug}/configure?tab=documents`)}>
             <FileText />
             Open requirement document
           </CommandItem>
