@@ -2,6 +2,9 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* Design-system tokens for the component library (see tailwind.preset.ts). */
+@config "../../tailwind.config.ts";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -164,6 +167,38 @@
   --sidebar-accent-foreground: #1a1a1a;
   --sidebar-border: #e2e2e4;
   --sidebar-ring: color-mix(in srgb, #2563eb 55%, transparent);
+
+  /*
+   * Semantic design-system tokens — light.
+   * Consumed as `text-fg-primary`, `bg-bg-primary`, `border-border-primary`.
+   * Mapped onto the palette above so the library and the app share one truth.
+   */
+  --fg-primary: #1a1a1a;
+  --fg-secondary: #4a4b4f;
+  --fg-tertiary: #6f7074;
+  --fg-disabled: #a8a9ad;
+  --fg-brand: #2563eb;
+  --fg-error: #dc4256;
+  --fg-warning: #b54708;
+  --fg-success: #0f9f5f;
+  --fg-on-brand: #ffffff;
+
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9f9fa;
+  --bg-tertiary: #efeff0;
+  --bg-disabled: #efeff0;
+  --bg-brand: #eff5ff;
+  --bg-brand-solid: #2563eb;
+  --bg-error: #fef3f4;
+  --bg-warning: #fffaeb;
+  --bg-success: #ecfdf3;
+  --bg-overlay: rgb(26 26 26 / 55%);
+
+  --border-primary: #e6e6e8;
+  --border-secondary: #efeff0;
+  --border-disabled: #e6e6e8;
+  --border-brand: #2563eb;
+  --border-error: #dc4256;
 }
 
 .dark {
@@ -229,6 +264,34 @@
   --sidebar-accent-foreground: #ececed;
   --sidebar-border: rgb(255 255 255 / 7%);
   --sidebar-ring: color-mix(in srgb, #2563eb 60%, transparent);
+
+  /* Semantic design-system tokens — dark. Same names, flipped values. */
+  --fg-primary: #ececed;
+  --fg-secondary: #b4b5b8;
+  --fg-tertiary: #8e8f92;
+  --fg-disabled: #5c5d61;
+  --fg-brand: #4d82f0;
+  --fg-error: #e28591;
+  --fg-warning: #e0c343;
+  --fg-success: #41d596;
+  --fg-on-brand: #ffffff;
+
+  --bg-primary: #161718;
+  --bg-secondary: #121314;
+  --bg-tertiary: #1e1f20;
+  --bg-disabled: #1e1f20;
+  --bg-brand: #1c232e;
+  --bg-brand-solid: #2563eb;
+  --bg-error: #2a1a1d;
+  --bg-warning: #2e2a16;
+  --bg-success: #142922;
+  --bg-overlay: rgb(0 0 0 / 65%);
+
+  --border-primary: rgb(255 255 255 / 10%);
+  --border-secondary: rgb(255 255 255 / 7%);
+  --border-disabled: rgb(255 255 255 / 7%);
+  --border-brand: #4d82f0;
+  --border-error: #e28591;
 }
 
 @layer base {

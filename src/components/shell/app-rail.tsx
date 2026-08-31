@@ -11,6 +11,7 @@ import {
   LifeBuoy,
   ExternalLink,
   LayoutDashboard,
+  Palette,
   PanelLeftClose,
   PanelLeftOpen,
   Settings,
@@ -215,6 +216,13 @@ export function AppRail() {
                 Settings
               </Link>
               <Link
+                href="/design-system"
+                className={cn(menuItem, pathname.startsWith("/design-system") && "bg-brand-subtle text-brand")}
+              >
+                <Palette className="size-4 shrink-0" aria-hidden />
+                Design system
+              </Link>
+              <Link
                 href="/support"
                 className={cn(menuItem, pathname.startsWith("/support") && "bg-brand-subtle text-brand")}
               >
@@ -341,6 +349,14 @@ export function AppRail() {
 
               <RailIcon label="Settings" href="/settings" active={pathname.startsWith("/settings")}>
                 <Settings className="size-4.5" aria-hidden />
+              </RailIcon>
+
+              <RailIcon
+                label="Design system"
+                href="/design-system"
+                active={pathname.startsWith("/design-system")}
+              >
+                <Palette className="size-4.5" aria-hidden />
               </RailIcon>
 
               <RailIcon label="Support" href="/support" active={pathname.startsWith("/support")}>

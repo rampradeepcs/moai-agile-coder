@@ -13,6 +13,7 @@ import {
   LifeBuoy,
   ListTodo,
   Moon,
+  Palette,
   Plus,
   Search,
   Settings,
@@ -101,6 +102,7 @@ export function CommandPalette() {
           <CommandItem onSelect={() => go("/subscription")}><CreditCard />Subscription</CommandItem>
           <CommandItem onSelect={() => go("/credits")}><Plus />Add credits</CommandItem>
           <CommandItem onSelect={() => go("/settings")}><Settings />Settings</CommandItem>
+          <CommandItem onSelect={() => go("/design-system")}><Palette />Design system</CommandItem>
           <CommandItem onSelect={() => go("/support")}><LifeBuoy />Support</CommandItem>
           <CommandItem onSelect={() => go("/users")}><Users />Workforce</CommandItem>
         </CommandGroup>
