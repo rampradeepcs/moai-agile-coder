@@ -22,6 +22,7 @@ import {
   Share2,
   Sparkles,
 } from "lucide-react";
+import { panelClasses } from "@/components/shared";
 
 const progressSteps = [
   "Reading Requirements",
@@ -153,7 +154,7 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="rounded-xl border bg-card shadow-elevation-low"
+            className={panelClasses({ padding: "none" })}
           >
             <div className="flex items-center justify-between border-b px-4 py-2.5">
               <h2 className="text-sm font-semibold">Figma Preview</h2>
@@ -243,7 +244,7 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.08, ease: "easeOut" }}
-            className="rounded-xl border bg-card p-5 shadow-elevation-low"
+            className={panelClasses()}
           >
             <div className="flex items-center gap-2">
               <TypeBadge type={item.type} />
@@ -316,7 +317,7 @@ export function StoryView({ slug, item }: { slug: string; item: WorkItem }) {
           initial={{ opacity: 0, x: 12 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.12, ease: "easeOut" }}
-          className="sticky top-24 flex h-[calc(100svh-180px)] flex-col rounded-xl border bg-card shadow-elevation-low"
+          className={panelClasses({ padding: "none", className: "sticky top-24 flex h-[calc(100svh-180px)] flex-col" })}
         >
           <div className="flex items-center gap-2 border-b px-4 py-3">
             <Bot className="size-4 text-brand" aria-hidden />

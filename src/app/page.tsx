@@ -6,6 +6,7 @@ import { Bot, FileText, Kanban } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/marketing/logo";
 import { PromptCard } from "@/components/marketing/prompt-card";
+import { panelClasses } from "@/components/shared";
 
 const NAV_LINKS = ["Product", "Pricing", "Docs", "Changelog"];
 
@@ -161,7 +162,7 @@ export default function LandingPage() {
           <motion.div
             key={f.title}
             variants={fadeUp}
-            className="rounded-xl border bg-card p-6 shadow-elevation-low transition-shadow hover:shadow-elevation-mid"
+            className={panelClasses({ padding: "lg", className: "transition-shadow hover:shadow-elevation-mid" })}
           >
             <div className="flex size-10 items-center justify-center rounded-lg bg-brand-subtle text-brand">
               <f.icon className="size-5" />
@@ -182,7 +183,7 @@ export default function LandingPage() {
       >
         <motion.div
           variants={fadeUp}
-          className="grid grid-cols-2 gap-8 rounded-xl border bg-card px-8 py-10 shadow-elevation-low sm:grid-cols-4"
+          className={panelClasses({ padding: "none", className: "grid grid-cols-2 gap-8 px-8 py-10 sm:grid-cols-4" })}
         >
           {STATS.map((s) => (
             <div key={s.label} className="text-center">

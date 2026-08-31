@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/input-otp";
 import { AiCostConfirm } from "./ai-cost-confirm";
 import { CornerDownRight, Pencil } from "lucide-react";
+import { panelClasses } from "@/components/shared";
 
 export function InfoArchitectureTab() {
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -60,7 +61,7 @@ export function InfoArchitectureTab() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04, duration: 0.25 }}
-              className="rounded-xl border bg-card p-4 shadow-elevation-low"
+              className={panelClasses({ padding: "sm" })}
             >
               <div className="flex items-center justify-between gap-2">
                 <div className="flex min-w-0 items-center gap-2">

@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { BadgeCheck, Coins, CreditCard, Minus, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { creditBalance, creditHistory, creditPacks, currentPlan } from "@/lib/workspace-data";
-import { GlobalHeader } from "@/components/shell/global-header";
+import { PageHeader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -30,7 +30,7 @@ export default function CreditsPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-6">
-      <GlobalHeader
+      <PageHeader
         title="Add credits"
         description="Top up your workspace when the monthly allowance isn't enough."
         actions={

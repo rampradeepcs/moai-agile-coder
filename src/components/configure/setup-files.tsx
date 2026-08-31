@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Copy, Database, Download, FileText, Server, TabletSmartphone } from "lucide-react";
+import { panelClasses } from "@/components/shared";
 
 interface SetupGuide {
   name: string;
@@ -179,7 +180,7 @@ export function SetupFilesTab() {
         {guides.map((g) => (
           <div
             key={g.name}
-            className="flex flex-col rounded-xl border bg-card p-4 shadow-elevation-low"
+            className={panelClasses({ padding: "sm", className: "flex flex-col" })}
           >
             <span
               className={`inline-flex size-9 items-center justify-center rounded-lg ${g.tint}`}

@@ -4,10 +4,11 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { panelClasses } from "@/components/shared";
 
 export function RepositoryTab() {
   return (
-    <div className="max-w-2xl rounded-xl border bg-card p-6 shadow-elevation-low">
+    <div className={panelClasses({ padding: "lg", className: "max-w-2xl" })}>
       <h2 className="text-sm font-semibold">Repository configuration</h2>
       <p className="mt-0.5 text-xs text-muted-foreground">
         Where Agile Coder pushes generated code and setup files.

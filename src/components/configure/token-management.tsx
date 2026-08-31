@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { motion, type Variants } from "framer-motion";
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import {
+  Cell,
+  Pie,
+  PieChart,
+} from "recharts";
 import { ArrowLeft, CheckCircle2, Plus, Printer } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -33,10 +37,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  tooltipContentStyle,
-  tooltipItemStyle,
-} from "@/components/dashboard/chart-style";
+import { ChartFrame, ChartTooltip, panelClasses } from "@/components/shared";
 
 /* ————— constants ————— */
 
@@ -187,7 +188,7 @@ export function TokenManagement({ onBack }: { onBack: () => void }) {
 
       <motion.div variants={container} initial="hidden" animate="show" className="flex flex-col gap-4">
         {/* Hero + meters */}
-        <motion.div variants={item} className="rounded-xl border bg-card p-6 shadow-soft">
+        <motion.div variants={item} className={panelClasses({ padding: "lg", elevation: "soft" })}>
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
             <div className="flex flex-col gap-1">
               <span className="text-4xl font-semibold tracking-tight tabular-nums">
@@ -211,7 +212,7 @@ export function TokenManagement({ onBack }: { onBack: () => void }) {
 
         <div className="grid gap-4 lg:grid-cols-2">
           {/* Module usage breakdown */}
-          <motion.div variants={item} className="rounded-xl border bg-card p-5 shadow-soft">
+          <motion.div variants={item} className={panelClasses({ elevation: "soft" })}>
             <h3 className="mb-3 text-sm font-semibold">Module Usage Breakdown</h3>
             <Table>
               <TableHeader>
@@ -236,11 +237,11 @@ export function TokenManagement({ onBack }: { onBack: () => void }) {
           </motion.div>
 
           {/* User usage breakdown */}
-          <motion.div variants={item} className="rounded-xl border bg-card p-5 shadow-soft">
+          <motion.div variants={item} className={panelClasses({ elevation: "soft" })}>
             <h3 className="mb-2 text-sm font-semibold">User Usage Breakdown</h3>
             <div className="flex flex-col items-center gap-5">
               <div className="relative h-52 w-52">
-                <ResponsiveContainer width="100%" height="100%">
+                <ChartFrame height={208}>
                   <PieChart>
                     <Pie
                       data={tokenStats.byUser}
@@ -256,13 +257,11 @@ export function TokenManagement({ onBack }: { onBack: () => void }) {
                         <Cell key={entry.name} fill={chartColors[i % chartColors.length]} />
                       ))}
                     </Pie>
-                    <Tooltip
-                      contentStyle={tooltipContentStyle}
-                      itemStyle={tooltipItemStyle}
+                    <ChartTooltip
                       formatter={(value) => `${Number(value).toLocaleString()} tokens`}
                     />
                   </PieChart>
-                </ResponsiveContainer>
+                </ChartFrame>
                 <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
                   <span className="text-xl font-semibold tabular-nums">
                     {TOTAL_USED_ALL_USERS.toLocaleString()}

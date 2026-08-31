@@ -9,8 +9,6 @@ import {
   Pie,
   PieChart,
   ReferenceDot,
-  ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
@@ -26,13 +24,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { tokenStats } from "@/lib/data";
-import {
-  axisTick,
-  gridProps,
-  tooltipContentStyle,
-  tooltipItemStyle,
-  tooltipLabelStyle,
-} from "./chart-style";
+import { ChartFrame, ChartTooltip, axisTick, gridProps } from "@/components/shared";
 
 /* ————— animation ————— */
 
@@ -128,8 +120,7 @@ export function TokensView() {
             </span>
             <span className="text-xs text-muted-foreground">Available tokens</span>
           </div>
-          <div className="h-14 w-36">
-            <ResponsiveContainer width="100%" height="100%">
+          <ChartFrame height={56} className="w-36">
               <AreaChart data={sparkline} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient id="balanceSparkFill" x1="0" y1="0" x2="0" y2="1">
@@ -145,8 +136,7 @@ export function TokensView() {
                   dot={false}
                 />
               </AreaChart>
-            </ResponsiveContainer>
-          </div>
+            </ChartFrame>
         </div>
         <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
           {balanceCells.map((cell) => (
@@ -169,7 +159,7 @@ export function TokensView() {
         <h3 className="mb-2 text-sm font-semibold">Usage breakdown</h3>
         <div className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
           <div className="relative h-44 w-44 shrink-0">
-            <ResponsiveContainer width="100%" height="100%">
+            <ChartFrame height={176}>
               <PieChart>
                 <Pie
                   data={tokenStats.breakdown}
@@ -185,13 +175,11 @@ export function TokensView() {
                     <Cell key={entry.label} fill={chartColors[i % chartColors.length]} />
                   ))}
                 </Pie>
-                <Tooltip
-                  contentStyle={tooltipContentStyle}
-                  itemStyle={tooltipItemStyle}
+                <ChartTooltip
                   formatter={(value) => `${Number(value).toLocaleString()} tokens`}
                 />
               </PieChart>
-            </ResponsiveContainer>
+            </ChartFrame>
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-xl font-bold tracking-tight tabular-nums">
                 {breakdownTotal.toLocaleString()}
@@ -218,7 +206,7 @@ export function TokensView() {
         <h3 className="mb-2 text-sm font-semibold">User usage breakdown</h3>
         <div className="flex flex-col items-center gap-4">
           <div className="relative h-48 w-48">
-            <ResponsiveContainer width="100%" height="100%">
+            <ChartFrame height={192}>
               <PieChart>
                 <Pie
                   data={tokenStats.byUser}
@@ -234,13 +222,11 @@ export function TokensView() {
                     <Cell key={entry.name} fill={chartColors[i % chartColors.length]} />
                   ))}
                 </Pie>
-                <Tooltip
-                  contentStyle={tooltipContentStyle}
-                  itemStyle={tooltipItemStyle}
+                <ChartTooltip
                   formatter={(value) => `${Number(value).toLocaleString()} tokens`}
                 />
               </PieChart>
-            </ResponsiveContainer>
+            </ChartFrame>
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-xl font-bold tracking-tight tabular-nums">
                 {TOTAL_USED_ALL_USERS.toLocaleString()}
@@ -282,8 +268,7 @@ export function TokensView() {
             </TabsList>
           </Tabs>
         </div>
-        <div className="h-[260px] w-full min-w-0">
-          <ResponsiveContainer width="100%" height="100%">
+        <ChartFrame height={260}>
             <AreaChart data={tokenStats.trend} margin={{ top: 8, right: 12, bottom: 0, left: -8 }}>
               <defs>
                 <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
@@ -294,10 +279,7 @@ export function TokensView() {
               <CartesianGrid {...gridProps} />
               <XAxis dataKey="month" tick={axisTick} axisLine={false} tickLine={false} />
               <YAxis tick={axisTick} axisLine={false} tickLine={false} />
-              <Tooltip
-                contentStyle={tooltipContentStyle}
-                labelStyle={tooltipLabelStyle}
-                itemStyle={tooltipItemStyle}
+              <ChartTooltip
                 formatter={(value) => [`${Number(value).toLocaleString()} tokens`, "Usage"]}
               />
               <Area
@@ -317,8 +299,7 @@ export function TokensView() {
                 strokeWidth={2}
               />
             </AreaChart>
-          </ResponsiveContainer>
-        </div>
+          </ChartFrame>
       </motion.div>
 
       {/* Module usage breakdown */}

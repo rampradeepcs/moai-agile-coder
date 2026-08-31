@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/command";
 import { PromptCard } from "@/components/marketing/prompt-card";
 import { cn } from "@/lib/utils";
+import { panelClasses } from "@/components/shared";
 
 /* ------------------------------------------------------------------ */
 /* Script definition                                                   */
@@ -394,7 +395,7 @@ function BotCard({
         )}
 
         {active && node.kind === "llm" && node.options && (
-          <div className="mt-3 overflow-hidden rounded-xl border bg-card">
+          <div className={panelClasses({ padding: "none", elevation: "none", className: "mt-3 overflow-hidden" })}>
             <Command>
               <CommandInput placeholder="Search models…" />
               <CommandList className="max-h-52">
@@ -413,7 +414,7 @@ function BotCard({
 
         {node.kind === "summary" && (
           <div className="mt-3 space-y-3">
-            <div className="overflow-hidden rounded-xl border bg-card">
+            <div className={panelClasses({ padding: "none", elevation: "none", className: "overflow-hidden" })}>
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b bg-muted/50 text-left text-xs text-muted-foreground">

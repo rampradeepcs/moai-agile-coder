@@ -7,6 +7,7 @@ import { members, pipelines } from "@/lib/data";
 import { AgentBadge } from "@/components/work/badges";
 import { UserAvatar } from "@/components/work/user-avatar";
 import { Switch } from "@/components/ui/switch";
+import { panelClasses } from "@/components/shared";
 
 const agents = members.filter((m) => m.kind === "agent");
 
@@ -29,7 +30,7 @@ export function AgentsGrid() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.03, duration: 0.25 }}
-          className="rounded-xl border bg-card p-4 shadow-elevation-low"
+          className={panelClasses({ padding: "sm" })}
         >
           <div className="flex items-start justify-between">
             <UserAvatar member={a} size="lg" showTooltip={false} />

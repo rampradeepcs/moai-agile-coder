@@ -26,6 +26,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MoreHorizontal } from "lucide-react";
+import { panelClasses } from "@/components/shared";
 
 const humans = members.filter((m) => m.kind === "human");
 
@@ -33,7 +34,7 @@ const lastActive = ["2m ago", "18m ago", "1h ago", "3h ago", "yesterday", "2d ag
 
 export function MembersTable() {
   return (
-    <div className="rounded-xl border bg-card shadow-elevation-low">
+    <div className={panelClasses({ padding: "none" })}>
       <Table>
         <TableHeader>
           <TableRow>

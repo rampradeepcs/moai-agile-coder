@@ -37,6 +37,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { panelClasses } from "@/components/shared";
 
 /* ————— data ————— */
 
@@ -156,7 +157,7 @@ export function ProjectWorkforce({ onBack }: { onBack: () => void }) {
           <span className="text-sm text-muted-foreground">{m.role}</span>
         </div>
 
-        <div className="rounded-xl border bg-card p-5 shadow-soft">
+        <div className={panelClasses({ elevation: "soft" })}>
           <h3 className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">
             Basic details
           </h3>
@@ -180,7 +181,7 @@ export function ProjectWorkforce({ onBack }: { onBack: () => void }) {
           </div>
         </div>
 
-        <div className="rounded-xl border bg-card p-5 shadow-soft">
+        <div className={panelClasses({ elevation: "soft" })}>
           <h3 className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">
             Assigned projects
           </h3>
@@ -273,7 +274,7 @@ export function ProjectWorkforce({ onBack }: { onBack: () => void }) {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="overflow-x-auto rounded-xl border bg-card shadow-soft"
+        className={panelClasses({ padding: "none", elevation: "soft", className: "overflow-x-auto" })}
       >
         {tab === "employees" ? (
           <Table>

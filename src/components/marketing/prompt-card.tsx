@@ -6,6 +6,7 @@ import { ArrowUp, Mic, Paperclip } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { panelClasses } from "@/components/shared";
 
 interface PromptCardProps {
   placeholder?: string;
@@ -40,7 +41,7 @@ export function PromptCard({
   return (
     <div
       className={cn(
-        "w-full max-w-2xl rounded-xl border bg-card p-3 shadow-elevation-high",
+        panelClasses({ padding: "none", elevation: "high", className: "w-full max-w-2xl p-3" }),
         className
       )}
     >

@@ -20,6 +20,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { panelClasses } from "@/components/shared";
 
 interface DocSection {
   id: string;
@@ -226,7 +227,7 @@ export function RequirementDoc({ onApprove }: { onApprove: () => void }) {
                 key={section.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="rounded-xl border bg-card p-5 shadow-elevation-low"
+                className={panelClasses()}
               >
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="font-semibold tracking-tight">{section.title}</h2>

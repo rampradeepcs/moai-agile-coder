@@ -11,11 +11,11 @@ import {
   MoreHorizontal,
   Pencil,
   Plus,
-  Search,
   Trash2,
   Workflow,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SearchInput, panelClasses } from "@/components/shared";
 import type { WorkItem } from "@/lib/types";
 import { memberById, workItemById, workItems } from "@/lib/data";
 import { PriorityBadge, StatusBadge, TypeBadge, statusConfig } from "@/components/work/badges";
@@ -224,16 +224,13 @@ export function SprintManagement({ onBack }: { onBack: () => void }) {
       </div>
 
       {/* ——— Search */}
-      <div className="relative max-w-sm">
-        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-        <Input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search work items by title or key…"
-          className="pl-9"
-          aria-label="Search work items"
-        />
-      </div>
+      <SearchInput
+        value={query}
+        onValueChange={setQuery}
+        placeholder="Search work items by title or key…"
+        aria-label="Search work items"
+        wrapperClassName="max-w-sm"
+      />
 
       {/* ——— Sprint groups */}
       <div className="flex flex-col gap-4">
@@ -247,7 +244,7 @@ export function SprintManagement({ onBack }: { onBack: () => void }) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: gi * 0.05, duration: 0.25, ease: "easeOut" }}
-              className="overflow-hidden rounded-xl border bg-card shadow-soft"
+              className={panelClasses({ padding: "none", elevation: "soft", className: "overflow-hidden" })}
             >
               {/* Group header */}
               <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
@@ -540,16 +537,12 @@ function MapTasksDialog({
           <DialogTitle>Map tasks to {group.name}</DialogTitle>
           <DialogDescription>Pick work items to pull into this sprint.</DialogDescription>
         </DialogHeader>
-        <div className="relative">
-          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-          <Input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by title or key…"
-            className="pl-9"
-            aria-label="Search available work items"
-          />
-        </div>
+        <SearchInput
+          value={query}
+          onValueChange={setQuery}
+          placeholder="Search by title or key…"
+          aria-label="Search available work items"
+        />
         <ul className="scrollbar-thin -mx-1 max-h-72 overflow-y-auto px-1">
           {available.length === 0 && (
             <li className="py-6 text-center text-xs text-muted-foreground">No work items found.</li>

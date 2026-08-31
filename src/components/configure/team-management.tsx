@@ -8,12 +8,12 @@ import {
   LayoutGrid,
   Pencil,
   Plus,
-  Search,
   Table2,
   Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { SearchInput, panelClasses } from "@/components/shared";
 import { members, memberById } from "@/lib/data";
 import type { Member } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -434,19 +434,14 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
 
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-3">
-        <div className="relative w-full max-w-56">
-          <Search
-            className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground"
-            aria-hidden
-          />
-          <Input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search teams"
-            aria-label="Search teams"
-            className="h-8 pl-8 text-xs"
-          />
-        </div>
+        <SearchInput
+          size="sm"
+          value={query}
+          onValueChange={setQuery}
+          placeholder="Search teams"
+          aria-label="Search teams"
+          wrapperClassName="w-full max-w-56"
+        />
         <Select value={statusFilter} onValueChange={setStatusFilter}>
           <SelectTrigger size="sm" className="w-32 text-xs" aria-label="Filter by status">
             <SelectValue placeholder="Status" />
@@ -502,7 +497,7 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col items-center gap-2 rounded-xl border bg-card px-6 py-16 text-center shadow-soft"
+          className={panelClasses({ padding: "none", elevation: "soft", className: "flex flex-col items-center gap-2 px-6 py-16 text-center" })}
         >
           <span className="text-base font-semibold">No teams found!</span>
           <span className="max-w-sm text-sm text-muted-foreground">
@@ -528,7 +523,7 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ delay: i * 0.03, duration: 0.25, ease: "easeOut" }}
                   className={cn(
-                    "group relative overflow-hidden rounded-xl border bg-card p-5 pl-6 shadow-soft transition-shadow hover:shadow-elevation-mid",
+                    panelClasses({ elevation: "soft", className: "group relative overflow-hidden pl-6 transition-shadow hover:shadow-elevation-mid" }),
                     color.className,
                   )}
                 >
@@ -569,7 +564,7 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="overflow-x-auto rounded-xl border bg-card shadow-soft"
+          className={panelClasses({ padding: "none", elevation: "soft", className: "overflow-x-auto" })}
         >
           <Table>
             <TableHeader>

@@ -2,10 +2,11 @@
 
 import { activity, memberById } from "@/lib/data";
 import { UserAvatar } from "@/components/work/user-avatar";
+import { panelClasses } from "@/components/shared";
 
 export function ActivityList() {
   return (
-    <div className="max-w-2xl rounded-xl border bg-card shadow-elevation-low">
+    <div className={panelClasses({ padding: "none", className: "max-w-2xl" })}>
       <ul className="divide-y">
         {activity.map((ev) => {
           const actor = memberById(ev.actorId);

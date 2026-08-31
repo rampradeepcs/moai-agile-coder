@@ -7,8 +7,6 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
@@ -16,14 +14,7 @@ import { Coins, SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { memberById, projects } from "@/lib/data";
 import { creditBalance, projectUsage, usageTrend, userUsage } from "@/lib/workspace-data";
-import {
-  axisTick,
-  gridProps,
-  tooltipContentStyle,
-  tooltipItemStyle,
-  tooltipLabelStyle,
-} from "@/components/dashboard/chart-style";
-import { GlobalHeader } from "@/components/shell/global-header";
+import { ChartFrame, ChartTooltip, PageHeader, axisProps, gridProps } from "@/components/shared";
 import { UserAvatar } from "@/components/work/user-avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -75,7 +66,7 @@ export default function UsagePage() {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-6">
-      <GlobalHeader
+      <PageHeader
         title="Usage & utilisation"
         description="Where your workspace credits go — by project and by person."
         actions={
@@ -118,22 +109,15 @@ export default function UsagePage() {
       {/* Monthly consumption chart */}
       <section className="rounded-xl bg-card p-5 shadow-soft">
         <h2 className="mb-4 text-sm font-semibold">Monthly consumption</h2>
-        <div className="h-60">
-          <ResponsiveContainer width="100%" height="100%">
+        <ChartFrame height={240}>
             <BarChart data={usageTrend} margin={{ top: 4, right: 4, bottom: 0, left: -12 }}>
               <CartesianGrid {...gridProps} />
-              <XAxis dataKey="month" tick={axisTick} tickLine={false} axisLine={false} />
+              <XAxis dataKey="month" {...axisProps} />
               <YAxis
-                tick={axisTick}
-                tickLine={false}
-                axisLine={false}
+                {...axisProps}
                 tickFormatter={(v: number) => `${Math.round(v / 1000)}k`}
               />
-              <Tooltip
-                cursor={{ fill: "var(--muted)", opacity: 0.5 }}
-                contentStyle={tooltipContentStyle}
-                labelStyle={tooltipLabelStyle}
-                itemStyle={tooltipItemStyle}
+              <ChartTooltip
                 formatter={(value, name) => [
                   Number(value ?? 0).toLocaleString(),
                   projects.find((p) => p.slug === name)?.name ?? String(name),
@@ -149,8 +133,7 @@ export default function UsagePage() {
                 />
               ))}
             </BarChart>
-          </ResponsiveContainer>
-        </div>
+          </ChartFrame>
       </section>
 
       {/* Per-project usage */}

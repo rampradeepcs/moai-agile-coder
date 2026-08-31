@@ -34,6 +34,7 @@ import { TeamManagement } from "@/components/configure/team-management";
 import { ProjectWorkforce } from "@/components/configure/project-workforce";
 import { SprintManagement } from "@/components/configure/sprint-management";
 import { ReleaseManagement } from "@/components/configure/release-management";
+import { panelClasses } from "@/components/shared";
 
 const sections = [
   { id: "app-settings", title: "App settings", subtitle: "Configure application", icon: Settings2, iconClass: "bg-brand-subtle text-brand" },
@@ -119,7 +120,7 @@ function ConfigureContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04, duration: 0.25, ease: "easeOut" }}
               whileHover={{ y: -2 }}
-              className="group flex items-center justify-between gap-4 rounded-xl border bg-card px-6 py-5 text-left shadow-soft transition-shadow hover:shadow-elevation-mid"
+              className={panelClasses({ padding: "none", elevation: "soft", className: "group flex items-center justify-between gap-4 px-6 py-5 text-left transition-shadow hover:shadow-elevation-mid" })}
             >
               <span className="flex min-w-0 items-center gap-4">
                 <span className={cn("grid size-11 shrink-0 place-items-center rounded-xl", s.iconClass)}>

@@ -1,21 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { Search, ChevronDown, Users, Shapes, SignalHigh, CircleDot } from "lucide-react";
+import { Users, Shapes, SignalHigh, CircleDot } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Priority, Status, WorkItemType } from "@/lib/types";
 import { members } from "@/lib/data";
 import { priorityConfig, statusConfig, typeConfig } from "@/components/work/badges";
 import { UserAvatar } from "@/components/work/user-avatar";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { FilterPill, SearchInput } from "@/components/shared";
 import {
-  DropdownMenu,
   DropdownMenuCheckboxItem,
-  DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 export interface BacklogFilterState {
@@ -33,40 +29,6 @@ export const emptyFilters: BacklogFilterState = {
   priorities: [],
   statuses: [],
 };
-
-function FilterPill({
-  label,
-  icon: Icon,
-  selected,
-  children,
-}: {
-  label: string;
-  icon: React.ElementType;
-  selected: string[];
-  children: React.ReactNode;
-}) {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 gap-1.5 px-3 text-xs font-medium">
-          <Icon className="size-3.5 text-muted-foreground" aria-hidden />
-          {label}
-          {selected.length > 0 && (
-            <span className="rounded-md bg-brand px-1.5 py-px text-[10px] font-semibold text-white">
-              {selected.length}
-            </span>
-          )}
-          <ChevronDown className="size-3 text-muted-foreground" aria-hidden />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-56">
-        <DropdownMenuLabel className="text-xs text-muted-foreground">{label}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {children}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
 
 export function BacklogFilters({
   filters,
@@ -91,16 +53,14 @@ export function BacklogFilters({
 
   return (
     <div className={cn("flex flex-wrap items-center gap-2", className)}>
-      <div className="relative">
-        <Search className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" aria-hidden />
-        <Input
-          value={filters.search}
-          onChange={(e) => onChange({ ...filters, search: e.target.value })}
-          placeholder="Search this board"
-          aria-label="Search this board"
-          className="h-8 w-56 pl-8 text-xs"
-        />
-      </div>
+      <SearchInput
+        size="sm"
+        value={filters.search}
+        onValueChange={(search) => onChange({ ...filters, search })}
+        placeholder="Search this board"
+        aria-label="Search this board"
+        wrapperClassName="w-56"
+      />
 
       <FilterPill label="Assigned to" icon={Users} selected={filters.assignees}>
         {humans.map((m) => (

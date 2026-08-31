@@ -7,19 +7,16 @@ import { AgentsGrid } from "@/components/users/agents-grid";
 import { InviteDialog } from "@/components/users/invite-dialog";
 import { MembersTable } from "@/components/users/members-table";
 import { RolesCards } from "@/components/users/roles-cards";
+import { PageHeader } from "@/components/shared";
 
 export default function UsersPage() {
   return (
     <div className="px-6 py-5">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-sm font-semibold">Users</h1>
-          <p className="mt-0.5 text-xs text-muted-foreground">
-            People and AI agents working in this workspace
-          </p>
-        </div>
-        <InviteDialog />
-      </div>
+      <PageHeader
+        title="Users"
+        description="People and AI agents working in this workspace"
+        actions={<InviteDialog />}
+      />
 
       <motion.div
         initial={{ opacity: 0, y: 8 }}

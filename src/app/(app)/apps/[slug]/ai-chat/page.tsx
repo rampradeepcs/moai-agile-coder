@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Send, Sparkles, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { panelClasses } from "@/components/shared";
 
 interface ChatMessage {
   id: number;
@@ -106,7 +107,10 @@ export default function AiChatPage() {
                   <span className="grid size-7 place-items-center rounded-lg bg-brand-subtle text-brand">
                     <Sparkles className="size-3.5" aria-hidden />
                   </span>
-                  <span className="flex gap-1 rounded-xl border bg-card px-4 py-3 shadow-soft" aria-label="AI is thinking">
+                  <span
+                    className={panelClasses({ padding: "none", elevation: "soft", className: "flex gap-1 px-4 py-3" })}
+                    aria-label="AI is thinking"
+                  >
                     {[0, 1, 2].map((i) => (
                       <span
                         key={i}

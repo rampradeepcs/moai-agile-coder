@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { panelClasses } from "@/components/shared";
 
 const STEPS = 4;
 
@@ -103,7 +104,7 @@ export default function OnboardingPage() {
                     onClick={() => setUsage(opt.id)}
                     aria-pressed={usage === opt.id}
                     className={cn(
-                      "flex w-full items-start gap-4 rounded-xl border bg-card p-4 text-left transition-all hover:border-primary/40",
+                      panelClasses({ padding: "sm", elevation: "none", className: "flex w-full items-start gap-4 text-left transition-all hover:border-primary/40" }),
                       usage === opt.id && "border-primary ring-2 ring-primary/30"
                     )}
                   >
@@ -182,7 +183,7 @@ export default function OnboardingPage() {
                     onClick={() => setTeamSize(opt)}
                     aria-pressed={teamSize === opt}
                     className={cn(
-                      "rounded-xl border bg-card p-4 text-center text-sm font-medium transition-all hover:border-primary/40",
+                      panelClasses({ padding: "sm", elevation: "none", className: "text-center text-sm font-medium transition-all hover:border-primary/40" }),
                       teamSize === opt && "border-primary ring-2 ring-primary/30"
                     )}
                   >

@@ -20,6 +20,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Database, Server, TabletSmartphone } from "lucide-react";
+import { panelClasses } from "@/components/shared";
 
 const stack = [
   {
@@ -61,7 +62,7 @@ export function TechStackTab() {
         {stack.map((s) => (
           <div
             key={s.name}
-            className="flex flex-col rounded-xl border bg-card p-4 shadow-elevation-low"
+            className={panelClasses({ padding: "sm", className: "flex flex-col" })}
           >
             <div className="flex items-start justify-between">
               <span
@@ -90,7 +91,7 @@ export function TechStackTab() {
         ))}
       </div>
 
-      <div className="rounded-xl border bg-card shadow-elevation-low">
+      <div className={panelClasses({ padding: "none" })}>
         <div className="border-b px-4 py-3">
           <h2 className="text-sm font-semibold">LLM per module</h2>
           <p className="mt-0.5 text-xs text-muted-foreground">

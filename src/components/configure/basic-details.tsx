@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { AiCostConfirm } from "./ai-cost-confirm";
+import { panelClasses } from "@/components/shared";
 
 const platforms = [
   "Mobile app (iOS/Android)",
@@ -35,7 +36,7 @@ export function BasicDetailsTab() {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   return (
-    <div className="max-w-2xl rounded-xl border bg-card p-6 shadow-elevation-low">
+    <div className={panelClasses({ padding: "lg", className: "max-w-2xl" })}>
       <h2 className="text-sm font-semibold">Basic details</h2>
       <p className="mt-0.5 text-xs text-muted-foreground">
         Core facts about this application. Changing them regenerates the setup.

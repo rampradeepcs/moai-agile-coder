@@ -9,10 +9,9 @@ import {
   LifeBuoy,
   MessageSquareText,
   Rocket,
-  Search,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { GlobalHeader } from "@/components/shell/global-header";
+import { PageHeader, SearchInput } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -85,7 +84,7 @@ export default function SupportPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-6">
-      <GlobalHeader
+      <PageHeader
         title="Support"
         description="Answers, guides, and a direct line to us."
         actions={
@@ -97,19 +96,13 @@ export default function SupportPage() {
       />
 
       {/* Search */}
-      <div className="relative">
-        <Search
-          className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-          aria-hidden
-        />
-        <Input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search help articles and FAQs…"
-          className="h-11 pl-9"
-          aria-label="Search help"
-        />
-      </div>
+      <SearchInput
+        size="lg"
+        value={query}
+        onValueChange={setQuery}
+        placeholder="Search help articles and FAQs…"
+        aria-label="Search help"
+      />
 
       {/* Quick resources */}
       <div className="grid gap-3 sm:grid-cols-3">

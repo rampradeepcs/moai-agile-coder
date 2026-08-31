@@ -30,6 +30,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ItemRow } from "./item-row";
+import { panelClasses } from "@/components/shared";
 
 export function EpicGroup({
   epic,
@@ -76,7 +77,7 @@ export function EpicGroup({
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
-        "overflow-hidden rounded-xl border bg-card shadow-elevation-low",
+        panelClasses({ padding: "none", className: "overflow-hidden" }),
         isDragging && "z-10 opacity-90 shadow-elevation-high ring-2 ring-brand/40",
       )}
     >

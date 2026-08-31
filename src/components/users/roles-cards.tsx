@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { panelClasses } from "@/components/shared";
 
 const permissions = [
   "Manage workspace",
@@ -66,7 +67,7 @@ export function RolesCards() {
       {roles.map((r) => (
         <div
           key={r.name}
-          className="rounded-xl border bg-card p-5 shadow-elevation-low"
+          className={panelClasses()}
         >
           <h3 className="text-sm font-semibold">{r.name}</h3>
           <p className="mt-1 text-xs leading-relaxed text-muted-foreground">

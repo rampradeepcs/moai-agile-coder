@@ -17,6 +17,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
+import { Panel } from "@/components/shared";
 
 /* Deliberate fixed colors — these are generated brand candidates (content),
    not UI chrome, so they stay identical in both themes. */
@@ -132,16 +133,17 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
 
           <div className="mt-6 space-y-4 pb-8">
             {/* Logo */}
-            <section className="rounded-xl border bg-card p-5 shadow-elevation-low">
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="font-semibold tracking-tight">Logo</h2>
+            <Panel
+              title="Logo"
+              bodyClassName="grid grid-cols-5 gap-3 sm:grid-cols-10"
+              action={
                 <Button variant="ghost" size="xs" onClick={() => setRegenTarget("logo options")}>
                   <Sparkles />
                   Regenerate
                 </Button>
-              </div>
-              <div className="mt-4 grid grid-cols-5 gap-3 sm:grid-cols-10">
-                {LOGO_TILES.map(({ id, bg, fg, Icon, bordered }) => (
+              }
+            >
+              {LOGO_TILES.map(({ id, bg, fg, Icon, bordered }) => (
                   <button
                     key={id}
                     type="button"
@@ -160,13 +162,12 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                     <Icon className="size-7" />
                   </button>
                 ))}
-              </div>
-            </section>
+            </Panel>
 
             {/* Color theory */}
-            <section className="rounded-xl border bg-card p-5 shadow-elevation-low">
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="font-semibold tracking-tight">Color theory</h2>
+            <Panel
+              title="Color theory"
+              action={
                 <Button
                   variant="ghost"
                   size="xs"
@@ -175,7 +176,8 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                   <Sparkles />
                   Regenerate
                 </Button>
-              </div>
+              }
+            >
               <RadioGroup
                 value={theme}
                 onValueChange={setTheme}
@@ -225,12 +227,13 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                   </label>
                 ))}
               </RadioGroup>
-            </section>
+            </Panel>
 
             {/* Typography */}
-            <section className="rounded-xl border bg-card p-5 shadow-elevation-low">
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="font-semibold tracking-tight">Typography</h2>
+            <Panel
+              title="Typography"
+              bodyClassName="flex flex-wrap gap-2"
+              action={
                 <Button
                   variant="ghost"
                   size="xs"
@@ -239,9 +242,9 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                   <Sparkles />
                   Regenerate
                 </Button>
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {FONTS.map((f) => (
+              }
+            >
+              {FONTS.map((f) => (
                   <button
                     key={f.id}
                     type="button"
@@ -259,13 +262,13 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                     {f.label}
                   </button>
                 ))}
-              </div>
-            </section>
+            </Panel>
 
             {/* Icons */}
-            <section className="rounded-xl border bg-card p-5 shadow-elevation-low">
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="font-semibold tracking-tight">Icons</h2>
+            <Panel
+              title="Icons"
+              bodyClassName="flex flex-wrap gap-2"
+              action={
                 <Button
                   variant="ghost"
                   size="xs"
@@ -274,9 +277,9 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                   <Sparkles />
                   Regenerate
                 </Button>
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {ICON_SETS.map((set) => (
+              }
+            >
+              {ICON_SETS.map((set) => (
                   <button
                     key={set}
                     type="button"
@@ -293,8 +296,7 @@ export function DesignDoc({ onApprove }: { onApprove: () => void }) {
                     {set}
                   </button>
                 ))}
-              </div>
-            </section>
+            </Panel>
           </div>
         </motion.div>
       </div>

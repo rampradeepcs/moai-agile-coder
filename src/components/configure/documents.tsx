@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/popover";
 import { AiCostConfirm } from "./ai-cost-confirm";
 import { Check, Pencil, Plus, RefreshCw, Sparkles } from "lucide-react";
+import { panelClasses } from "@/components/shared";
 
 interface DocSection {
   id: string;
@@ -175,7 +176,7 @@ export function DocumentsTab() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: Math.min(i, 6) * 0.04, duration: 0.25 }}
-            className="rounded-xl border bg-card p-5 shadow-elevation-low"
+            className={panelClasses()}
           >
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-sm font-semibold">{s.title}</h3>

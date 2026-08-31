@@ -14,6 +14,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { FileTerminal, Plus } from "lucide-react";
+import { panelClasses } from "@/components/shared";
 
 const platformPrompt = `Must include min below features…
 1. User Authentication & Access — Sign up / Sign in (email, password); Password reset & email verification; OAuth (Google, GitHub, LinkedIn) (optional-early); Session management; Logout everywhere (security).
@@ -33,7 +34,7 @@ export function PromptsTab() {
   };
 
   return (
-    <div className="max-w-3xl rounded-xl border bg-card p-6 shadow-elevation-low">
+    <div className={panelClasses({ padding: "lg", className: "max-w-3xl" })}>
       <h2 className="text-sm font-semibold">App type setup</h2>
       <p className="mt-0.5 text-xs text-muted-foreground">
         The base prompt every generation starts from, plus your custom

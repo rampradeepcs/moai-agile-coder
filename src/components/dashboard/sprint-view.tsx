@@ -11,8 +11,6 @@ import {
   Line,
   Pie,
   PieChart,
-  ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
@@ -33,15 +31,8 @@ import { cn } from "@/lib/utils";
 import { activity, memberById, sprints, sprintSummary } from "@/lib/data";
 import type { Sprint } from "@/lib/types";
 import { UserAvatar } from "@/components/work/user-avatar";
-import { KpiCard } from "./kpi-card";
+import { ChartFrame, ChartTooltip, StatCard, axisTick, gridProps, type StatCardTone } from "@/components/shared";
 import { ProgressRing } from "./progress-ring";
-import {
-  axisTick,
-  gridProps,
-  tooltipContentStyle,
-  tooltipItemStyle,
-  tooltipLabelStyle,
-} from "./chart-style";
 
 /* ————— animation ————— */
 
@@ -75,11 +66,11 @@ const avgVelocity = Math.floor(
 
 const orderedSprints = [...sprints].sort((a, b) => a.start.localeCompare(b.start));
 
-const performanceIcons: Record<string, { icon: LucideIcon; iconClass: string }> = {
-  "Delivery performance": { icon: Truck, iconClass: "bg-teal-subtle text-teal" },
-  "Sprint time": { icon: Zap, iconClass: "bg-warning-subtle text-warning" },
-  "Quality score": { icon: BadgeCheck, iconClass: "bg-success-subtle text-success" },
-  "Predictability & Risk": { icon: ShieldAlert, iconClass: "bg-danger-subtle text-danger" },
+const performanceIcons: Record<string, { icon: LucideIcon; tone: StatCardTone }> = {
+  "Delivery performance": { icon: Truck, tone: "teal" },
+  "Sprint time": { icon: Zap, tone: "warning" },
+  "Quality score": { icon: BadgeCheck, tone: "success" },
+  "Predictability & Risk": { icon: ShieldAlert, tone: "danger" },
 };
 
 const countItems = [
@@ -169,33 +160,33 @@ export function SprintView() {
     <motion.div variants={container} initial="hidden" animate="show" className="flex min-w-0 flex-col gap-4">
       {/* Stat cards */}
       <motion.div variants={item} className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard
+        <StatCard
           label="Total epics"
           value={String(sprintSummary.totalEpics)}
           sub="Across all modules"
           icon={Crown}
-          iconClass="bg-brand-subtle text-brand"
+          tone="brand"
         />
-        <KpiCard
+        <StatCard
           label="Stories"
           value={String(sprintSummary.stories)}
           sub={`${sprintSummary.storiesInProgress} in progress`}
           icon={Layers}
-          iconClass="bg-info-subtle text-info"
+          tone="info"
         />
-        <KpiCard
+        <StatCard
           label="Active sprint"
           value={activeSprint?.name ?? "—"}
           sub={activeSprint ? sprintRange(activeSprint) : "No active sprint"}
           icon={Timer}
-          iconClass="bg-pink-subtle text-pink"
+          tone="pink"
         />
-        <KpiCard
+        <StatCard
           label="Velocity"
           value={`${avgVelocity} pts`}
           sub="avg last 5 sprints"
           icon={Gauge}
-          iconClass="bg-teal-subtle text-teal"
+          tone="teal"
         />
       </motion.div>
 
@@ -243,14 +234,14 @@ export function SprintView() {
         <h3 className="text-sm font-semibold">Performance</h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {sprintSummary.performance.map((p) => (
-            <KpiCard
+            <StatCard
               key={p.label}
               label={p.label}
               value={p.value}
               delta={p.delta}
               positive={p.positive}
               icon={performanceIcons[p.label]?.icon}
-              iconClass={performanceIcons[p.label]?.iconClass}
+              tone={performanceIcons[p.label]?.tone}
             />
           ))}
         </div>
@@ -321,8 +312,7 @@ export function SprintView() {
               ]}
             />
           </div>
-          <div className="h-[260px] w-full min-w-0">
-            <ResponsiveContainer width="100%" height="100%">
+          <ChartFrame height={260}>
               <BarChart data={sprintSummary.velocity} barGap={4} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
                 <defs>
                   <linearGradient id="velCommitted" x1="0" y1="0" x2="0" y2="1">
@@ -337,18 +327,14 @@ export function SprintView() {
                 <CartesianGrid {...gridProps} />
                 <XAxis dataKey="sprint" tick={axisTick} axisLine={false} tickLine={false} />
                 <YAxis tick={axisTick} axisLine={false} tickLine={false} />
-                <Tooltip
+                <ChartTooltip
                   cursor={{ fill: "var(--muted)", opacity: 0.35 }}
-                  contentStyle={tooltipContentStyle}
-                  labelStyle={tooltipLabelStyle}
-                  itemStyle={tooltipItemStyle}
                   formatter={(value) => `${Number(value).toLocaleString()} pts`}
                 />
                 <Bar dataKey="committed" name="Committed" fill="url(#velCommitted)" radius={[8, 8, 2, 2]} maxBarSize={18} />
                 <Bar dataKey="completed" name="Completed" fill="url(#velCompleted)" radius={[8, 8, 2, 2]} maxBarSize={18} />
               </BarChart>
-            </ResponsiveContainer>
-          </div>
+            </ChartFrame>
         </div>
 
         <div className={cn(cardClass, "min-w-0 overflow-hidden")}>
@@ -361,8 +347,7 @@ export function SprintView() {
               ]}
             />
           </div>
-          <div className="h-[260px] w-full min-w-0">
-            <ResponsiveContainer width="100%" height="100%">
+          <ChartFrame height={260}>
               <ComposedChart data={sprintSummary.burndown} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
                 <defs>
                   <linearGradient id="burnActual" x1="0" y1="0" x2="0" y2="1">
@@ -373,10 +358,7 @@ export function SprintView() {
                 <CartesianGrid {...gridProps} />
                 <XAxis dataKey="day" tick={axisTick} axisLine={false} tickLine={false} />
                 <YAxis tick={axisTick} axisLine={false} tickLine={false} />
-                <Tooltip
-                  contentStyle={tooltipContentStyle}
-                  labelStyle={tooltipLabelStyle}
-                  itemStyle={tooltipItemStyle}
+                <ChartTooltip
                   formatter={(value) => `${Number(value).toLocaleString()} pts`}
                 />
                 <Line
@@ -397,8 +379,7 @@ export function SprintView() {
                   activeDot={{ r: 5 }}
                 />
               </ComposedChart>
-            </ResponsiveContainer>
-          </div>
+            </ChartFrame>
         </div>
       </motion.div>
 
@@ -407,7 +388,7 @@ export function SprintView() {
         <h3 className="mb-2 text-sm font-semibold">My work</h3>
         <div className="flex flex-col items-center gap-6 lg:flex-row lg:gap-12">
           <div className="relative h-48 w-48 shrink-0">
-            <ResponsiveContainer width="100%" height="100%">
+            <ChartFrame height={192}>
               <PieChart>
                 <Pie
                   data={sprintSummary.myWork.segments}
@@ -423,13 +404,11 @@ export function SprintView() {
                     <Cell key={segment.label} fill={myWorkColors[i % myWorkColors.length]} />
                   ))}
                 </Pie>
-                <Tooltip
-                  contentStyle={tooltipContentStyle}
-                  itemStyle={tooltipItemStyle}
+                <ChartTooltip
                   formatter={(value) => `${Number(value).toLocaleString()} tasks`}
                 />
               </PieChart>
-            </ResponsiveContainer>
+            </ChartFrame>
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-3xl font-bold tracking-tight tabular-nums">{myWorkTotal.toLocaleString()}</span>
               <span className="text-xs text-muted-foreground">Total tasks</span>

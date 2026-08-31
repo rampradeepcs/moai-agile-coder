@@ -58,6 +58,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { panelClasses } from "@/components/shared";
 
 // ————————————————————————————————————————————————————————————————
 
@@ -203,7 +204,7 @@ export function ReleaseManagement({ onBack }: { onBack: () => void }) {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="overflow-hidden rounded-xl border bg-card shadow-soft"
+          className={panelClasses({ padding: "none", elevation: "soft", className: "overflow-hidden" })}
         >
           <div className="overflow-x-auto">
             <Table>
@@ -367,7 +368,7 @@ function ReleaseDetail({
       </div>
 
       {/* Meta grid */}
-      <div className="grid grid-cols-2 gap-4 rounded-xl border bg-card p-5 shadow-soft sm:grid-cols-4">
+      <div className={panelClasses({ elevation: "soft", className: "grid grid-cols-2 gap-4 sm:grid-cols-4" })}>
         <div>
           <div className="text-[11px] font-medium tracking-wide text-muted-foreground uppercase">Launch date</div>
           <div className="mt-1 text-sm font-medium">{fmt(release.launch)}</div>
@@ -392,7 +393,7 @@ function ReleaseDetail({
       </div>
 
       {/* Release notes */}
-      <section className="rounded-xl border bg-card p-5 shadow-soft">
+      <section className={panelClasses({ elevation: "soft" })}>
         <h3 className="text-sm font-semibold">Release notes</h3>
         <div className="mt-2 space-y-3 text-sm leading-relaxed text-muted-foreground">
           {release.notes.split("\n\n").map((para, i) => (
@@ -402,7 +403,7 @@ function ReleaseDetail({
       </section>
 
       {/* Deployment readiness */}
-      <section className="rounded-xl border bg-card p-5 shadow-soft">
+      <section className={panelClasses({ elevation: "soft" })}>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-sm font-semibold">Deployment readiness</h3>
           <span className="text-xs text-muted-foreground">
@@ -432,7 +433,7 @@ function ReleaseDetail({
       </section>
 
       {/* Mapped work items */}
-      <section className="rounded-xl border bg-card shadow-soft">
+      <section className={panelClasses({ padding: "none", elevation: "soft" })}>
         <h3 className="px-5 pt-5 pb-3 text-sm font-semibold">Mapped work items</h3>
         {release.itemKeys.length === 0 ? (
           <p className="px-5 pb-5 text-xs text-muted-foreground">No work items mapped to this release.</p>

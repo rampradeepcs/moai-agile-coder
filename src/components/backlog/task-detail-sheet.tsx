@@ -13,11 +13,11 @@ import {
   Hash,
   Plus,
   X,
-  Search,
   Send,
   ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SearchInput } from "@/components/shared";
 import type { Priority, Status, WorkItem, WorkItemType } from "@/lib/types";
 import { activity, childrenOf, memberById, members, pipelines, sprints, workItemById, workItems } from "@/lib/data";
 import { priorityConfig, statusConfig, StatusBadge, PriorityBadge, TypeBadge } from "@/components/work/badges";
@@ -375,16 +375,13 @@ function TaskDetailBody({ item }: { item: WorkItem }) {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent align="start" className="w-80 p-3">
-                    <div className="relative">
-                      <Search className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" aria-hidden />
-                      <Input
-                        value={depSearch}
-                        onChange={(e) => setDepSearch(e.target.value)}
-                        placeholder="Search work items"
-                        aria-label="Search work items"
-                        className="h-8 pl-8 text-xs"
-                      />
-                    </div>
+                    <SearchInput
+                      size="sm"
+                      value={depSearch}
+                      onValueChange={setDepSearch}
+                      placeholder="Search work items"
+                      aria-label="Search work items"
+                    />
                     <div className="mt-2 flex flex-wrap gap-1">
                       {depTabs.map((t) => (
                         <button

@@ -12,7 +12,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { GlobalHeader } from "@/components/shell/global-header";
+import { PageHeader } from "@/components/shared";
 import { GeneralSettings } from "@/components/settings/general";
 import { AccountSettings } from "@/components/settings/account";
 import { PrivacySettings } from "@/components/settings/privacy";
@@ -38,7 +38,7 @@ function SettingsContent() {
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-6 py-6">
-      <GlobalHeader title="Settings" description="Workspace preferences, account and integrations." />
+      <PageHeader title="Settings" description="Workspace preferences, account and integrations." />
 
       <nav
         aria-label="Settings sections"

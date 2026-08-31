@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Check, CreditCard, Download, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { creditBalance, currentPlan, invoices, plans } from "@/lib/workspace-data";
-import { GlobalHeader } from "@/components/shell/global-header";
+import { PageHeader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -24,7 +24,7 @@ export default function SubscriptionPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-6">
-      <GlobalHeader
+      <PageHeader
         title="Subscription"
         description="Your plan, billing and invoices."
         actions={
