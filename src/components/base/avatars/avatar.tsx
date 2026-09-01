@@ -23,6 +23,8 @@ export interface AvatarProps
   icon?: React.ReactNode;
   status?: AvatarStatus;
   className?: string;
+  /** Applied to the fallback, for a per-user tint or a custom text colour. */
+  fallbackClassName?: string;
 }
 
 const sizes: Record<AvatarSize, string> = {
@@ -64,6 +66,7 @@ export function Avatar({
   icon,
   status,
   className,
+  fallbackClassName,
   ...props
 }: AvatarProps) {
   const resolvedInitials = initials ?? (name ? deriveInitials(name) : "");
@@ -87,7 +90,10 @@ export function Avatar({
         )}
         <AvatarPrimitive.Fallback
           delayMs={src ? 300 : 0}
-          className="flex size-full items-center justify-center font-semibold text-fg-secondary"
+          className={cn(
+            "flex size-full items-center justify-center font-semibold text-fg-secondary",
+            fallbackClassName,
+          )}
         >
           {resolvedInitials || (icon ?? <UserIcon className="size-1/2" />)}
         </AvatarPrimitive.Fallback>

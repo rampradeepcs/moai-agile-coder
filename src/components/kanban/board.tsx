@@ -14,7 +14,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Info, Sparkles, X } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { Member, Pipeline, Stage, WorkItem } from "@/lib/types";
@@ -23,6 +23,7 @@ import { KanbanToolbar, emptyFilters, type FilterKey, type Filters } from "./fil
 import { PipelineColumn } from "./pipeline-column";
 import { KanbanCardView, type CardActions } from "./kanban-card";
 import { TaskDetailSheet } from "./task-detail-sheet";
+import { Notification } from "@/components";
 
 interface StageLocation {
   pipeline: Pipeline;
@@ -227,22 +228,18 @@ export function KanbanBoard() {
       <div className="flex flex-col gap-4 px-6 py-5">
         {/* Info banner */}
         {bannerOpen && (
-          <div className="flex items-center gap-2 px-1 py-1 text-xs text-muted-foreground">
-            <Info className="size-3.5 shrink-0" aria-hidden />
-            <p className="min-w-0 flex-1">
-              When a task reaches the <span className="font-semibold text-foreground">Completed</span> stage of a
-              pipeline, it automatically moves into the{" "}
-              <span className="font-semibold text-foreground">To Do</span> stage of the next pipeline.
-            </p>
-            <button
-              type="button"
-              aria-label="Dismiss"
-              onClick={() => setBannerOpen(false)}
-              className="shrink-0 rounded-md p-1 transition-colors hover:bg-accent/60 hover:text-foreground"
-            >
-              <X className="size-3.5" aria-hidden />
-            </button>
-          </div>
+          <Notification
+            type="info"
+            title="Stages hand off automatically"
+            description={
+              <>
+                When a task reaches the <span className="font-semibold">Completed</span> stage of a
+                pipeline, it automatically moves into the{" "}
+                <span className="font-semibold">To Do</span> stage of the next pipeline.
+              </>
+            }
+            onDismiss={() => setBannerOpen(false)}
+          />
         )}
 
         {/* Board */}

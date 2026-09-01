@@ -1,6 +1,6 @@
 "use client";
 
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "@/components";
 import { cn } from "@/lib/utils";
 import { tokenStats } from "@/lib/data";
 import type { Project } from "@/lib/types";
@@ -35,15 +35,7 @@ function Meter({
           )}
         </span>
       </div>
-      <Progress
-        value={pct}
-        className={cn(
-          "h-1.5 w-full",
-          danger
-            ? "[&>[data-slot=progress-indicator]]:bg-danger"
-            : "[&>[data-slot=progress-indicator]]:bg-brand",
-        )}
-      />
+      <Progress value={pct} size="sm" color={danger ? "error" : "brand"} />
     </div>
   );
 }

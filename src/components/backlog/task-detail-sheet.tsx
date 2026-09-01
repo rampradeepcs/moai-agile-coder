@@ -12,12 +12,12 @@ import {
   Paperclip,
   Hash,
   Plus,
-  X,
   Send,
   ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SearchInput } from "@/components/shared";
+import { FileUpload, Tag, type UploadedFile } from "@/components";
 import type { Priority, Status, WorkItem, WorkItemType } from "@/lib/types";
 import { activity, childrenOf, memberById, members, pipelines, sprints, workItemById, workItems } from "@/lib/data";
 import { priorityConfig, statusConfig, StatusBadge, PriorityBadge, TypeBadge } from "@/components/work/badges";
@@ -105,6 +105,7 @@ function TaskDetailBody({ item }: { item: WorkItem }) {
   const [priority, setPriority] = React.useState<Priority>(item.priority);
   const [release, setRelease] = React.useState(item.release ?? "");
   const [description, setDescription] = React.useState(item.description ?? "");
+  const [attachments, setAttachments] = React.useState<UploadedFile[]>([]);
   const [deps, setDeps] = React.useState<string[]>(
     (item.dependencyIds ?? []).map((id) => workItemById(id)?.key ?? id),
   );
@@ -349,23 +350,19 @@ function TaskDetailBody({ item }: { item: WorkItem }) {
             <Field label="Dependency">
               <div className="flex flex-wrap items-center gap-1.5">
                 {deps.map((key) => (
-                  <span
+                  <Tag
                     key={key}
-                    className="inline-flex items-center gap-1 rounded-md bg-muted px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground"
+                    size="sm"
+                    dismissible
+                    dismissLabel={`Remove dependency ${key}`}
+                    className="font-mono"
+                    onDismiss={() => {
+                      setDeps((d) => d.filter((k) => k !== key));
+                      quiet("Dependency removed");
+                    }}
                   >
                     {key}
-                    <button
-                      type="button"
-                      aria-label={`Remove dependency ${key}`}
-                      className="text-muted-foreground/70 hover:text-foreground"
-                      onClick={() => {
-                        setDeps((d) => d.filter((k) => k !== key));
-                        quiet("Dependency removed");
-                      }}
-                    >
-                      <X className="size-3" aria-hidden />
-                    </button>
-                  </span>
+                  </Tag>
                 ))}
                 <Popover open={depOpen} onOpenChange={setDepOpen}>
                   <PopoverTrigger asChild>
@@ -441,18 +438,24 @@ function TaskDetailBody({ item }: { item: WorkItem }) {
         </div>
 
         {/* Attachments */}
-        <div className="mt-6 flex flex-col gap-1.5">
-          <span className="text-xs text-muted-foreground">Attachments</span>
-          <button
-            type="button"
-            onClick={() => quiet("Upload coming soon")}
-            className="flex flex-col items-center gap-1 rounded-xl border border-dashed px-4 py-6 text-sm text-muted-foreground transition-colors hover:bg-accent/30"
-          >
-            <span>
-              Drag your files or <span className="font-medium text-brand">upload</span>
-            </span>
-          </button>
-          <span className="text-xs text-muted-foreground">No attachments found</span>
+        <div className="mt-6">
+          <FileUpload
+            label="Attachments"
+            multiple
+            hint={attachments.length === 0 ? "No attachments found" : undefined}
+            files={attachments}
+            onFilesSelected={(picked) => {
+              setAttachments((current) => [
+                ...current,
+                ...picked.map((f) => ({ id: `${f.name}-${f.size}`, name: f.name, size: f.size })),
+              ]);
+              quiet(`${picked.length} file${picked.length > 1 ? "s" : ""} attached`);
+            }}
+            onFileRemove={(id) => {
+              setAttachments((current) => current.filter((f) => f.id !== id));
+              quiet("Attachment removed");
+            }}
+          />
         </div>
 
         {/* Mapped sections */}

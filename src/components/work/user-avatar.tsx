@@ -1,16 +1,15 @@
 import { cn } from "@/lib/utils";
 import type { Member } from "@/lib/types";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Avatar, Tooltip } from "@/components";
 import { Bot } from "lucide-react";
 
-const initials = (name: string) =>
-  name
-    .split(" ")
-    .map((p) => p[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
+/** Per-member sizing kept from the original wrapper so 26 call sites are unaffected. */
+const sizeClasses = {
+  xs: "size-5 text-[9px]",
+  sm: "size-6 text-[10px]",
+  md: "size-8 text-xs",
+  lg: "size-10 text-sm",
+};
 
 export function UserAvatar({
   member,
@@ -23,47 +22,29 @@ export function UserAvatar({
   className?: string;
   showTooltip?: boolean;
 }) {
-  const sizeClass = { xs: "size-5 text-[9px]", sm: "size-6 text-[10px]", md: "size-8 text-xs", lg: "size-10 text-sm" }[size];
-
   const avatar = (
-    <Avatar className={cn(sizeClass, "ring-1 ring-border", className)}>
-      <AvatarFallback
-        className="font-semibold text-white"
-        style={{ backgroundColor: member?.color ?? "var(--muted)" }}
-      >
-        {member ? (
-          member.kind === "agent" && size !== "xs" ? (
-            <span className="relative inline-flex items-center justify-center">
-              {initials(member.name)}
-            </span>
-          ) : (
-            initials(member.name)
-          )
-        ) : (
-          "?"
-        )}
-      </AvatarFallback>
-    </Avatar>
+    <Avatar
+      name={member?.name}
+      initials={member ? undefined : "?"}
+      // The member's own colour drives the chip, so the fallback stays transparent.
+      style={{ backgroundColor: member?.color ?? "var(--muted)" }}
+      fallbackClassName="text-white"
+      className={cn("ring-1 ring-border", sizeClasses[size], className)}
+    />
   );
 
   if (!showTooltip || !member) return avatar;
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <span className="relative inline-flex">
-          {avatar}
-          {member.kind === "agent" && (
-            <span className="absolute -right-0.5 -bottom-0.5 rounded-full bg-brand p-px text-white ring-1 ring-background">
-              <Bot className="size-2.5" aria-hidden />
-            </span>
-          )}
-        </span>
-      </TooltipTrigger>
-      <TooltipContent side="top" className="flex flex-col gap-0.5">
-        <span className="font-medium">{member.name}</span>
-        <span className="text-[11px] opacity-80">{member.role}</span>
-      </TooltipContent>
+    <Tooltip title={member.name} description={member.role} side="top">
+      <span className="relative inline-flex">
+        {avatar}
+        {member.kind === "agent" && (
+          <span className="absolute -right-0.5 -bottom-0.5 rounded-full bg-brand p-px text-white ring-1 ring-background">
+            <Bot className="size-2.5" aria-hidden />
+          </span>
+        )}
+      </span>
     </Tooltip>
   );
 }

@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Radio, RadioGroup } from "@/components";
 import {
   Select,
   SelectContent,
@@ -68,15 +68,13 @@ export function BasicDetailsTab() {
 
         <div className="grid gap-1.5">
           <Label className="text-xs text-muted-foreground">Status</Label>
-          <RadioGroup defaultValue="active" className="flex gap-5 pt-1">
+          <RadioGroup
+            defaultValue="active"
+            size="sm"
+            className="flex gap-5 pt-1"
+          >
             {(["Active", "Inactive", "Deprecated"] as const).map((s) => (
-              <label
-                key={s}
-                className="flex cursor-pointer items-center gap-2 text-sm"
-              >
-                <RadioGroupItem value={s.toLowerCase()} id={`status-${s}`} />
-                {s}
-              </label>
+              <Radio key={s} value={s.toLowerCase()} id={`status-${s}`} label={s} />
             ))}
           </RadioGroup>
         </div>

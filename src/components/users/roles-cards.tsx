@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/components";
 import { panelClasses } from "@/components/shared";
 
 const permissions = [
@@ -75,26 +75,20 @@ export function RolesCards() {
           </p>
           <div className="mt-4 space-y-2.5 border-t pt-4">
             {permissions.map((p) => (
-              <label
+              <Checkbox
                 key={p}
-                className={
-                  r.locked
-                    ? "flex items-center gap-2 text-sm opacity-70"
-                    : "flex cursor-pointer items-center gap-2 text-sm"
+                size="sm"
+                label={p}
+                checked={grants[r.name][p]}
+                disabled={r.locked}
+                wrapperClassName={r.locked ? "opacity-70" : undefined}
+                onCheckedChange={(v) =>
+                  setGrants((prev) => ({
+                    ...prev,
+                    [r.name]: { ...prev[r.name], [p]: v === true },
+                  }))
                 }
-              >
-                <Checkbox
-                  checked={grants[r.name][p]}
-                  disabled={r.locked}
-                  onCheckedChange={(v) =>
-                    setGrants((prev) => ({
-                      ...prev,
-                      [r.name]: { ...prev[r.name], [p]: v === true },
-                    }))
-                  }
-                />
-                {p}
-              </label>
+              />
             ))}
           </div>
         </div>

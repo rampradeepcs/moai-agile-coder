@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SearchInput, panelClasses } from "@/components/shared";
+import { DatePicker } from "@/components";
 import type { WorkItem } from "@/lib/types";
 import { memberById, workItemById, workItems } from "@/lib/data";
 import { PriorityBadge, StatusBadge, TypeBadge, statusConfig } from "@/components/work/badges";
@@ -104,6 +105,13 @@ const fmt = (iso: string) => format(parse(iso), "d MMM, yyyy");
 type Row = { item: WorkItem; depth: number; hasChildren: boolean };
 
 // ————————————————————————————————————————————————————————————————
+
+/** The sprint form stores yyyy-mm-dd strings; DatePicker works in Date objects. */
+const toDate = (value: string) => (value ? new Date(`${value}T00:00:00`) : undefined);
+const toISO = (date?: Date) =>
+  date
+    ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
+    : "";
 
 export function SprintManagement({ onBack }: { onBack: () => void }) {
   const [groups, setGroups] = useState<SprintGroup[]>(seedGroups);
@@ -447,23 +455,16 @@ function SprintDialog({
             <Input id="sprint-name" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="grid gap-1.5">
-              <Label htmlFor="sprint-start" className="text-xs text-muted-foreground">
-                Start date
-              </Label>
-              <Input
-                id="sprint-start"
-                type="date"
-                value={start}
-                onChange={(e) => setStart(e.target.value)}
-              />
-            </div>
-            <div className="grid gap-1.5">
-              <Label htmlFor="sprint-end" className="text-xs text-muted-foreground">
-                End date
-              </Label>
-              <Input id="sprint-end" type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
-            </div>
+            <DatePicker
+              label="Start date"
+              value={toDate(start)}
+              onValueChange={(d?: Date) => setStart(toISO(d))}
+            />
+            <DatePicker
+              label="End date"
+              value={toDate(end)}
+              onValueChange={(d?: Date) => setEnd(toISO(d))}
+            />
           </div>
           <p className="text-xs text-muted-foreground">
             {days > 0

@@ -10,10 +10,12 @@ import {
   Plus,
   Table2,
   Trash2,
+  UsersRound,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { SearchInput, panelClasses } from "@/components/shared";
+import { Drawer, EmptyState } from "@/components";
 import { members, memberById } from "@/lib/data";
 import type { Member } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -46,14 +48,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import {
   Table,
   TableBody,
@@ -497,16 +491,20 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className={panelClasses({ padding: "none", elevation: "soft", className: "flex flex-col items-center gap-2 px-6 py-16 text-center" })}
+          className={panelClasses({ padding: "none", elevation: "soft" })}
         >
-          <span className="text-base font-semibold">No teams found!</span>
-          <span className="max-w-sm text-sm text-muted-foreground">
-            Create teams, assign members, and manage responsibilities.
-          </span>
-          <Button size="sm" className="mt-3" onClick={openCreate}>
-            <Plus className="size-3.5" aria-hidden />
-            Create new team
-          </Button>
+          <EmptyState
+            size="lg"
+            icon={<UsersRound />}
+            title="No teams found!"
+            description="Create teams, assign members, and manage responsibilities."
+            action={
+              <Button size="sm" onClick={openCreate}>
+                <Plus className="size-3.5" aria-hidden />
+                Create new team
+              </Button>
+            }
+          />
         </motion.div>
       ) : view === "card" ? (
         /* ——— Card view ——— */
@@ -730,15 +728,31 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
       </Dialog>
 
       {/* ——— View sheet ——— */}
-      <Sheet open={viewTeamId !== null} onOpenChange={(open) => !open && setViewTeamId(null)}>
-        <SheetContent side="right" className="w-full gap-0 overflow-y-auto sm:max-w-[480px]">
-          {viewedTeam && (
-            <>
-              <SheetHeader>
-                <SheetTitle>View team</SheetTitle>
-                <SheetDescription>Team details, members and agents.</SheetDescription>
-              </SheetHeader>
-              <div className="flex flex-col gap-5 px-4 pb-4">
+      <Drawer
+        open={viewTeamId !== null}
+        onOpenChange={(open: boolean) => !open && setViewTeamId(null)}
+        side="right"
+        size="lg"
+        title="View team"
+        description="Team details, members and agents."
+        footer={
+          viewedTeam ? (
+            <Button
+              variant="outline"
+              onClick={() => {
+                setViewTeamId(null);
+                openEdit(viewedTeam);
+              }}
+            >
+              <Pencil className="size-3.5" aria-hidden />
+              Edit
+            </Button>
+          ) : undefined
+        }
+      >
+        {viewedTeam && (
+          <>
+            <div className="flex flex-col gap-5">
                 <div className={cn("grid grid-cols-3 gap-4", teamColor(viewedTeam).className)}>
                   <div className="flex flex-col gap-1">
                     <span className="text-[10px] font-medium tracking-wide text-muted-foreground uppercase">
@@ -803,22 +817,9 @@ export function TeamManagement({ onBack }: { onBack: () => void }) {
                   </div>
                 </div>
               </div>
-              <SheetFooter>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setViewTeamId(null);
-                    openEdit(viewedTeam);
-                  }}
-                >
-                  <Pencil className="size-3.5" aria-hidden />
-                  Edit
-                </Button>
-              </SheetFooter>
-            </>
-          )}
-        </SheetContent>
-      </Sheet>
+          </>
+        )}
+      </Drawer>
 
       {/* ——— Delete confirm ——— */}
       <AlertDialog open={deleteId !== null} onOpenChange={(open) => !open && setDeleteId(null)}>

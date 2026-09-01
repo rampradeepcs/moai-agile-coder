@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs } from "@/components";
 import { ActivityList } from "@/components/users/activity-list";
 import { AgentsGrid } from "@/components/users/agents-grid";
 import { InviteDialog } from "@/components/users/invite-dialog";
@@ -23,27 +23,17 @@ export default function UsersPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
-        <Tabs defaultValue="members" className="mt-5">
-          <TabsList>
-            <TabsTrigger value="members">Members</TabsTrigger>
-            <TabsTrigger value="agents">AI Agents</TabsTrigger>
-            <TabsTrigger value="roles">Roles</TabsTrigger>
-            <TabsTrigger value="activity">Activity</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="members" className="mt-4">
-            <MembersTable />
-          </TabsContent>
-          <TabsContent value="agents" className="mt-4">
-            <AgentsGrid />
-          </TabsContent>
-          <TabsContent value="roles" className="mt-4">
-            <RolesCards />
-          </TabsContent>
-          <TabsContent value="activity" className="mt-4">
-            <ActivityList />
-          </TabsContent>
-        </Tabs>
+        <Tabs
+          defaultValue="members"
+          variant="pill"
+          className="mt-5"
+          items={[
+            { value: "members", label: "Members", content: <MembersTable /> },
+            { value: "agents", label: "AI Agents", content: <AgentsGrid /> },
+            { value: "roles", label: "Roles", content: <RolesCards /> },
+            { value: "activity", label: "Activity", content: <ActivityList /> },
+          ]}
+        />
       </motion.div>
     </div>
   );

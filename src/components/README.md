@@ -127,6 +127,33 @@ with ~130 existing components:
 
 Adopting the preset is therefore a no-op for existing screens.
 
+## Where each component is used
+
+Every component in `base/` and `application/` is in production on a real screen,
+not only on the reference page:
+
+| Component | In use on |
+|---|---|
+| Button, Select, Badge, Dropdown, Table | users — members table |
+| Modal, Textarea | users — invite dialog |
+| Checkbox | users — role permissions |
+| Toggle, ProgressCircle | users — AI agents grid |
+| Tabs | users — page tabs |
+| Pagination | users — activity feed |
+| Avatar, Tooltip | `work/user-avatar`, which 26 files render |
+| Input | support — contact form |
+| Radio / RadioGroup | configure — app settings status |
+| DatePicker | configure — sprint start and end |
+| Drawer | configure — team detail panel |
+| EmptyState | backlog no-results, configure no-teams |
+| Tag, FileUpload | backlog — task dependencies and attachments |
+| Notification, toast | kanban hand-off banner, and action feedback |
+| Progress | project token meters |
+
+`src/components/ui/` still backs the screens that have not been migrated. The
+two layers coexist deliberately: the library is where new UI should come from,
+and screens move over as they are touched.
+
 ## Component contract
 
 Every component in this library provides:

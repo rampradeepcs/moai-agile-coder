@@ -27,6 +27,8 @@ import { CreateEpicDialog } from "@/components/backlog/create-epic-dialog";
 import { EpicGroup } from "@/components/backlog/epic-group";
 import { TaskDetailSheet } from "@/components/backlog/task-detail-sheet";
 import { panelClasses } from "@/components/shared";
+import { EmptyState } from "@/components";
+import { SearchX } from "lucide-react";
 
 let childSeq = 8000;
 
@@ -198,10 +200,12 @@ function BacklogScreen() {
         <SortableContext items={groups.map((g) => `epic:${g.epic.id}`)} strategy={verticalListSortingStrategy}>
           <div className="mt-4 flex flex-col gap-3">
             {groups.length === 0 && (
-              <div className={panelClasses({ padding: "none", className: "px-6 py-10 text-center" })}>
-                <p className="text-sm font-semibold">No matching work items</p>
-                <p className="mt-1 text-xs text-muted-foreground">Try clearing the search or removing some filters.</p>
-              </div>
+              <EmptyState
+                className={panelClasses({ padding: "none" })}
+                icon={<SearchX />}
+                title="No matching work items"
+                description="Try clearing the search or removing some filters."
+              />
             )}
             {groups.map(({ epic, all, filtered }, index) => (
               <motion.div

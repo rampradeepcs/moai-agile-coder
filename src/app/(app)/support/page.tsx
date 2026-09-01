@@ -12,23 +12,14 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PageHeader, SearchInput } from "@/components/shared";
+import { Input, Select, Textarea } from "@/components";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 const RESOURCES = [
   {
@@ -179,34 +170,32 @@ export default function SupportPage() {
                   <p className="text-[11px] text-muted-foreground">Replies within 4 hours on Pro</p>
                 </div>
               </div>
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="sup-topic">Topic</Label>
-                <Select defaultValue="billing">
-                  <SelectTrigger id="sup-topic" className="w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="billing">Billing & credits</SelectItem>
-                    <SelectItem value="agents">AI agents & skills</SelectItem>
-                    <SelectItem value="bug">Something looks broken</SelectItem>
-                    <SelectItem value="feature">Feature request</SelectItem>
-                    <SelectItem value="other">Something else</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="sup-subject">Subject</Label>
-                <Input id="sup-subject" required placeholder="Short summary" />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="sup-message">Message</Label>
-                <Textarea
-                  id="sup-message"
-                  required
-                  rows={4}
-                  placeholder="What's happening? Include a project or task key if relevant."
-                />
-              </div>
+              <Select
+                label="Topic"
+                defaultValue="billing"
+                options={[
+                  { value: "billing", label: "Billing & credits" },
+                  { value: "agents", label: "AI agents & skills" },
+                  { value: "bug", label: "Something looks broken" },
+                  { value: "feature", label: "Feature request" },
+                  { value: "other", label: "Something else" },
+                ]}
+              />
+              <Input
+                id="sup-subject"
+                label="Subject"
+                required
+                placeholder="Short summary"
+              />
+              <Textarea
+                id="sup-message"
+                label="Message"
+                required
+                rows={4}
+                maxLength={1000}
+                showCount
+                placeholder="What's happening? Include a project or task key if relevant."
+              />
               <Button type="submit" className="gap-1.5">
                 <MessageSquareText className="size-4" aria-hidden />
                 Send message
