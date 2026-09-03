@@ -288,7 +288,7 @@ export function KanbanBoard() {
         className="fixed bottom-6 right-6 z-30 inline-flex items-center gap-2 rounded-lg bg-brand-gradient px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_8px_24px_-8px_rgb(37_99_235_/_55%)] transition-colors hover:bg-primary/90"
       >
         <Sparkles className="size-4" aria-hidden />
-        Ask Agile Coder AI
+        Ask WizKraft AI
       </Link>
 
       <TaskDetailSheet

@@ -145,7 +145,7 @@ export function FileUpload({
               className={cn(
                 "grid size-8 shrink-0 cursor-pointer place-items-center rounded-md text-fg-tertiary transition-colors",
                 "hover:bg-bg-secondary hover:text-fg-error",
-                "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:outline-none",
+                "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
               )}
             >
               <Trash2Icon className="size-4" />
@@ -211,7 +211,7 @@ export function FileUpload({
         }}
         className={cn(
           "flex cursor-pointer flex-col items-center gap-3 rounded-xl border border-dashed px-6 py-8 text-center transition-colors",
-          "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:outline-none",
+          "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
           isDragging
             ? "border-border-brand bg-bg-brand"
             : "border-border-primary bg-bg-primary hover:border-border-brand hover:bg-bg-secondary",

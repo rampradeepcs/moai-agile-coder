@@ -76,7 +76,7 @@ export function Radio({
       className={cn(
         "grid shrink-0 cursor-pointer place-items-center rounded-full border border-border-primary bg-bg-primary transition-colors outline-none",
         "hover:border-border-brand hover:bg-bg-brand",
-        "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
+        "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
         "data-[state=checked]:border-bg-brand-solid data-[state=checked]:bg-bg-brand-solid",
         "disabled:cursor-not-allowed disabled:border-border-disabled disabled:bg-bg-disabled",
         dotSizes[size],
@@ -120,7 +120,7 @@ export function Radio({
           "flex cursor-pointer items-start gap-3 rounded-xl border border-border-primary bg-bg-primary p-4 transition-colors",
           "hover:border-border-brand hover:bg-bg-secondary",
           "has-[[data-state=checked]]:border-border-brand has-[[data-state=checked]]:bg-bg-brand",
-          "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-500/50",
+          "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-600/50",
           disabled && "cursor-not-allowed opacity-60 hover:border-border-primary hover:bg-bg-primary",
           className,
         )}

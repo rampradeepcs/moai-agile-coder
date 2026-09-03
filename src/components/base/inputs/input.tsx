@@ -72,8 +72,8 @@ export function Input({
           "flex w-full items-stretch overflow-hidden rounded-lg border bg-bg-primary transition-colors",
           "focus-within:ring-2 focus-within:ring-offset-0",
           isInvalid
-            ? "border-border-error focus-within:ring-error-500/30"
-            : "border-border-primary focus-within:border-border-brand focus-within:ring-brand-500/30",
+            ? "border-border-error focus-within:ring-error-600/30"
+            : "border-border-primary focus-within:border-border-brand focus-within:ring-brand-600/30",
           disabled && "cursor-not-allowed bg-bg-disabled",
           sizes[size],
         )}

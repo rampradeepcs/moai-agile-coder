@@ -33,9 +33,9 @@ const trackSizes: Record<ProgressSize, string> = {
 
 const fills: Record<ProgressColor, string> = {
   brand: "bg-bg-brand-solid",
-  success: "bg-success-600",
-  warning: "bg-warning-500",
-  error: "bg-error-600",
+  success: "bg-success-700",
+  warning: "bg-warning-600",
+  error: "bg-error-700",
 };
 
 function clampPercent(value: number, max: number) {
@@ -113,10 +113,10 @@ export interface ProgressCircleProps
 }
 
 const strokes: Record<ProgressColor, string> = {
-  brand: "stroke-brand-600",
-  success: "stroke-success-600",
-  warning: "stroke-warning-500",
-  error: "stroke-error-600",
+  brand: "stroke-brand-700",
+  success: "stroke-success-700",
+  warning: "stroke-warning-600",
+  error: "stroke-error-700",
 };
 
 export function ProgressCircle({

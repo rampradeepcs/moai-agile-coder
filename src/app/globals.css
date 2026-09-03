@@ -104,7 +104,7 @@
   /*
    * Light — "New concept" (Figma 3062-26945).
    * Flat, neutral-grey surface stack: page #f9f9fa → recessed panel #efeff0 → white group → recessed card.
-   * Solid royal blue #2563eb accent, no gradients, hairline borders, near-flat shadows.
+   * Solid brand green #0a7a48 accent, no gradients, hairline borders, near-flat shadows.
    */
   --background: #f9f9fa;
   --foreground: #1a1a1a;
@@ -112,32 +112,32 @@
   --card-foreground: #1a1a1a;
   --popover: #ffffff;
   --popover-foreground: #1a1a1a;
-  --primary: #2563eb;
+  --primary: #147545;
   --primary-foreground: #ffffff;
   --secondary: #efeff0;
   --secondary-foreground: #2a2a2b;
   --muted: #efeff0;
-  --muted-foreground: #6f7074;
+  --muted-foreground: #767676;
   --accent: #e9e9eb;
   --accent-foreground: #1a1a1a;
-  --destructive: #dc4256;
+  --destructive: #e02020;
   --destructive-foreground: #ffffff;
-  --border: #e6e6e8;
+  --border: #e9e9e9;
   --input: #e2e2e5;
-  --ring: color-mix(in srgb, #2563eb 55%, transparent);
+  --ring: color-mix(in srgb, #147545 55%, transparent);
 
-  --brand: #2563eb;
-  --brand-subtle: #e4ebfa;
-  --success: #0f9f5f;
-  --success-subtle: #d7ebe4;
-  --warning: #b8860b;
-  --warning-subtle: #f1ecd8;
-  --danger: #d9435a;
-  --danger-subtle: #eddcdf;
+  --brand: #147545;
+  --brand-subtle: #24d47d1a;
+  --success: #017141;
+  --success-subtle: #02c8741a;
+  --warning: #8c6700;
+  --warning-subtle: #febc001a;
+  --danger: #e02020;
+  --danger-subtle: #e020201a;
   --info: #2563eb;
-  --info-subtle: #dfe5f0;
-  --pink: #d9435a;
-  --pink-subtle: #eddcdf;
+  --info-subtle: #2563eb1a;
+  --pink: #d1008b;
+  --pink-subtle: #ff40bf1a;
   --teal: #0f8f9c;
   --teal-subtle: #d8ecee;
 
@@ -147,11 +147,11 @@
   --surface-overlay: #efeff0;
 
   --chart-1: #2563eb;
-  --chart-2: #7c3aed;
+  --chart-2: #7021f3;
   --chart-3: #02c874;
-  --chart-4: #e5a521;
-  --chart-5: #e2536a;
-  --chart-6: #ec4899;
+  --chart-4: #febc00;
+  --chart-5: #e02020;
+  --chart-6: #ff1bb3;
 
   --elevation-low: 0 1px 2px rgb(0 0 0 / 4%), 0 1px 3px rgb(0 0 0 / 3%);
   --elevation-mid: 0 2px 4px rgb(0 0 0 / 4%), 0 8px 20px -6px rgb(0 0 0 / 8%);
@@ -161,12 +161,12 @@
 
   --sidebar: #efeff0;
   --sidebar-foreground: #1a1a1a;
-  --sidebar-primary: #2563eb;
+  --sidebar-primary: #147545;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #e4e4e6;
   --sidebar-accent-foreground: #1a1a1a;
   --sidebar-border: #e2e2e4;
-  --sidebar-ring: color-mix(in srgb, #2563eb 55%, transparent);
+  --sidebar-ring: color-mix(in srgb, #147545 55%, transparent);
 
   /*
    * Semantic design-system tokens — light.
@@ -177,34 +177,34 @@
   --fg-secondary: #4a4b4f;
   --fg-tertiary: #6f7074;
   --fg-disabled: #a8a9ad;
-  --fg-brand: #2563eb;
-  --fg-error: #dc4256;
-  --fg-warning: #b54708;
-  --fg-success: #0f9f5f;
+  --fg-brand: #147545;
+  --fg-error: #e02020;
+  --fg-warning: #8c6700;
+  --fg-success: #017141;
   --fg-on-brand: #ffffff;
 
   --bg-primary: #ffffff;
   --bg-secondary: #f9f9fa;
   --bg-tertiary: #efeff0;
   --bg-disabled: #efeff0;
-  --bg-brand: #eff5ff;
-  --bg-brand-solid: #2563eb;
-  --bg-error: #fef3f4;
-  --bg-warning: #fffaeb;
-  --bg-success: #ecfdf3;
+  --bg-brand: #24d47d1a;
+  --bg-brand-solid: #147545;
+  --bg-error: #e020201a;
+  --bg-warning: #febc001a;
+  --bg-success: #02c8741a;
   --bg-overlay: rgb(26 26 26 / 55%);
 
   --border-primary: #e6e6e8;
   --border-secondary: #efeff0;
   --border-disabled: #e6e6e8;
-  --border-brand: #2563eb;
-  --border-error: #dc4256;
+  --border-brand: #147545;
+  --border-error: #e02020;
 }
 
 .dark {
   /*
    * Dark — "Concept Dark" (Figma 3062-26945).
-   * Neutral near-black: page #161718 → panel #121314 → group #101112 → card #1a1b1d. Same solid blue.
+   * Neutral near-black: page #161718 → panel #121314 → group #101112 → card #1a1b1d. Same solid green.
    */
   --background: #161718;
   --foreground: #ececed;
@@ -212,7 +212,7 @@
   --card-foreground: #ececed;
   --popover: #1a1b1d;
   --popover-foreground: #ececed;
-  --primary: #2563eb;
+  --primary: #0a7a48;
   --primary-foreground: #ffffff;
   --secondary: #1e1f20;
   --secondary-foreground: #ececed;
@@ -220,24 +220,24 @@
   --muted-foreground: #8e8f92;
   --accent: #232426;
   --accent-foreground: #ececed;
-  --destructive: #e05a70;
+  --destructive: #e64d4d;
   --destructive-foreground: #ffffff;
   --border: rgb(255 255 255 / 7%);
   --input: rgb(255 255 255 / 11%);
-  --ring: color-mix(in srgb, #2563eb 60%, transparent);
+  --ring: color-mix(in srgb, #24d47d 60%, transparent);
 
-  --brand: #4d82f0;
-  --brand-subtle: #1c232e;
-  --success: #41d596;
-  --success-subtle: #142922;
-  --warning: #e0c343;
-  --warning-subtle: #2e2a16;
-  --danger: #e28591;
-  --danger-subtle: #2a1a1d;
-  --info: #86aff1;
-  --info-subtle: #1c232e;
-  --pink: #e28591;
-  --pink-subtle: #2a1a1d;
+  --brand: #24d47d;
+  --brand-subtle: #24d47d1a;
+  --success: #02c874;
+  --success-subtle: #02c8741a;
+  --warning: #ffc82a;
+  --warning-subtle: #febc001a;
+  --danger: #ec7979;
+  --danger-subtle: #e020201a;
+  --info: #7ca1f3;
+  --info-subtle: #2563eb1a;
+  --pink: #ff70cf;
+  --pink-subtle: #ff40bf1a;
   --teal: #5cc7cf;
   --teal-subtle: #142729;
 
@@ -245,12 +245,12 @@
   --surface-raised: #101112;
   --surface-overlay: #1a1b1d;
 
-  --chart-1: #4d82f0;
-  --chart-2: #9b6cf5;
-  --chart-3: #41d596;
-  --chart-4: #e0c343;
-  --chart-5: #e28591;
-  --chart-6: #f472b6;
+  --chart-1: #5182ef;
+  --chart-2: #8d4df5;
+  --chart-3: #02ee8a;
+  --chart-4: #ffc82a;
+  --chart-5: #e64d4d;
+  --chart-6: #ff40bf;
 
   --elevation-low: 0 1px 2px rgb(0 0 0 / 30%), 0 1px 3px rgb(0 0 0 / 24%);
   --elevation-mid: 0 2px 4px rgb(0 0 0 / 34%), 0 8px 20px -6px rgb(0 0 0 / 40%);
@@ -258,40 +258,40 @@
 
   --sidebar: #101112;
   --sidebar-foreground: #ececed;
-  --sidebar-primary: #2563eb;
+  --sidebar-primary: #0a7a48;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #1e1f20;
   --sidebar-accent-foreground: #ececed;
   --sidebar-border: rgb(255 255 255 / 7%);
-  --sidebar-ring: color-mix(in srgb, #2563eb 60%, transparent);
+  --sidebar-ring: color-mix(in srgb, #24d47d 60%, transparent);
 
   /* Semantic design-system tokens — dark. Same names, flipped values. */
   --fg-primary: #ececed;
   --fg-secondary: #b4b5b8;
   --fg-tertiary: #8e8f92;
   --fg-disabled: #5c5d61;
-  --fg-brand: #4d82f0;
-  --fg-error: #e28591;
-  --fg-warning: #e0c343;
-  --fg-success: #41d596;
+  --fg-brand: #24d47d;
+  --fg-error: #ec7979;
+  --fg-warning: #ffc82a;
+  --fg-success: #02c874;
   --fg-on-brand: #ffffff;
 
   --bg-primary: #161718;
   --bg-secondary: #121314;
   --bg-tertiary: #1e1f20;
   --bg-disabled: #1e1f20;
-  --bg-brand: #1c232e;
-  --bg-brand-solid: #2563eb;
-  --bg-error: #2a1a1d;
-  --bg-warning: #2e2a16;
-  --bg-success: #142922;
+  --bg-brand: #24d47d1a;
+  --bg-brand-solid: #0a7a48;
+  --bg-error: #e020201a;
+  --bg-warning: #febc001a;
+  --bg-success: #02c8741a;
   --bg-overlay: rgb(0 0 0 / 65%);
 
   --border-primary: rgb(255 255 255 / 10%);
   --border-secondary: rgb(255 255 255 / 7%);
   --border-disabled: rgb(255 255 255 / 7%);
-  --border-brand: #4d82f0;
-  --border-error: #e28591;
+  --border-brand: #24d47d;
+  --border-error: #ec7979;
 }
 
 @layer base {
@@ -345,7 +345,7 @@
 
   /*
    * Brand accent — the new concept is flat: primary CTAs, active nav and send
-   * buttons are solid #2563eb. Class names are kept so every call site stays valid.
+   * buttons are solid var(--primary). Class names are kept so every call site stays valid.
    */
   .bg-brand-gradient {
     background-image: none;

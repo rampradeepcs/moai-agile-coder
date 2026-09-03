@@ -108,7 +108,7 @@ export function Drawer({
                 className={cn(
                   "-mt-1 -mr-1 grid size-8 shrink-0 cursor-pointer place-items-center rounded-md text-fg-tertiary transition-colors",
                   "hover:bg-bg-secondary hover:text-fg-primary",
-                  "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:outline-none",
+                  "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
                 )}
               >
                 <XIcon className="size-4" />

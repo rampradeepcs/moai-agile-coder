@@ -1,5 +1,5 @@
 /**
- * Agile Coder — Design System Tailwind preset.
+ * WizKraft — Design System Tailwind preset.
  *
  * Single source of truth for the design tokens consumed by the component
  * library in `src/components/base` and `src/components/application`.
@@ -19,75 +19,89 @@
  *   preset is a no-op for existing screens.
  */
 
-/** Raw palettes. Fixed hex — these do not flip between light and dark. */
+/**
+ * Raw palettes — generated from the WizKraft Figma colour styles
+ * (file DTfOUMmRzfz8munYZnMkr7, frame 1:126 "Color").
+ *
+ * Steps run 100–1000 exactly as the design file defines them, so a value here
+ * can be checked against Figma by name. `alpha10` is Figma's `Alpha/10` step:
+ * the family at 10% opacity, used for subtle tints that work on any surface.
+ *
+ * Figma groups these by role, and that grouping drives the names below:
+ *   Primary   → brand        Black/White → gray / white (neutrals)
+ *   Green 1   → success      Yellow 1    → warning        Red1 → error
+ *   Blue      → info         Purple / Orange / Brown / Pink → accents
+ */
 export const palette = {
-  /** Product blue. 600 is the anchor and matches the app's `--primary`. */
+  /** Figma "Primary". 600 is the logo green; see the note on `--primary` below. */
   brand: {
-    25: "#FAFCFF",
-    50: "#EFF5FF",
-    100: "#DBE8FE",
-    200: "#BFD7FE",
-    300: "#93BDFD",
-    400: "#609AFA",
-    500: "#3B7BF6",
-    600: "#2563EB",
-    700: "#1D4FD8",
-    800: "#1E40AF",
-    900: "#1E3A8A",
+    100: "#daf9e9", 200: "#b4f2d4", 300: "#8fecbe", 400: "#6ae6a8", 500: "#44df93",
+    600: "#24d47d", 700: "#1fb46a", 800: "#199558", 900: "#147545", 1000: "#0e5532",
+    alpha10: "#24d47d1a",
   },
-  /** Neutral ramp tuned to the app's flat grey surface stack. */
+  /** Figma "Black" — the foundational neutral for text, fields and dividers. */
   gray: {
-    25: "#FCFCFD",
-    50: "#F9F9FA",
-    100: "#EFEFF0",
-    200: "#E6E6E8",
-    300: "#D3D3D6",
-    400: "#A8A9AD",
-    500: "#7E7F84",
-    600: "#6F7074",
-    700: "#4A4B4F",
-    800: "#2A2A2B",
-    900: "#1A1A1A",
+    100: "#d1d1d1", 200: "#bababa", 300: "#a3a3a3", 400: "#8d8d8d", 500: "#767676",
+    600: "#5f5f5f", 700: "#484848", 800: "#313131", 900: "#1a1a1a", 1000: "#131313",
+    alpha10: "#1a1a1a1a",
   },
-  error: {
-    25: "#FFFBFB",
-    50: "#FEF3F4",
-    100: "#FDE4E7",
-    200: "#FBCED4",
-    300: "#F7A6B1",
-    400: "#F17389",
-    500: "#E5476A",
-    600: "#DC4256",
-    700: "#B92D45",
-    800: "#9B2740",
-    900: "#85253C",
+  /** Figma "White" — the lighter neutral ramp. */
+  white: {
+    100: "#ffffff", 200: "#e9e9e9", 300: "#d3d3d3", 400: "#bdbdbd", 500: "#a7a7a7",
+    600: "#919191", 700: "#7b7b7b", 800: "#656565", 900: "#4f4f4f", 1000: "#393939",
+    alpha10: "#ffffff1a",
   },
-  warning: {
-    25: "#FFFCF5",
-    50: "#FFFAEB",
-    100: "#FEF0C7",
-    200: "#FEDF89",
-    300: "#FEC84B",
-    400: "#FDB022",
-    500: "#F79009",
-    600: "#DC6803",
-    700: "#B54708",
-    800: "#93370D",
-    900: "#7A2E0E",
-  },
+  /** Figma "Green 1" — feedback: success. */
   success: {
-    25: "#F6FEF9",
-    50: "#ECFDF3",
-    100: "#D1FADF",
-    200: "#A6F4C5",
-    300: "#6CE9A6",
-    400: "#32D583",
-    500: "#12B76A",
-    600: "#0F9F5F",
-    700: "#027A48",
-    800: "#05603A",
-    900: "#054F31",
+    100: "#b3fede", 200: "#8dfece", 300: "#67fdbd", 400: "#40fdad", 500: "#1afd9d",
+    600: "#02ee8a", 700: "#02c874", 800: "#029c5b", 900: "#017141", 1000: "#014528",
+    alpha10: "#02c8741a",
   },
+  /** Figma "Yellow 1" — feedback: warning. */
+  warning: {
+    100: "#fff4d4", 200: "#ffe9aa", 300: "#ffde7f", 400: "#ffd354", 500: "#ffc82a",
+    600: "#febc00", 700: "#d8a000", 800: "#b28400", 900: "#8c6700", 1000: "#664b00",
+    alpha10: "#febc001a",
+  },
+  /** Figma "Red1" — feedback: error. */
+  error: {
+    100: "#f9d2d2", 200: "#f3a6a6", 300: "#ec7979", 400: "#e64d4d", 500: "#e02020",
+    600: "#c41b1b", 700: "#a71717", 800: "#8a1313", 900: "#6d0f0f", 1000: "#500b0b",
+    alpha10: "#e020201a",
+  },
+  /** Figma "Blue" — feedback: informational. */
+  info: {
+    100: "#d3e0fb", 200: "#a8c1f7", 300: "#7ca1f3", 400: "#5182ef", 500: "#2563eb",
+    600: "#1452d9", 700: "#1145b9", 800: "#0e3998", 900: "#0b2d78", 1000: "#082158",
+    alpha10: "#2563eb1a",
+  },
+  /** Accents — secondary to the brand, for labels, charts and pipeline hues. */
+  purple: {
+    100: "#e2d3fd", 200: "#c6a6fa", 300: "#a97af8", 400: "#8d4df5", 500: "#7021f3",
+    600: "#5d0ce4", 700: "#500ac2", 800: "#4209a0", 900: "#34077e", 1000: "#26055c",
+    alpha10: "#7021f31a",
+  },
+  orange: {
+    100: "#fee9d3", 200: "#fdd3a7", 300: "#fbbc7a", 400: "#faa64e", 500: "#f99022",
+    600: "#f07e07", 700: "#cc6b06", 800: "#a85805", 900: "#844504", 1000: "#603303",
+    alpha10: "#f990221a",
+  },
+  brown: {
+    100: "#ecd2bf", 200: "#e2bb9f", 300: "#d9a57f", 400: "#cf8e5f", 500: "#c6773f",
+    600: "#a96433", 700: "#895129", 800: "#6c4020", 900: "#4e2e17", 1000: "#311d0f",
+    alpha10: "#8951291a",
+  },
+  pink: {
+    100: "#ffcfef", 200: "#ffa0df", 300: "#ff70cf", 400: "#ff40bf", 500: "#ff1bb3",
+    600: "#f600a3", 700: "#d1008b", 800: "#ac0073", 900: "#88005a", 1000: "#630042",
+    alpha10: "#ff40bf1a",
+  },
+} as const;
+
+/** Figma "BG COLORS" — the two ground fills the artboards are built on. */
+export const surfaces = {
+  artboard: "#f9f9fa",
+  pill: "#efeff0",
 } as const;
 
 /**
@@ -140,9 +154,10 @@ const preset = {
         ...semantic,
 
         /*
-         * Raw scales. `DEFAULT` and `subtle` are carried over from the app's
-         * existing variables so the 176 call sites already using `text-brand`,
-         * `bg-brand-subtle`, `text-success` and friends keep working unchanged.
+         * Raw scales, straight from Figma. `DEFAULT` and `subtle` are kept on
+         * the families the app already references by bare name (`text-brand`,
+         * `bg-success-subtle`, …) so those call sites keep resolving to the
+         * theme-aware CSS variables rather than a fixed step.
          */
         brand: {
           ...palette.brand,
@@ -150,7 +165,13 @@ const preset = {
           subtle: "var(--brand-subtle)",
         },
         gray: palette.gray,
-        error: palette.error,
+        // `DEFAULT` keeps Tailwind's scalar `bg-white` / `text-white` working.
+        white: { ...palette.white, DEFAULT: "#ffffff" },
+        error: {
+          ...palette.error,
+          DEFAULT: "var(--danger)",
+          subtle: "var(--danger-subtle)",
+        },
         warning: {
           ...palette.warning,
           DEFAULT: "var(--warning)",
@@ -160,6 +181,19 @@ const preset = {
           ...palette.success,
           DEFAULT: "var(--success)",
           subtle: "var(--success-subtle)",
+        },
+        info: {
+          ...palette.info,
+          DEFAULT: "var(--info)",
+          subtle: "var(--info-subtle)",
+        },
+        purple: palette.purple,
+        orange: palette.orange,
+        brown: palette.brown,
+        pink: {
+          ...palette.pink,
+          DEFAULT: "var(--pink)",
+          subtle: "var(--pink-subtle)",
         },
       },
 

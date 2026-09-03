@@ -1,4 +1,4 @@
-# Agile Coder component library
+# WizKraft component library
 
 React 19 · TypeScript 5 · Tailwind CSS 4. Live reference: [`/design-system`](../app/design-system/page.tsx).
 
@@ -81,6 +81,19 @@ import { Button, Badge, Table } from "@/components";
 ```
 
 `@/` resolves to `src/`.
+
+## Typography
+
+**Manrope** is the app typeface, self-hosted via `next/font/local` from a single
+variable file (`src/app/fonts/Manrope-VariableFont_wght.ttf`, axis 200–800).
+That range covers every weight the app uses — 400, 500, 600 and 700. Manrope
+ships no italic, and nothing in the app asks for one.
+
+**Geist Mono** stays on `--font-mono` for code, task keys and identifiers.
+
+The type scale lives in the preset's `fontSize` block: `text-md` plus
+`text-display-xs` … `text-display-2xl`, added alongside Tailwind's defaults
+rather than replacing them.
 
 ## Tokens
 

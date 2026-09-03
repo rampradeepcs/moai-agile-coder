@@ -71,7 +71,7 @@ function buildRange(
 const arrowClasses = cn(
   "inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-lg border border-border-primary bg-bg-primary px-3 text-sm font-semibold text-fg-secondary transition-colors",
   "hover:bg-bg-secondary hover:text-fg-primary",
-  "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:outline-none",
+  "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
   "disabled:pointer-events-none disabled:border-border-disabled disabled:text-fg-disabled",
 );
 
@@ -134,7 +134,7 @@ export function Pagination({
                   aria-label={`Go to page ${slot}`}
                   className={cn(
                     "grid size-9 cursor-pointer place-items-center rounded-lg text-sm font-medium transition-colors",
-                    "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:outline-none",
+                    "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
                     slot === page
                       ? "bg-bg-brand text-fg-brand"
                       : "text-fg-secondary hover:bg-bg-secondary hover:text-fg-primary",

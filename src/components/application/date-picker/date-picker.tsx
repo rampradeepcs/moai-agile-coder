@@ -116,8 +116,8 @@ export function DatePicker(props: DatePickerProps) {
             "flex w-full cursor-pointer items-center gap-2 rounded-lg border bg-bg-primary text-left transition-colors outline-none",
             "focus:ring-2 data-[state=open]:ring-2",
             isInvalid
-              ? "border-border-error focus:ring-error-500/30 data-[state=open]:ring-error-500/30"
-              : "border-border-primary focus:border-border-brand focus:ring-brand-500/30 data-[state=open]:border-border-brand data-[state=open]:ring-brand-500/30",
+              ? "border-border-error focus:ring-error-600/30 data-[state=open]:ring-error-600/30"
+              : "border-border-primary focus:border-border-brand focus:ring-brand-600/30 data-[state=open]:border-border-brand data-[state=open]:ring-brand-600/30",
             "disabled:cursor-not-allowed disabled:bg-bg-disabled disabled:text-fg-disabled",
             sizes[size],
             className,

@@ -41,10 +41,10 @@ const accents: Record<NotificationType, string> = {
 };
 
 const surfaces: Record<NotificationType, string> = {
-  success: "border-success-200 bg-success-50 dark:border-success-800/60 dark:bg-success-900/25",
-  error: "border-error-200 bg-error-50 dark:border-error-800/60 dark:bg-error-900/25",
-  warning: "border-warning-200 bg-warning-50 dark:border-warning-800/60 dark:bg-warning-900/25",
-  info: "border-brand-200 bg-brand-50 dark:border-brand-800/60 dark:bg-brand-900/25",
+  success: "border-success-300 bg-success-100 dark:border-success-900/60 dark:bg-success-1000/25",
+  error: "border-error-300 bg-error-100 dark:border-error-900/60 dark:bg-error-1000/25",
+  warning: "border-warning-300 bg-warning-100 dark:border-warning-900/60 dark:bg-warning-1000/25",
+  info: "border-brand-300 bg-brand-100 dark:border-brand-900/60 dark:bg-brand-1000/25",
 };
 
 /**
@@ -90,7 +90,7 @@ export function Notification({
           className={cn(
             "-mt-1 -mr-1 grid size-7 shrink-0 cursor-pointer place-items-center rounded-md text-fg-tertiary transition-colors",
             "hover:bg-black/5 hover:text-fg-primary dark:hover:bg-white/10",
-            "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:outline-none",
+            "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
           )}
         >
           <XIcon className="size-4" />

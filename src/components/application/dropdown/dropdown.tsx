@@ -49,7 +49,7 @@ function MenuItem({ item }: { item: DropdownItem }) {
         "data-[disabled]:pointer-events-none data-[disabled]:text-fg-disabled",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         item.destructive
-          ? "text-fg-error data-[highlighted]:bg-error-50 dark:data-[highlighted]:bg-error-900/30"
+          ? "text-fg-error data-[highlighted]:bg-error-100 dark:data-[highlighted]:bg-error-1000/30"
           : "text-fg-primary",
       )}
     >

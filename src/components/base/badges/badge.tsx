@@ -29,23 +29,25 @@ const sizes: Record<BadgeSize, string> = {
  * rather than following the neutral surface tokens.
  */
 const colors: Record<BadgeColor, string> = {
+  // Light text sits at -900 on the -100 fill: the Figma ramps are bright, and
+  // -800 lands at 3.1:1 on brand/success/warning. -900 clears 4.5:1 for all five.
   brand:
-    "bg-brand-50 text-brand-700 ring-brand-200 dark:bg-brand-900/40 dark:text-brand-200 dark:ring-brand-700/50",
-  gray: "bg-gray-50 text-gray-700 ring-gray-200 dark:bg-gray-800/60 dark:text-gray-200 dark:ring-gray-600/50",
+    "bg-brand-100 text-brand-900 ring-brand-300 dark:bg-brand-1000/40 dark:text-brand-300 dark:ring-brand-800/50",
+  gray: "bg-gray-100 text-gray-900 ring-gray-300 dark:bg-gray-900/60 dark:text-gray-300 dark:ring-gray-700/50",
   error:
-    "bg-error-50 text-error-700 ring-error-200 dark:bg-error-900/40 dark:text-error-200 dark:ring-error-700/50",
+    "bg-error-100 text-error-900 ring-error-300 dark:bg-error-1000/40 dark:text-error-300 dark:ring-error-800/50",
   warning:
-    "bg-warning-50 text-warning-700 ring-warning-200 dark:bg-warning-900/40 dark:text-warning-200 dark:ring-warning-700/50",
+    "bg-warning-100 text-warning-900 ring-warning-300 dark:bg-warning-1000/40 dark:text-warning-300 dark:ring-warning-800/50",
   success:
-    "bg-success-50 text-success-700 ring-success-200 dark:bg-success-900/40 dark:text-success-200 dark:ring-success-700/50",
+    "bg-success-100 text-success-900 ring-success-300 dark:bg-success-1000/40 dark:text-success-300 dark:ring-success-800/50",
 };
 
 const dots: Record<BadgeColor, string> = {
-  brand: "bg-brand-500",
-  gray: "bg-gray-500",
-  error: "bg-error-500",
-  warning: "bg-warning-500",
-  success: "bg-success-500",
+  brand: "bg-brand-600",
+  gray: "bg-gray-600",
+  error: "bg-error-600",
+  warning: "bg-warning-600",
+  success: "bg-success-600",
 };
 
 export function Badge({

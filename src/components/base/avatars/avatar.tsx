@@ -44,9 +44,9 @@ const statusSizes: Record<AvatarSize, string> = {
 };
 
 const statusColors: Record<AvatarStatus, string> = {
-  online: "bg-success-500",
-  offline: "bg-gray-400",
-  busy: "bg-error-500",
+  online: "bg-success-600",
+  offline: "bg-gray-500",
+  busy: "bg-error-600",
 };
 
 /** "Ada Lovelace" → "AL"; single names give one letter. */

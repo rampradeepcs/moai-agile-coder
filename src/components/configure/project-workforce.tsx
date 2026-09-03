@@ -73,7 +73,7 @@ const assignedProjects = [
   { name: "Nuclyo", description: "Nuclear-grade project analytics suite.", color: "#7c5cff" },
   { name: "Wear wise", description: "Wearables companion for daily wellness.", color: "#22b07d" },
   { name: "Rydyt", description: "On-demand ride booking marketplace.", color: "#e8a33d" },
-  { name: "Agile coder", description: "AI-native agile delivery workspace.", color: "#3d8de8" },
+  { name: "WizKraft", description: "AI-native agile delivery workspace.", color: "#3d8de8" },
 ];
 
 const initials = (name: string) =>

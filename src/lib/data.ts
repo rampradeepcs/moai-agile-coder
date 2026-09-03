@@ -16,17 +16,17 @@ export const members: Member[] = [
   { id: "u5", name: "Kowsik R", role: "Backend engineer", email: "kowsik@moaiconsulting.co.in", kind: "human", color: "#3d8de8" },
   { id: "u6", name: "Deepthi M", role: "QA engineer", email: "deepthi@moaiconsulting.co.in", kind: "human", color: "#c85ce2" },
   // AI agents — assignable to stages and work items
-  { id: "a1", name: "Nava", role: "Sr Project manager agent", email: "nava@agents.agilecoder.app", kind: "agent", color: "#8b7cf6" },
-  { id: "a2", name: "Zara", role: "Project coordinator agent", email: "zara@agents.agilecoder.app", kind: "agent", color: "#7cb8f6" },
-  { id: "a3", name: "Pixel", role: "Research agent", email: "pixel@agents.agilecoder.app", kind: "agent", color: "#f67cb8" },
-  { id: "a4", name: "Carter", role: "IA agent", email: "carter@agents.agilecoder.app", kind: "agent", color: "#7cf6d4" },
-  { id: "a5", name: "Echo", role: "Design agent", email: "echo@agents.agilecoder.app", kind: "agent", color: "#f6d47c" },
-  { id: "a6", name: "Sirus", role: "Concept design agent", email: "sirus@agents.agilecoder.app", kind: "agent", color: "#b87cf6" },
-  { id: "a7", name: "Orion", role: "Component engineer agent", email: "orion@agents.agilecoder.app", kind: "agent", color: "#7cf68b" },
-  { id: "a8", name: "Astra", role: "Architecture agent", email: "astra@agents.agilecoder.app", kind: "agent", color: "#f6a57c" },
-  { id: "a9", name: "Quasar", role: "Sr Backend developer agent", email: "quasar@agents.agilecoder.app", kind: "agent", color: "#f67c7c" },
-  { id: "a10", name: "Lumi", role: "Data agent", email: "lumi@agents.agilecoder.app", kind: "agent", color: "#7ce2f6" },
-  { id: "a11", name: "UX Research Agent", role: "Research", email: "uxr@agents.agilecoder.app", kind: "agent", color: "#a58bf6" },
+  { id: "a1", name: "Nava", role: "Sr Project manager agent", email: "nava@agents.wizkraft.app", kind: "agent", color: "#8b7cf6" },
+  { id: "a2", name: "Zara", role: "Project coordinator agent", email: "zara@agents.wizkraft.app", kind: "agent", color: "#7cb8f6" },
+  { id: "a3", name: "Pixel", role: "Research agent", email: "pixel@agents.wizkraft.app", kind: "agent", color: "#f67cb8" },
+  { id: "a4", name: "Carter", role: "IA agent", email: "carter@agents.wizkraft.app", kind: "agent", color: "#7cf6d4" },
+  { id: "a5", name: "Echo", role: "Design agent", email: "echo@agents.wizkraft.app", kind: "agent", color: "#f6d47c" },
+  { id: "a6", name: "Sirus", role: "Concept design agent", email: "sirus@agents.wizkraft.app", kind: "agent", color: "#b87cf6" },
+  { id: "a7", name: "Orion", role: "Component engineer agent", email: "orion@agents.wizkraft.app", kind: "agent", color: "#7cf68b" },
+  { id: "a8", name: "Astra", role: "Architecture agent", email: "astra@agents.wizkraft.app", kind: "agent", color: "#f6a57c" },
+  { id: "a9", name: "Quasar", role: "Sr Backend developer agent", email: "quasar@agents.wizkraft.app", kind: "agent", color: "#f67c7c" },
+  { id: "a10", name: "Lumi", role: "Data agent", email: "lumi@agents.wizkraft.app", kind: "agent", color: "#7ce2f6" },
+  { id: "a11", name: "UX Research Agent", role: "Research", email: "uxr@agents.wizkraft.app", kind: "agent", color: "#a58bf6" },
 ];
 
 export const memberById = (id?: string) => members.find((m) => m.id === id);

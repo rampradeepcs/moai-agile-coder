@@ -41,7 +41,7 @@ code targets Python 3.12 with fully typed Pydantic v2 models.
 
 ## Installation
 \`\`\`bash
-git clone https://github.com/ram/agilecoder pawcare-api
+git clone https://github.com/ram/wizkraft pawcare-api
 cd pawcare-api/backend
 
 uv venv && source .venv/bin/activate

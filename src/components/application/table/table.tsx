@@ -213,7 +213,7 @@ export function Table<T>({
                         onClick={() => toggleSort(column)}
                         className={cn(
                           "inline-flex cursor-pointer items-center gap-1.5 rounded transition-colors hover:text-fg-secondary",
-                          "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:outline-none",
+                          "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
                           isActive && "text-fg-secondary",
                         )}
                       >

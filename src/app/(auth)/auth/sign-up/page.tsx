@@ -124,7 +124,7 @@ export default function SignUpPage() {
                     required
                   />
                   <InputGroupAddon align="inline-end">
-                    <InputGroupText>.agilecoder.app</InputGroupText>
+                    <InputGroupText>.wizkraft.app</InputGroupText>
                   </InputGroupAddon>
                 </InputGroup>
               </div>

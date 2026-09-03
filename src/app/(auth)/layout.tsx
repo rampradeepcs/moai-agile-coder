@@ -20,14 +20,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div
         aria-hidden
         className="relative hidden overflow-hidden lg:flex lg:flex-col lg:justify-between"
-        style={{ backgroundColor: "oklch(0.1 0.015 262)" }}
+        style={{ backgroundColor: "oklch(0.1 0.015 155)" }}
       >
-        {/* Blue radial glow */}
+        {/* Brand radial glow */}
         <div
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(60% 55% at 65% 30%, oklch(0.4 0.2 262 / 55%), transparent 70%), radial-gradient(45% 40% at 25% 70%, oklch(0.35 0.16 230 / 35%), transparent 70%)",
+              "radial-gradient(60% 55% at 65% 30%, oklch(0.45 0.15 155 / 55%), transparent 70%), radial-gradient(45% 40% at 25% 70%, oklch(0.38 0.12 168 / 35%), transparent 70%)",
           }}
         />
         {/* Conic accents */}
@@ -35,7 +35,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           className="absolute inset-0 opacity-40 mix-blend-screen"
           style={{
             backgroundImage:
-              "conic-gradient(from 210deg at 70% 25%, transparent 0deg, oklch(0.5 0.22 262 / 30%) 60deg, transparent 130deg, oklch(0.55 0.18 220 / 18%) 220deg, transparent 300deg)",
+              "conic-gradient(from 210deg at 70% 25%, transparent 0deg, oklch(0.55 0.16 155 / 30%) 60deg, transparent 130deg, oklch(0.6 0.13 172 / 18%) 220deg, transparent 300deg)",
           }}
         />
         {/* Star field */}
@@ -63,7 +63,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           className="absolute inset-x-0 bottom-0 h-64"
           style={{
             backgroundImage:
-              "radial-gradient(80% 120% at 50% 120%, oklch(0.45 0.22 262 / 40%), transparent 70%)",
+              "radial-gradient(80% 120% at 50% 120%, oklch(0.5 0.16 155 / 40%), transparent 70%)",
           }}
         />
 
@@ -82,7 +82,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           </p>
           <p
             className="mt-3 max-w-md text-sm leading-relaxed"
-            style={{ color: "oklch(0.75 0.02 262)" }}
+            style={{ color: "oklch(0.75 0.02 155)" }}
           >
             Get a fully structured ticket hierarchy your team can act on in minutes.
           </p>

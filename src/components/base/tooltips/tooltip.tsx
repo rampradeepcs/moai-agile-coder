@@ -60,17 +60,17 @@ export function Tooltip({
           align={align}
           sideOffset={sideOffset}
           className={cn(
-            "z-50 max-w-xs rounded-lg bg-gray-900 px-3 py-2 text-xs text-white shadow-elevation-mid dark:bg-gray-800",
+            "z-50 max-w-xs rounded-lg bg-gray-1000 px-3 py-2 text-xs text-white shadow-elevation-mid dark:bg-gray-900",
             "data-[state=delayed-open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95",
             className,
           )}
         >
           <p className="font-semibold">{title}</p>
           {description && (
-            <p className="mt-0.5 text-gray-300">{description}</p>
+            <p className="mt-0.5 text-gray-400">{description}</p>
           )}
           {arrow && (
-            <TooltipPrimitive.Arrow className="fill-gray-900 dark:fill-gray-800" />
+            <TooltipPrimitive.Arrow className="fill-gray-1000 dark:fill-gray-900" />
           )}
         </TooltipPrimitive.Content>
       </TooltipPrimitive.Portal>

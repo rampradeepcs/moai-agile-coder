@@ -52,8 +52,7 @@ export function PromptsTab() {
             {platformPrompt}
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            Read-only — this baseline is maintained per platform by Agile
-            Coder.
+            Read-only — this baseline is maintained per platform by WizKraft.
           </p>
         </TabsContent>
 

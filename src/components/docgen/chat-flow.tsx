@@ -545,7 +545,7 @@ function TypingIndicator() {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       className="flex items-center gap-3"
-      aria-label="Agile Coder is typing"
+      aria-label="WizKraft is typing"
     >
       <span className="flex size-7 items-center justify-center rounded-lg bg-brand-subtle text-brand">
         <Sparkles className="size-3.5" />

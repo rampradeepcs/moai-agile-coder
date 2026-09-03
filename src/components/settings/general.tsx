@@ -39,7 +39,7 @@ export function GeneralSettings() {
             <Label htmlFor="ws-url">Workspace URL</Label>
             <div className="flex items-center">
               <span className="flex h-9 items-center rounded-l-lg border border-r-0 border-input bg-muted px-2.5 text-[13px] text-muted-foreground">
-                agilecoder.app/
+                wizkraft.app/
               </span>
               <Input
                 id="ws-url"

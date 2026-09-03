@@ -11,7 +11,7 @@ export function RepositoryTab() {
     <div className={panelClasses({ padding: "lg", className: "max-w-2xl" })}>
       <h2 className="text-sm font-semibold">Repository configuration</h2>
       <p className="mt-0.5 text-xs text-muted-foreground">
-        Where Agile Coder pushes generated code and setup files.
+        Where WizKraft pushes generated code and setup files.
       </p>
 
       <div className="mt-5 grid gap-1.5">
@@ -25,11 +25,11 @@ export function RepositoryTab() {
         </div>
         <Input
           id="repo-url"
-          defaultValue="https://github.com/ram/agilecoder"
+          defaultValue="https://github.com/ram/wizkraft"
           className="font-mono text-xs"
         />
         <p className="mt-1 text-xs text-muted-foreground">
-          Connecting a repository lets Agile Coder sync generated code and setup
+          Connecting a repository lets WizKraft sync generated code and setup
           files with Git.
         </p>
       </div>

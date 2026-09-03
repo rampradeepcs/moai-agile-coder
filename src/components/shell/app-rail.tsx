@@ -37,7 +37,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ThemeToggle } from "./theme-toggle";
 
-const ACTIVE_KEY = "agile-coder-active-projects";
+const ACTIVE_KEY = "wizkraft-active-projects";
 
 export function AppRail() {
   const pathname = usePathname();
@@ -111,9 +111,9 @@ export function AppRail() {
     >
       {/* Logo */}
       <div className={cn("flex items-center px-3.5", !expanded && "justify-center px-0")}>
-        <Link href="/apps" aria-label="Agile Coder home" className="flex min-w-0 items-center gap-2">
+        <Link href="/apps" aria-label="WizKraft home" className="flex min-w-0 items-center gap-2">
           <BrandMark className="size-9 shrink-0 text-brand" />
-          {expanded && <span className="truncate text-sm font-semibold tracking-tight">Agile Coder</span>}
+          {expanded && <span className="truncate text-sm font-semibold tracking-tight">WizKraft</span>}
         </Link>
       </div>
 

@@ -76,8 +76,8 @@ export function Textarea({
           "placeholder:text-fg-tertiary",
           "focus:ring-2 focus:ring-offset-0",
           isInvalid
-            ? "border-border-error focus:ring-error-500/30"
-            : "border-border-primary focus:border-border-brand focus:ring-brand-500/30",
+            ? "border-border-error focus:ring-error-600/30"
+            : "border-border-primary focus:border-border-brand focus:ring-brand-600/30",
           "disabled:cursor-not-allowed disabled:bg-bg-disabled disabled:text-fg-disabled",
           className,
         )}

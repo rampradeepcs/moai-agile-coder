@@ -94,7 +94,7 @@ export default function OnboardingPage() {
               transition={{ duration: 0.25 }}
             >
               <h1 className="text-2xl font-bold tracking-tight text-balance">
-                How will you use agile coder?
+                How will you use WizKraft?
               </h1>
               <div className="mt-6 space-y-3">
                 {USAGE_OPTIONS.map((opt) => (
@@ -210,7 +210,7 @@ export default function OnboardingPage() {
               <div className="mt-6 rounded-xl border border-primary bg-card p-6 shadow-elevation-mid">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h2 className="font-semibold tracking-tight">Agile coder Pro</h2>
+                    <h2 className="font-semibold tracking-tight">WizKraft Pro</h2>
                     <p className="mt-1 text-sm text-muted-foreground">
                       Everything you need to ship faster.
                     </p>

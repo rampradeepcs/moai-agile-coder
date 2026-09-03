@@ -1,5 +1,5 @@
 /**
- * Agile Coder design system — public surface.
+ * WizKraft design system — public surface.
  *
  * Deep imports are the documented path and stay tree-shake friendly:
  *   import { Button } from "@/components/base/buttons/button";

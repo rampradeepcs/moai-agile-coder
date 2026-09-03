@@ -49,7 +49,7 @@ export function ConnectorsSettings() {
         <div>
           <p className="text-sm font-semibold">{connected} connected</p>
           <p className="text-xs text-muted-foreground">
-            Connectors keep Agile Coder in sync with the rest of your toolchain.
+            Connectors keep WizKraft in sync with the rest of your toolchain.
           </p>
         </div>
       </div>

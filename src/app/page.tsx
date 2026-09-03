@@ -57,10 +57,10 @@ const stagger = {
 export default function LandingPage() {
   return (
     <div className="relative min-h-svh overflow-x-clip">
-      {/* Background — soft blue glow + faint masked grid */}
+      {/* Background — soft brand glow + faint masked grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-[-18rem] h-[34rem] w-[54rem] -translate-x-1/2 rounded-full bg-primary/15 blur-[120px]" />
-        <div className="absolute left-1/3 top-[-10rem] h-[22rem] w-[26rem] -translate-x-1/2 rounded-full bg-info/10 blur-[100px]" />
+        <div className="absolute left-1/3 top-[-10rem] h-[22rem] w-[26rem] -translate-x-1/2 rounded-full bg-brand/10 blur-[100px]" />
         <div
           className="absolute inset-0"
           style={{
@@ -126,7 +126,7 @@ export default function LandingPage() {
           variants={fadeUp}
           className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground text-balance"
         >
-          Describe your product and workflow goals — Agile Coder will generate structured
+          Describe your product and workflow goals — WizKraft will generate structured
           project architecture powered by AI.
         </motion.p>
 
@@ -198,7 +198,7 @@ export default function LandingPage() {
       <footer className="border-t">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 sm:flex-row">
           <Logo />
-          <p className="text-sm text-muted-foreground">© 2026 Agile Coder</p>
+          <p className="text-sm text-muted-foreground">© 2026 WizKraft</p>
           <nav className="flex items-center gap-4" aria-label="Footer">
             {["Privacy", "Terms", "Contact"].map((link) => (
               <Link

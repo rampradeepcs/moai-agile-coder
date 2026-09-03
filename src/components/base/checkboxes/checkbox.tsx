@@ -53,7 +53,7 @@ export function Checkbox({
       className={cn(
         "peer grid shrink-0 cursor-pointer place-items-center border border-border-primary bg-bg-primary text-fg-on-brand transition-colors outline-none",
         "hover:border-border-brand hover:bg-bg-brand",
-        "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
+        "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
         "data-[state=checked]:border-bg-brand-solid data-[state=checked]:bg-bg-brand-solid",
         "data-[state=indeterminate]:border-bg-brand-solid data-[state=indeterminate]:bg-bg-brand-solid",
         "disabled:cursor-not-allowed disabled:border-border-disabled disabled:bg-bg-disabled",

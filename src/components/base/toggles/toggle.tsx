@@ -48,7 +48,7 @@ export function Toggle({
       disabled={disabled}
       className={cn(
         "peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-bg-tertiary p-0.5 transition-colors outline-none",
-        "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
+        "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
         "data-[state=checked]:bg-bg-brand-solid",
         "disabled:cursor-not-allowed disabled:opacity-50",
         trackSizes[size],

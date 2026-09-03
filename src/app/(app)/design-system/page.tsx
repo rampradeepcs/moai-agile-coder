@@ -67,6 +67,7 @@ import {
   gridProps,
 } from "@/components/shared";
 import { projects } from "@/lib/data";
+import { palette, surfaces } from "../../../../tailwind.preset";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 /* ------------------------------------------------------------------ page */
@@ -118,12 +119,12 @@ interface Member {
 }
 
 const members: Member[] = [
-  { id: "1", name: "Ada Lovelace", email: "ada@agilecoder.dev", role: "Engineering lead", status: "active", sprintLoad: 82 },
-  { id: "2", name: "Grace Hopper", email: "grace@agilecoder.dev", role: "Staff engineer", status: "active", sprintLoad: 64 },
-  { id: "3", name: "Alan Turing", email: "alan@agilecoder.dev", role: "Product designer", status: "invited", sprintLoad: 31 },
-  { id: "4", name: "Katherine Johnson", email: "katherine@agilecoder.dev", role: "Data scientist", status: "active", sprintLoad: 95 },
-  { id: "5", name: "Barbara Liskov", email: "barbara@agilecoder.dev", role: "Principal engineer", status: "suspended", sprintLoad: 12 },
-  { id: "6", name: "Margaret Hamilton", email: "margaret@agilecoder.dev", role: "Engineering manager", status: "active", sprintLoad: 47 },
+  { id: "1", name: "Ada Lovelace", email: "ada@wizkraft.dev", role: "Engineering lead", status: "active", sprintLoad: 82 },
+  { id: "2", name: "Grace Hopper", email: "grace@wizkraft.dev", role: "Staff engineer", status: "active", sprintLoad: 64 },
+  { id: "3", name: "Alan Turing", email: "alan@wizkraft.dev", role: "Product designer", status: "invited", sprintLoad: 31 },
+  { id: "4", name: "Katherine Johnson", email: "katherine@wizkraft.dev", role: "Data scientist", status: "active", sprintLoad: 95 },
+  { id: "5", name: "Barbara Liskov", email: "barbara@wizkraft.dev", role: "Principal engineer", status: "suspended", sprintLoad: 12 },
+  { id: "6", name: "Margaret Hamilton", email: "margaret@wizkraft.dev", role: "Engineering manager", status: "active", sprintLoad: 47 },
 ];
 
 const demoTrend = [
@@ -209,7 +210,7 @@ export default function DesignSystemPage() {
             v1.0
           </Badge>
           <h1 className="text-display-sm font-semibold text-fg-primary">
-            Agile Coder design system
+            WizKraft design system
           </h1>
           <p className="max-w-xl text-md text-fg-tertiary">
             Eleven base and eleven application components, built on the tokens in{" "}
@@ -594,6 +595,114 @@ export default function DesignSystemPage() {
       </Section>
 
 
+
+
+      {/* ------------------------------------------------------- typography */}
+      <Section
+        title="Typography"
+        description="Manrope, self-hosted as one variable file (axis 200–800). Geist Mono is kept for code and identifiers."
+      >
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-semibold tracking-wide text-fg-tertiary uppercase">
+            Weights in use
+          </p>
+          <div className="flex flex-wrap gap-6">
+            {[
+              { cls: "font-normal", label: "Regular 400" },
+              { cls: "font-medium", label: "Medium 500" },
+              { cls: "font-semibold", label: "Semibold 600" },
+              { cls: "font-bold", label: "Bold 700" },
+            ].map(({ cls, label }) => (
+              <div key={cls} className="flex flex-col gap-0.5">
+                <span className={`text-2xl text-fg-primary ${cls}`}>Ag</span>
+                <span className="text-xs text-fg-tertiary">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-semibold tracking-wide text-fg-tertiary uppercase">
+            Type scale
+          </p>
+          <div className="flex flex-col gap-3">
+            {[
+              { cls: "text-display-2xl", label: "display-2xl" },
+              { cls: "text-display-lg", label: "display-lg" },
+              { cls: "text-display-sm", label: "display-sm" },
+              { cls: "text-display-xs", label: "display-xs" },
+              { cls: "text-md", label: "md" },
+              { cls: "text-sm", label: "sm" },
+              { cls: "text-xs", label: "xs" },
+            ].map(({ cls, label }) => (
+              <div key={cls} className="flex items-baseline gap-4">
+                <span className="w-24 shrink-0 font-mono text-xs text-fg-tertiary">
+                  {label}
+                </span>
+                <span className={`truncate font-semibold text-fg-primary ${cls}`}>
+                  Agile execution
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-semibold tracking-wide text-fg-tertiary uppercase">
+            Monospace
+          </p>
+          <p className="font-mono text-sm text-fg-secondary">
+            PC-7364 · Geist Mono · 0123456789
+          </p>
+        </div>
+      </Section>
+
+      {/* --------------------------------------------------- colour palette */}
+      <Section
+        title="Colour palette"
+        description="Generated from the WizKraft Figma colour styles — Primary (brand), neutrals, feedback and accents. Steps run 100–1000 as the design file defines them."
+      >
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-semibold tracking-wide text-fg-tertiary uppercase">
+            Background fills
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {Object.entries(surfaces).map(([name, hex]) => (
+              <div key={name} className="flex items-center gap-2.5">
+                <span
+                  className="size-10 rounded-lg border border-border-primary"
+                  style={{ background: hex }}
+                />
+                <span className="flex flex-col">
+                  <span className="text-sm text-fg-primary capitalize">{name}</span>
+                  <span className="font-mono text-xs text-fg-tertiary">{hex}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {Object.entries(palette).map(([family, ramp]) => (
+          <div key={family} className="flex flex-col gap-2">
+            <p className="text-xs font-semibold tracking-wide text-fg-tertiary uppercase">
+              {family}
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {Object.entries(ramp).map(([step, hex]) => (
+                <div key={step} className="flex w-[4.5rem] flex-col gap-1">
+                  <span
+                    className="h-12 w-full rounded-md border border-border-primary"
+                    style={{ background: hex }}
+                  />
+                  <span className="text-[11px] font-medium text-fg-secondary">{step}</span>
+                  <span className="font-mono text-[10px] text-fg-tertiary">{hex}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </Section>
+
       {/* ------------------------------------------------- global components */}
       <Section
         title="Global components"
@@ -750,7 +859,7 @@ export default function DesignSystemPage() {
           <EmptyState
             icon={<FolderPlusIcon />}
             title="No projects yet"
-            description="Describe what you want to build and Agile Coder will draft the backlog for you."
+            description="Describe what you want to build and WizKraft will draft the backlog for you."
             action={
               <>
                 <Button variant="secondary">Import backlog</Button>

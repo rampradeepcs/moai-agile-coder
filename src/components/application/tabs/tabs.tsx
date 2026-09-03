@@ -79,7 +79,7 @@ export function Tabs({
             disabled={item.disabled}
             className={cn(
               "inline-flex items-center justify-center whitespace-nowrap outline-none",
-              "focus-visible:ring-2 focus-visible:ring-brand-500/50",
+              "focus-visible:ring-2 focus-visible:ring-brand-600/50",
               "disabled:pointer-events-none disabled:text-fg-disabled",
               "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
               sizes[size],
@@ -103,7 +103,7 @@ export function Tabs({
           <TabsPrimitive.Content
             key={item.value}
             value={item.value}
-            className="mt-4 outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50"
+            className="mt-4 outline-none focus-visible:ring-2 focus-visible:ring-brand-600/50"
           >
             {item.content}
           </TabsPrimitive.Content>

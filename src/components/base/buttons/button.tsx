@@ -34,13 +34,13 @@ const sizes: Record<ButtonSize, string> = {
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-bg-brand-solid text-fg-on-brand hover:bg-brand-700 active:bg-brand-800",
+    "bg-bg-brand-solid text-fg-on-brand hover:bg-brand-800 active:bg-brand-900",
   secondary:
     "border border-border-primary bg-bg-primary text-fg-secondary hover:bg-bg-secondary hover:text-fg-primary active:bg-bg-tertiary",
   tertiary:
     "text-fg-secondary hover:bg-bg-secondary hover:text-fg-primary active:bg-bg-tertiary",
   destructive:
-    "bg-error-600 text-white hover:bg-error-700 active:bg-error-800 focus-visible:ring-error-500/50",
+    "bg-error-700 text-white hover:bg-error-800 active:bg-error-900 focus-visible:ring-error-600/50",
   link: "text-fg-brand underline-offset-4 hover:underline",
 };
 
@@ -94,7 +94,7 @@ export function Button({
 
   const classes = cn(
     "inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg font-semibold whitespace-nowrap transition-colors outline-none select-none",
-    "focus-visible:ring-2 focus-visible:ring-brand-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
+    "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
     "disabled:pointer-events-none disabled:cursor-not-allowed",
     variant === "link"
       ? "disabled:text-fg-disabled"
