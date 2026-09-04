@@ -24,15 +24,16 @@ export interface InputProps
   wrapperClassName?: string;
 }
 
+/** `md` is the Figma Input Field: 44px tall with the Button/1 text style. */
 const sizes: Record<InputSize, string> = {
-  sm: "h-9 text-sm",
-  md: "h-10 text-sm",
-  lg: "h-11 text-md",
+  sm: "h-9 text-button-1",
+  md: "h-11 text-button-1",
+  lg: "h-12 text-body-lg",
 };
 
 const paddings: Record<InputSize, string> = {
   sm: "px-3",
-  md: "px-3.5",
+  md: "px-4",
   lg: "px-4",
 };
 
@@ -61,7 +62,7 @@ export function Input({
       {label && (
         <label
           htmlFor={inputId}
-          className="text-sm font-medium text-fg-secondary"
+          className="text-caption-1 text-muted-foreground"
         >
           {label}
         </label>
@@ -69,11 +70,12 @@ export function Input({
 
       <div
         className={cn(
-          "flex w-full items-stretch overflow-hidden rounded-lg border bg-bg-primary transition-colors",
-          "focus-within:ring-2 focus-within:ring-offset-0",
+          "flex w-full items-stretch overflow-hidden rounded-[10px] border bg-card transition-colors",
+          // Figma "Input field" effect style.
+          "shadow-input-inner",
           isInvalid
-            ? "border-border-error focus-within:ring-error-600/30"
-            : "border-border-primary focus-within:border-border-brand focus-within:ring-brand-600/30",
+            ? "border-error-500"
+            : "border-border focus-within:border-brand-600",
           disabled && "cursor-not-allowed bg-bg-disabled",
           sizes[size],
         )}
@@ -107,8 +109,8 @@ export function Input({
           aria-invalid={isInvalid || undefined}
           aria-describedby={description ? describedById : undefined}
           className={cn(
-            "min-w-0 flex-1 bg-transparent text-fg-primary outline-none",
-            "placeholder:text-fg-tertiary",
+            "min-w-0 flex-1 bg-transparent font-medium text-foreground outline-none",
+            "placeholder:font-medium placeholder:text-muted-foreground/70",
             "disabled:cursor-not-allowed disabled:text-fg-disabled",
             icon ? "pl-2" : paddings[size],
             addonTrailing ? "pr-2" : paddings[size],
@@ -133,8 +135,8 @@ export function Input({
         <p
           id={describedById}
           className={cn(
-            "text-sm",
-            isInvalid && errorMessage ? "text-fg-error" : "text-fg-tertiary",
+            "text-caption-1",
+            isInvalid && errorMessage ? "text-error-500" : "text-muted-foreground",
           )}
         >
           {description}

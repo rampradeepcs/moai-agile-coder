@@ -221,6 +221,15 @@ const preset = {
         // Additive only. `xs`/`sm`/`lg`/`xl` keep their Tailwind defaults
         // because 291 existing `text-xs` call sites depend on that metric.
         md: ["1rem", { lineHeight: "1.5rem" }],
+
+        // Named text styles from the Figma file, so a component can say
+        // `text-head-1` and match the design by name rather than by numbers.
+        "head-1": ["2rem", { lineHeight: "2.5rem" }],          // 32/40 SemiBold
+        "body-lg": ["1rem", { lineHeight: "1.5rem" }],         // 16/24 Regular
+        "body-md": ["0.875rem", { lineHeight: "1.375rem" }],   // 14/22 Regular
+        "button-1": ["0.875rem", { lineHeight: "1.25rem" }],   // 14/20 Medium
+        "caption-1": ["0.75rem", { lineHeight: "1.125rem" }],  // 12/18 Regular
+        "overline-1": ["0.6875rem", { lineHeight: "1rem" }],   // 11/16 Regular
         "display-xs": ["1.5rem", { lineHeight: "2rem", letterSpacing: "-0.01em" }],
         "display-sm": ["1.875rem", { lineHeight: "2.375rem", letterSpacing: "-0.015em" }],
         "display-md": ["2.25rem", { lineHeight: "2.75rem", letterSpacing: "-0.02em" }],
@@ -232,6 +241,9 @@ const preset = {
       boxShadow: {
         // The app's flat-concept elevations. Named `elevation-*` rather than
         // `sm`/`md`/`lg` so Tailwind's own shadow scale is left alone.
+        // Figma "Elevation" and "Input field" effect styles.
+        card: "0px 10px 30px -10px rgba(0,0,0,0.04)",
+        "input-inner": "inset 0px 0px 6px 0px rgba(0,0,0,0.16)",
         "elevation-low": "var(--elevation-low)",
         "elevation-mid": "var(--elevation-mid)",
         "elevation-high": "var(--elevation-high)",

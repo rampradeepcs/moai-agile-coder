@@ -56,6 +56,12 @@ export type {
 export { Tooltip, TooltipProvider } from "./base/tooltips/tooltip";
 export type { TooltipProps, TooltipSide } from "./base/tooltips/tooltip";
 
+export { OtpInput } from "./base/otp/otp-input";
+export type { OtpInputProps } from "./base/otp/otp-input";
+
+export { OptionRow } from "./base/option-rows/option-row";
+export type { OptionRowProps } from "./base/option-rows/option-row";
+
 export { Tag } from "./base/tags/tag";
 export type { TagProps, TagSize } from "./base/tags/tag";
 
@@ -112,6 +118,9 @@ export type {
 
 export { Drawer, DrawerClose } from "./application/drawer/drawer";
 export type { DrawerProps, DrawerSide, DrawerSize } from "./application/drawer/drawer";
+
+export { Stepper } from "./application/stepper/stepper";
+export type { StepperProps } from "./application/stepper/stepper";
 
 export { Progress, ProgressCircle } from "./application/progress/progress";
 export type {

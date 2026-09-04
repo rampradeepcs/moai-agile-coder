@@ -1,300 +1,158 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { panelClasses } from "@/components/shared";
+import Image from "next/image";
+import { Button, Input, OptionRow, Stepper } from "@/components";
+import {
+  AuthCard,
+} from "@/components/auth/auth-primitives";
 
-const STEPS = 4;
-
-const USAGE_OPTIONS = [
-  { id: "individual", num: "01", title: "Individual use", body: "Plan and ship your own projects with AI doing the heavy lifting." },
-  { id: "team", num: "02", title: "Team & company use", body: "Coordinate sprints, pipelines and agents across your whole team." },
-];
-
+/*
+ * Four-step onboarding from the Figma sign-up section, in canvas order:
+ * how you'll use it → name the workspace → your role → team size.
+ */
+const USE_OPTIONS = ["Individual use", "Team & company use"];
 const ROLE_OPTIONS = [
-  "Project Manager",
   "Product Manager",
+  "Project Manager",
   "Startup Founder",
   "Engineering Manager",
-  "Agency",
+  "Agency / Consultant",
   "Developer",
-  "Something else",
 ];
+const TEAM_SIZES = ["Just me", "2 – 10", "11 – 50", "51 – 200", "201 – 500", "500+"];
 
-const TEAM_SIZE_OPTIONS = ["2–5 members", "5–20 members", "20–50 members", "100+ members"];
-
-const PRO_FEATURES = [
-  "Unlimited Projects",
-  "Unlimited Team Members",
-  "Unlimited AI Generations",
-  "Advanced Sprint Analytics",
-  "500 AI Credits / month",
-  "Ability to buy additional credits",
-  "Basic Analytics",
-];
-
-const slideVariants = {
-  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 48 : -48 }),
-  center: { opacity: 1, x: 0 },
-  exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -48 : 48 }),
-};
+const TOTAL = 4;
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const [step, setStep] = React.useState(0);
-  const [direction, setDirection] = React.useState(1);
-  const [usage, setUsage] = React.useState<string | null>(null);
-  const [role, setRole] = React.useState<string | null>(null);
-  const [teamSize, setTeamSize] = React.useState<string | null>(null);
-  const [billing, setBilling] = React.useState<"monthly" | "yearly">("monthly");
+  const [step, setStep] = useState(1);
+  const [use, setUse] = useState<string | null>(null);
+  const [workspace, setWorkspace] = useState("");
+  const [role, setRole] = useState<string | null>(null);
+  const [otherRole, setOtherRole] = useState("");
+  const [teamSize, setTeamSize] = useState<string | null>(null);
 
-  const selections = [usage, role, teamSize];
-  const canNext = step < 3 && selections[step] !== null;
+  const canAdvance =
+    (step === 1 && use !== null) ||
+    (step === 2 && workspace.trim().length > 0) ||
+    (step === 3 && role !== null) ||
+    (step === 4 && teamSize !== null);
 
-  const go = (next: number) => {
-    setDirection(next > step ? 1 : -1);
-    setStep(next);
+  const next = () => {
+    if (step < TOTAL) setStep(step + 1);
+    else router.push("/apps");
   };
 
+  const heading = {
+    1: { title: "How will you use WizKraft?", sub: "So we can shape the workspace around you." },
+    2: { title: "Name your workspace", sub: "You can rename it at any time in settings." },
+    3: { title: "What best describes you?", sub: "This tailors the templates we suggest first." },
+    4: { title: "How big is your team?", sub: "We'll size sprints and pipelines to match." },
+  }[step]!;
+
   return (
-    <div>
-      {/* Progress dots + skip */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2" aria-label={`Step ${step + 1} of ${STEPS}`}>
-          {Array.from({ length: STEPS }).map((_, i) => (
-            <span
-              key={i}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                i === step ? "w-6 bg-brand-gradient" : "w-1.5 bg-border",
-                i < step && "bg-primary/40"
-              )}
+    <AuthCard>
+      <div className="flex flex-col gap-1">
+        <div className="flex items-center gap-2">
+          <h1 className="text-head-1 font-semibold text-foreground">{heading.title}</h1>
+          <Image src="/auth/ai-sparkle.svg" alt="" width={24} height={24} />
+        </div>
+        <p className="text-body-md text-muted-foreground">{heading.sub}</p>
+      </div>
+
+      <div className="flex w-full items-baseline justify-between">
+        <span className="text-body-lg font-medium text-foreground">
+          {step === 1 && "Pick one to get started"}
+          {step === 2 && "Workspace name"}
+          {step === 3 && "Choose your role"}
+          {step === 4 && "Select a range"}
+        </span>
+        <span className="text-body-md text-muted-foreground">
+          {step}/{TOTAL}
+        </span>
+      </div>
+
+      <div className="flex w-full flex-col gap-4">
+        {step === 1 &&
+          USE_OPTIONS.map((label, i) => (
+            <OptionRow
+              key={label}
+              index={String(i + 1).padStart(2, "0")}
+              label={label}
+              selected={use === label}
+              onSelect={() => setUse(label)}
             />
           ))}
-        </div>
-        <Button variant="ghost" size="sm" onClick={() => router.push("/apps")}>
-          Skip
-        </Button>
+
+        {step === 2 && (
+          <Input
+            value={workspace}
+            onChange={(e) => setWorkspace(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && canAdvance && next()}
+            placeholder="e.g. Acme Product Team"
+            aria-label="Workspace name"
+          />
+        )}
+
+        {step === 3 && (
+          <>
+            {ROLE_OPTIONS.map((label, i) => (
+              <OptionRow
+                key={label}
+                index={String(i + 1).padStart(2, "0")}
+                label={label}
+                selected={role === label}
+                onSelect={() => setRole(label)}
+              />
+            ))}
+            <Input
+              value={otherRole}
+              onChange={(e) => setOtherRole(e.target.value)}
+              placeholder="Something else — tell us"
+              aria-label="Other role"
+            />
+          </>
+        )}
+
+        {step === 4 &&
+          TEAM_SIZES.map((label, i) => (
+            <OptionRow
+              key={label}
+              index={String(i + 1).padStart(2, "0")}
+              label={label}
+              selected={teamSize === label}
+              onSelect={() => setTeamSize(label)}
+            />
+          ))}
       </div>
 
-      <div className="mt-8 min-h-[26rem]">
-        <AnimatePresence mode="wait" custom={direction} initial={false}>
-          {step === 0 && (
-            <motion.div
-              key="usage"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.25 }}
-            >
-              <h1 className="text-2xl font-bold tracking-tight text-balance">
-                How will you use WizKraft?
-              </h1>
-              <div className="mt-6 space-y-3">
-                {USAGE_OPTIONS.map((opt) => (
-                  <button
-                    key={opt.id}
-                    type="button"
-                    onClick={() => setUsage(opt.id)}
-                    aria-pressed={usage === opt.id}
-                    className={cn(
-                      panelClasses({ padding: "sm", elevation: "none", className: "flex w-full items-start gap-4 text-left transition-all hover:border-primary/40" }),
-                      usage === opt.id && "border-primary ring-2 ring-primary/30"
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "text-sm font-semibold tabular-nums",
-                        usage === opt.id ? "text-primary" : "text-muted-foreground"
-                      )}
-                    >
-                      {opt.num}
-                    </span>
-                    <span>
-                      <span className="block font-semibold tracking-tight">{opt.title}</span>
-                      <span className="mt-1 block text-sm text-muted-foreground">
-                        {opt.body}
-                      </span>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {step === 1 && (
-            <motion.div
-              key="role"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.25 }}
-            >
-              <h1 className="text-2xl font-bold tracking-tight text-balance">
-                What best describes you?
-              </h1>
-              <div className="mt-6 flex flex-wrap gap-2.5">
-                {ROLE_OPTIONS.map((opt) => (
-                  <button
-                    key={opt}
-                    type="button"
-                    onClick={() => setRole(opt)}
-                    aria-pressed={role === opt}
-                    className={cn(
-                      "rounded-lg border bg-card px-4 py-2 text-sm transition-all hover:border-primary/40",
-                      role === opt
-                        ? "border-primary bg-brand-subtle font-medium text-brand ring-1 ring-primary/40"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    {opt}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {step === 2 && (
-            <motion.div
-              key="teamsize"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.25 }}
-            >
-              <h1 className="text-2xl font-bold tracking-tight text-balance">
-                How big is your team?
-              </h1>
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                {TEAM_SIZE_OPTIONS.map((opt) => (
-                  <button
-                    key={opt}
-                    type="button"
-                    onClick={() => setTeamSize(opt)}
-                    aria-pressed={teamSize === opt}
-                    className={cn(
-                      panelClasses({ padding: "sm", elevation: "none", className: "text-center text-sm font-medium transition-all hover:border-primary/40" }),
-                      teamSize === opt && "border-primary ring-2 ring-primary/30"
-                    )}
-                  >
-                    {opt}
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {step === 3 && (
-            <motion.div
-              key="plan"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.25 }}
-            >
-              <h1 className="text-2xl font-bold tracking-tight text-balance">
-                Pick your plan
-              </h1>
-              <div className="mt-6 rounded-xl border border-primary bg-card p-6 shadow-elevation-mid">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h2 className="font-semibold tracking-tight">WizKraft Pro</h2>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      Everything you need to ship faster.
-                    </p>
-                  </div>
-                  <div
-                    className="flex items-center rounded-full border bg-muted p-0.5"
-                    role="group"
-                    aria-label="Billing period"
-                  >
-                    {(["monthly", "yearly"] as const).map((b) => (
-                      <button
-                        key={b}
-                        type="button"
-                        onClick={() => setBilling(b)}
-                        aria-pressed={billing === b}
-                        className={cn(
-                          "flex items-center gap-1.5 rounded-lg px-3 py-1 text-xs font-medium capitalize transition-colors",
-                          billing === b
-                            ? "bg-card text-foreground shadow-elevation-low"
-                            : "text-muted-foreground"
-                        )}
-                      >
-                        {b}
-                        {b === "yearly" && (
-                          <span className="rounded-md bg-success-subtle px-1.5 py-px text-[10px] font-semibold text-success">
-                            -20%
-                          </span>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-5 flex items-baseline gap-1.5">
-                  <span className="text-4xl font-bold tracking-tight">
-                    ${billing === "yearly" ? "19" : "24"}
-                  </span>
-                  <span className="text-sm text-muted-foreground">/ user / month</span>
-                </div>
-
-                <ul className="mt-5 space-y-2.5">
-                  {PRO_FEATURES.map((f) => (
-                    <li key={f} className="flex items-center gap-2.5 text-sm">
-                      <CheckCircle2 className="size-4 shrink-0 text-success" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <Button
-                  size="lg"
-                  className="mt-6 w-full"
-                  onClick={() => router.push("/apps")}
-                >
-                  Start free trial
-                </Button>
-                <Button
-                  variant="ghost"
-                  className="mt-2 w-full text-muted-foreground"
-                  onClick={() => router.push("/apps")}
-                >
-                  Continue with free plan
-                </Button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Prev / Next */}
-      <div className="mt-8 flex items-center justify-between">
-        <Button
-          variant="outline"
-          onClick={() => go(step - 1)}
-          disabled={step === 0}
-        >
-          Previous
-        </Button>
-        {step < 3 && (
-          <Button onClick={() => go(step + 1)} disabled={!canNext}>
-            Next
+      <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
+        {step > 1 && (
+          <Button variant="secondary" className="flex-1" onClick={() => setStep(step - 1)}>
+            Back
           </Button>
         )}
+        <Button className="flex-1" disabled={!canAdvance} onClick={next}>
+          {step === TOTAL ? "Enter workspace" : "Continue"}
+        </Button>
       </div>
-    </div>
+
+      <div className="flex w-full flex-col gap-4">
+        <Stepper step={step} total={TOTAL} />
+        {/*
+          Without this the flow is a dead end on step 1: no Back, and no way to
+          reach the workspace. Every answer here is refinable later in settings.
+        */}
+        <button
+          type="button"
+          onClick={() => router.push("/apps")}
+          className="mx-auto text-body-md text-muted-foreground hover:text-foreground"
+        >
+          Skip for now
+        </button>
+      </div>
+    </AuthCard>
   );
 }

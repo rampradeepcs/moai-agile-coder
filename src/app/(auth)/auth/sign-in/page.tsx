@@ -1,110 +1,95 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { GoogleIcon } from "@/components/marketing/brand-icons";
-import { cn } from "@/lib/utils";
+import { Button, Input } from "@/components";
+import {
+  AuthCard,
+  AuthHeading,
+} from "@/components/auth/auth-primitives";
+
+/** Demo accounts; anything else produces the "not registered" state. */
+const REGISTERED: Record<string, string> = {
+  "ram@moaiconsulting.co.in": "wizkraft",
+};
 
 export default function SignInPage() {
   const router = useRouter();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === "wrong") {
-      setError(true);
-      toast.error("Invalid email ID or Password");
+  const submit = () => {
+    const value = email.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      setErrors({ email: "Invalid email id" });
       return;
     }
+    if (!(value in REGISTERED)) {
+      setErrors({ email: "This email is not registered" });
+      return;
+    }
+    if (password !== REGISTERED[value]) {
+      setErrors({ password: "Incorrect password" });
+      return;
+    }
+    setErrors({});
     router.push("/apps");
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight text-balance">
-        Welcome back to your workspace.
-      </h1>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        Sign in to pick up where you left off — your projects, sprints and AI agents are
-        waiting.
-      </p>
+    <AuthCard>
+      <AuthHeading
+        eyebrow="Welcome back"
+        title="Sign in to WizKraft"
+        description="Pick up where you left off — your projects, sprints and AI agents are waiting."
+      />
 
-      <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
-        <div className="space-y-2">
-          <Label htmlFor="signin-email">Email</Label>
-          <Input
-            id="signin-email"
-            type="email"
-            placeholder="you@company.com"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setError(false);
-            }}
-            aria-invalid={error || undefined}
-            className={cn(error && "border-danger")}
-          />
-        </div>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="signin-password">Password</Label>
-            <Link
-              href="#"
-              className="text-xs font-medium text-primary underline-offset-4 hover:underline"
-            >
-              Forgot password?
-            </Link>
-          </div>
-          <Input
-            id="signin-password"
-            type="password"
-            autoComplete="current-password"
-            required
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setError(false);
-            }}
-            aria-invalid={error || undefined}
-            className={cn(error && "border-danger")}
-          />
-        </div>
-
-        <Button type="submit" size="lg" className="w-full">
-          Sign in
-        </Button>
-      </form>
-
-      <div className="flex items-center gap-3 py-5">
-        <Separator className="flex-1" />
-        <span className="text-xs text-muted-foreground">or</span>
-        <Separator className="flex-1" />
+      <div className="flex w-full flex-col gap-4">
+        <Input
+          type="email"
+          label="Email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (errors.email) setErrors({});
+          }}
+          placeholder="you@company.com"
+          isInvalid={Boolean(errors.email)} errorMessage={errors.email}
+        />
+        <Input
+          type="password"
+          label="Password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            if (errors.password) setErrors({});
+          }}
+          onKeyDown={(e) => e.key === "Enter" && submit()}
+          placeholder="Enter your password"
+          isInvalid={Boolean(errors.password)} errorMessage={errors.password}
+        />
+        <Link
+          href="/auth/forgot-password"
+          className="text-body-md text-foreground underline-offset-4 hover:underline"
+        >
+          Forgot password?
+        </Link>
       </div>
 
-      <Button variant="outline" size="lg" className="w-full">
-        <GoogleIcon />
-        Continue with Google
+      <Button className="w-full" onClick={submit}>
+        Sign in
       </Button>
 
-      <p className="mt-8 text-sm text-muted-foreground">
-        New here?{" "}
-        <Link
-          href="/auth/sign-up"
-          className="font-medium text-primary underline-offset-4 hover:underline"
-        >
-          Create a workspace
-        </Link>
-      </p>
-    </div>
+      <div className="flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <span className="text-overline-1 text-foreground">
+          Don&rsquo;t have an account?
+        </span>
+        <Button asChild variant="secondary">
+          <Link href="/auth/sign-up">Create a workspace</Link>
+        </Button>
+      </div>
+    </AuthCard>
   );
 }

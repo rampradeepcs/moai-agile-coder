@@ -25,18 +25,26 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   className?: string;
 }
 
+/*
+ * `md` is the Figma CTA: 44px tall, 20px of horizontal padding, 6px gap and
+ * the Button/1 text style. The other sizes step around it.
+ */
 const sizes: Record<ButtonSize, string> = {
-  sm: "h-9 gap-1.5 px-3 text-sm",
-  md: "h-10 gap-1.5 px-3.5 text-sm",
-  lg: "h-11 gap-2 px-4 text-md",
-  xl: "h-12 gap-2 px-[1.125rem] text-md",
+  sm: "h-9 gap-1.5 px-3.5 text-button-1",
+  md: "h-11 gap-1.5 px-5 text-button-1",
+  lg: "h-12 gap-2 px-6 text-button-1",
+  xl: "h-14 gap-2 px-7 text-body-lg",
 };
 
+/*
+ * The Figma CTA puts near-black text on the bright brand green rather than
+ * white: #1a1a1a on #24d47d clears 8:1, where white would sit at 1.95:1.
+ */
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-bg-brand-solid text-fg-on-brand hover:bg-brand-800 active:bg-brand-900",
+    "border border-brand-100 bg-brand-600 text-gray-900 hover:bg-brand-500 active:bg-brand-700",
   secondary:
-    "border border-border-primary bg-bg-primary text-fg-secondary hover:bg-bg-secondary hover:text-fg-primary active:bg-bg-tertiary",
+    "border border-border bg-card text-foreground hover:bg-accent active:bg-accent",
   tertiary:
     "text-fg-secondary hover:bg-bg-secondary hover:text-fg-primary active:bg-bg-tertiary",
   destructive:
@@ -93,8 +101,8 @@ export function Button({
   const Comp = asChild ? Slot.Root : "button";
 
   const classes = cn(
-    "inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg font-semibold whitespace-nowrap transition-colors outline-none select-none",
-    "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
+    "inline-flex shrink-0 cursor-pointer items-center justify-center rounded-[10px] font-medium whitespace-nowrap transition-colors outline-none select-none",
+    "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     "disabled:pointer-events-none disabled:cursor-not-allowed",
     variant === "link"
       ? "disabled:text-fg-disabled"
