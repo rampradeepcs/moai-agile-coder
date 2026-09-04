@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { SparkleField } from "@/components/auth/sparkle-field";
+
 /*
  * Auth shell from the WizKraft Figma auth frames: a dotted #f9f9fa ground with
  * a sparkle cluster behind a centred card, a wizard staff at the upper left and
@@ -19,13 +21,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         }}
       />
 
-      {/* Sparkle cluster behind the card */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 hidden h-[687px] w-[734px] -translate-x-1/2 -translate-y-1/2 sm:block"
-      >
-        <Image src="/auth/sparkles.svg" alt="" fill className="object-contain" priority />
-      </div>
+      {/* Sparkle cluster behind the card — each element drifts or turns */}
+      <SparkleField className="pointer-events-none absolute top-1/2 left-1/2 hidden h-[687px] w-[734px] -translate-x-1/2 -translate-y-1/2 sm:block" />
 
       {/* Corner marks */}
       <Image

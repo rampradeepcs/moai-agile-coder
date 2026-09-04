@@ -363,3 +363,72 @@
     box-shadow: 0 0 0 1px var(--border), 0 1px 2px rgb(0 0 0 / 30%);
   }
 }
+
+/*
+ * Auth background motion. Each sparkle turns about its own centre, which needs
+ * `transform-box: fill-box` — without it an SVG child rotates about the root
+ * viewBox origin and swings across the canvas.
+ *
+ * The two round particles drift instead of spinning, since a rotating circle
+ * looks static. Durations are deliberately long and offset so the elements
+ * never visibly sync up.
+ */
+@layer utilities {
+  .sparkle-spin,
+  .sparkle-spin-slow,
+  .sparkle-spin-reverse,
+  .sparkle-drift,
+  .sparkle-drift-slow {
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .sparkle-spin {
+    animation: sparkle-spin 42s linear infinite;
+  }
+  .sparkle-spin-slow {
+    animation: sparkle-spin 68s linear infinite;
+  }
+  .sparkle-spin-reverse {
+    animation: sparkle-spin 55s linear infinite reverse;
+  }
+  .sparkle-drift {
+    animation: sparkle-drift 14s ease-in-out infinite;
+  }
+  .sparkle-drift-slow {
+    animation: sparkle-drift 19s ease-in-out infinite -6s;
+  }
+
+  @keyframes sparkle-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes sparkle-drift {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translateY(-10px) scale(1.08);
+      opacity: 1;
+    }
+  }
+
+  /* Honour a reduced-motion preference: hold every element still. */
+  @media (prefers-reduced-motion: reduce) {
+    .sparkle-spin,
+    .sparkle-spin-slow,
+    .sparkle-spin-reverse,
+    .sparkle-drift,
+    .sparkle-drift-slow {
+      animation: none;
+    }
+  }
+}
