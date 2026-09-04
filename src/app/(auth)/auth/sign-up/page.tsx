@@ -39,7 +39,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <AuthCard>
+    <AuthCard onSubmit={submit}>
       <AuthHeading
         eyebrow="Step 1 of 3 · Start crafting"
         title="Create free account"
@@ -54,13 +54,14 @@ export default function SignUpPage() {
             setEmail(e.target.value);
             if (error) setError(null);
           }}
-          onKeyDown={(e) => e.key === "Enter" && submit()}
           placeholder="Enter email id"
           aria-label="Email id"
+          name="email"
+          autoComplete="email"
           isInvalid={Boolean(error ?? undefined)} errorMessage={error ?? undefined}
         />
 
-        <Button className="w-full" iconLeading={<WandIcon />} onClick={submit}>
+        <Button type="submit" className="w-full" iconLeading={<WandIcon />}>
           Start crafting
         </Button>
 
@@ -70,12 +71,18 @@ export default function SignUpPage() {
 
       <p className="text-caption-1 text-muted-foreground/80 text-center">
         By continuing, you agree to our{" "}
-        <a href="#" className="text-foreground">Terms of Service</a> and{" "}
-        <a href="#" className="text-foreground">Privacy Policy</a>.
+        <Link href="/terms" className="text-foreground underline underline-offset-2">
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link href="/privacy" className="text-foreground underline underline-offset-2">
+          Privacy Policy
+        </Link>
+        .
       </p>
 
       <div className="flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <span className="text-overline-1 text-foreground">
+        <span className="text-body-md text-foreground">
           Already have an account?
         </span>
         <Button asChild variant="secondary">

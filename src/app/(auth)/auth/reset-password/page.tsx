@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button, Input } from "@/components";
 import {
+  AuthActions,
   AuthCard,
   AuthHeading,
 } from "@/components/auth/auth-primitives";
@@ -24,7 +25,7 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <AuthCard>
+    <AuthCard onSubmit={submit}>
       <AuthHeading
         title="Create new password"
         description="Choose a password you haven't used on this account before."
@@ -37,6 +38,8 @@ export default function ResetPasswordPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="At least 8 characters"
+          name="new-password"
+          autoComplete="new-password"
           isInvalid={Boolean(errors.password)} errorMessage={errors.password}
         />
         <Input
@@ -44,20 +47,19 @@ export default function ResetPasswordPage() {
           label="Confirm new password"
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && submit()}
           placeholder="Re-enter your password"
+          name="confirm-password"
+          autoComplete="new-password"
           isInvalid={Boolean(errors.confirm)} errorMessage={errors.confirm}
         />
       </div>
 
-      <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
-        <Button asChild variant="secondary" className="flex-1">
+      <AuthActions>
+        <Button asChild variant="secondary">
           <Link href="/auth/sign-in">Cancel</Link>
         </Button>
-        <Button className="flex-1" onClick={submit}>
-          Save password
-        </Button>
-      </div>
+        <Button type="submit">Save password</Button>
+      </AuthActions>
     </AuthCard>
   );
 }

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { GithubIcon } from "@/components/marketing/brand-icons";
@@ -21,31 +22,63 @@ import { Button } from "@/components";
 export function AuthCard({
   children,
   className,
+  onSubmit,
 }: {
   children: React.ReactNode;
   className?: string;
+  /**
+   * Renders the card as a `<form>`. Worth doing on any screen with fields:
+   * it gives Enter-to-submit from every input rather than the one the handler
+   * happens to be wired to, and it is what lets a password manager recognise
+   * the flow and offer to fill or save.
+   */
+  onSubmit?: () => void;
 }) {
-  return (
-    <div
-      className={cn(
-        "flex w-full max-w-[600px] flex-col rounded-[10px]",
-        "gap-6 p-6 sm:gap-8 sm:p-[50px]",
-        "border border-card bg-secondary shadow-card",
-        className,
-      )}
-    >
+  const classes = cn(
+    "flex w-full max-w-[600px] flex-col rounded-[10px]",
+    "gap-6 p-6 sm:gap-8 sm:p-[50px]",
+    "border border-card bg-secondary shadow-card",
+    className,
+  );
+
+  const content = (
+    <>
       <AuthLogo />
       {children}
-    </div>
+    </>
+  );
+
+  if (!onSubmit) return <div className={classes}>{content}</div>;
+
+  return (
+    <form
+      className={classes}
+      // Validation and messaging are ours; native bubbles would duplicate it.
+      noValidate
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSubmit();
+      }}
+    >
+      {content}
+    </form>
   );
 }
 
+/** Doubles as the way out of the flow — back to the marketing home page. */
 export function AuthLogo() {
   return (
-    <div className="flex h-[30px] items-center gap-2">
+    <Link
+      href="/"
+      aria-label="WizKraft home"
+      className={cn(
+        "flex h-[30px] w-fit items-center gap-2 rounded-md transition-opacity hover:opacity-70",
+        "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:ring-offset-4 focus-visible:ring-offset-secondary focus-visible:outline-none",
+      )}
+    >
       <Image src="/auth/logo-mark.svg" alt="" width={32} height={29} priority />
       <span className="text-body-lg text-foreground">wizkraft.ai</span>
-    </div>
+    </Link>
   );
 }
 
@@ -86,8 +119,61 @@ export function AuthDivider({ label = "or" }: { label?: string }) {
     <div className="flex w-full items-center gap-4">
       <span className="h-px flex-1 bg-border" />
       <span className="text-caption-1 text-muted-foreground">{label}</span>
-      <span className="h-px flex-1 bg-gray-alpha10" />
+      <span className="h-px flex-1 bg-border" />
     </div>
+  );
+}
+
+/* ------------------------------------------------------------ actions */
+
+/**
+ * The trailing action row — one primary button, optionally preceded by a
+ * secondary (Back / Cancel).
+ *
+ * `flex-1` is scoped to `sm` deliberately. In the stacked column below that
+ * breakpoint it resolves against the *height*, so `flex-basis: 0` overrides
+ * the button's `h-11` and collapses every action to its content box (~26px).
+ */
+export function AuthActions({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex w-full flex-col gap-3 sm:flex-row sm:gap-4",
+        "[&>*]:w-full sm:[&>*]:w-auto sm:[&>*]:flex-1",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+/**
+ * Low-emphasis text action ("Skip for now", "Use a different email"). Padded
+ * out to a 44px touch target without changing how it reads.
+ */
+export function AuthTextButton({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"button">) {
+  return (
+    <button
+      type="button"
+      className={cn(
+        "mx-auto inline-flex min-h-11 items-center justify-center gap-1.5 rounded-md px-3",
+        "text-body-md text-muted-foreground transition-colors hover:text-foreground",
+        "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
+        "disabled:pointer-events-none disabled:text-muted-foreground/60",
+        className,
+      )}
+      {...props}
+    />
   );
 }
 
@@ -97,6 +183,7 @@ export function SocialSignIn({ onSelect }: { onSelect?: (id: string) => void }) 
   return (
     <div className="flex w-full flex-col gap-4">
       <Button
+        type="button"
         variant="secondary"
         className="w-full"
         onClick={() => onSelect?.("google")}
@@ -108,6 +195,7 @@ export function SocialSignIn({ onSelect }: { onSelect?: (id: string) => void }) 
         {SOCIAL_PROVIDERS.map(({ id, label, icon }) => (
           <Button
             key={id}
+            type="button"
             variant="secondary"
             className="flex-1"
             aria-label={`Continue with ${label}`}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button, Input } from "@/components";
 import {
+  AuthActions,
   AuthCard,
   AuthHeading,
 } from "@/components/auth/auth-primitives";
@@ -24,7 +25,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <AuthCard>
+    <AuthCard onSubmit={submit}>
       <AuthHeading
         title="Reset your password"
         description="Tell us the email on your account and we'll send a verification code."
@@ -38,19 +39,18 @@ export default function ForgotPasswordPage() {
           setEmail(e.target.value);
           if (error) setError(null);
         }}
-        onKeyDown={(e) => e.key === "Enter" && submit()}
         placeholder="you@company.com"
+        name="email"
+        autoComplete="email"
         isInvalid={Boolean(error ?? undefined)} errorMessage={error ?? undefined}
       />
 
-      <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
-        <Button asChild variant="secondary" className="flex-1">
+      <AuthActions>
+        <Button asChild variant="secondary">
           <Link href="/auth/sign-in">Back to sign in</Link>
         </Button>
-        <Button className="flex-1" onClick={submit}>
-          Send code
-        </Button>
-      </div>
+        <Button type="submit">Send code</Button>
+      </AuthActions>
     </AuthCard>
   );
 }

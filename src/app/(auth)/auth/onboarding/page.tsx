@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button, Input, OptionRow, Stepper } from "@/components";
 import {
+  AuthActions,
   AuthCard,
+  AuthTextButton,
 } from "@/components/auth/auth-primitives";
 
 /*
@@ -53,11 +55,20 @@ export default function OnboardingPage() {
   }[step]!;
 
   return (
-    <AuthCard>
+    <AuthCard onSubmit={() => canAdvance && next()}>
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
-          <h1 className="text-head-1 font-semibold text-foreground">{heading.title}</h1>
-          <Image src="/auth/ai-sparkle.svg" alt="" width={24} height={24} />
+          <h1 className="text-2xl font-semibold text-foreground sm:text-head-1">
+            {heading.title}
+          </h1>
+          <Image
+            src="/auth/ai-sparkle.svg"
+            alt=""
+            width={24}
+            height={24}
+            loading="eager"
+            className="size-5 shrink-0 sm:size-6"
+          />
         </div>
         <p className="text-body-md text-muted-foreground">{heading.sub}</p>
       </div>
@@ -90,9 +101,10 @@ export default function OnboardingPage() {
           <Input
             value={workspace}
             onChange={(e) => setWorkspace(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && canAdvance && next()}
             placeholder="e.g. Acme Product Team"
             aria-label="Workspace name"
+            name="workspace"
+            autoComplete="organization"
           />
         )}
 
@@ -128,16 +140,16 @@ export default function OnboardingPage() {
           ))}
       </div>
 
-      <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
+      <AuthActions>
         {step > 1 && (
-          <Button variant="secondary" className="flex-1" onClick={() => setStep(step - 1)}>
+          <Button type="button" variant="secondary" onClick={() => setStep(step - 1)}>
             Back
           </Button>
         )}
-        <Button className="flex-1" disabled={!canAdvance} onClick={next}>
+        <Button type="submit" disabled={!canAdvance}>
           {step === TOTAL ? "Enter workspace" : "Continue"}
         </Button>
-      </div>
+      </AuthActions>
 
       <div className="flex w-full flex-col gap-4">
         <Stepper step={step} total={TOTAL} />
@@ -145,13 +157,9 @@ export default function OnboardingPage() {
           Without this the flow is a dead end on step 1: no Back, and no way to
           reach the workspace. Every answer here is refinable later in settings.
         */}
-        <button
-          type="button"
-          onClick={() => router.push("/apps")}
-          className="mx-auto text-body-md text-muted-foreground hover:text-foreground"
-        >
+        <AuthTextButton onClick={() => router.push("/apps")}>
           Skip for now
-        </button>
+        </AuthTextButton>
       </div>
     </AuthCard>
   );

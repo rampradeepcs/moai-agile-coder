@@ -5,7 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Info } from "lucide-react";
 
 import { Button, OtpInput } from "@/components";
-import { AuthCard, AuthHeading } from "@/components/auth/auth-primitives";
+import {
+  AuthCard,
+  AuthHeading,
+  AuthTextButton,
+} from "@/components/auth/auth-primitives";
 
 /*
  * There is no backend to check a code against, so any complete 6-digit entry
@@ -51,7 +55,7 @@ function OtpFlow() {
   };
 
   return (
-    <AuthCard>
+    <AuthCard onSubmit={() => verify()}>
       <AuthHeading
         eyebrow={isReset ? undefined : "Step 3 of 3"}
         title="Verify your email"
@@ -88,34 +92,29 @@ function OtpFlow() {
 
         <div className="flex w-full items-center justify-between">
           <span className="text-body-lg tabular-nums text-foreground">{mmss}</span>
-          <button
-            type="button"
+          <AuthTextButton
             disabled={secondsLeft > 0}
             onClick={() => {
               setSecondsLeft(COUNTDOWN);
               setCode("");
               setError(null);
             }}
-            className="text-body-lg text-foreground disabled:text-muted-foreground/60"
+            className="mx-0 -mr-3 text-body-lg text-foreground"
           >
             {secondsLeft > 0 ? "Resend OTP" : "Resend OTP now"}
-          </button>
+          </AuthTextButton>
         </div>
       </div>
 
-      <Button className="w-full" onClick={() => verify()}>
+      <Button type="submit" className="w-full">
         Verify
       </Button>
 
       {/* A mistyped address is only recoverable by going back a step. */}
-      <button
-        type="button"
-        onClick={() => router.back()}
-        className="mx-auto flex items-center gap-1.5 text-body-md text-muted-foreground hover:text-foreground"
-      >
+      <AuthTextButton onClick={() => router.back()}>
         <ArrowLeft className="size-3.5" aria-hidden />
         Use a different email
-      </button>
+      </AuthTextButton>
     </AuthCard>
   );
 }

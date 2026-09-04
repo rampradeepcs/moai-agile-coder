@@ -75,7 +75,7 @@ export function Input({
           "shadow-input-inner",
           isInvalid
             ? "border-error-500"
-            : "border-border focus-within:border-brand-600",
+            : "border-border focus-within:border-brand-600 focus-within:ring-2 focus-within:ring-brand-600/30",
           disabled && "cursor-not-allowed bg-bg-disabled",
           sizes[size],
         )}

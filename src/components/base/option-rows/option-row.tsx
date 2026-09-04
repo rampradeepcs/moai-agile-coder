@@ -35,6 +35,7 @@ export function OptionRow({
       aria-pressed={selected}
       className={cn(
         "flex w-full items-center gap-4 rounded-[10px] border bg-card px-4 py-4 text-left transition-colors sm:gap-[31px] sm:px-[21px]",
+        "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none",
         selected
           ? "border-brand-600 bg-brand-600/10"
           : "border-border hover:border-brand-600/40",

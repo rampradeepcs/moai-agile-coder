@@ -47,7 +47,7 @@ export default function SignInPage() {
   };
 
   return (
-    <AuthCard>
+    <AuthCard onSubmit={submit}>
       <AuthHeading
         eyebrow="Welcome back"
         title="Sign in to WizKraft"
@@ -64,6 +64,8 @@ export default function SignInPage() {
             if (errors.email) setErrors({});
           }}
           placeholder="you@company.com"
+          name="email"
+          autoComplete="email"
           isInvalid={Boolean(errors.email)} errorMessage={errors.email}
         />
         <Input
@@ -74,28 +76,29 @@ export default function SignInPage() {
             setPassword(e.target.value);
             if (errors.password) setErrors({});
           }}
-          onKeyDown={(e) => e.key === "Enter" && submit()}
           placeholder="Enter your password"
+          name="password"
+          autoComplete="current-password"
           isInvalid={Boolean(errors.password)} errorMessage={errors.password}
         />
         <Link
           href="/auth/forgot-password"
-          className="text-body-md text-foreground underline-offset-4 hover:underline"
+          className="inline-flex min-h-11 w-fit items-center text-body-md text-foreground underline-offset-4 hover:underline"
         >
           Forgot password?
         </Link>
       </div>
 
-      <Button className="w-full" onClick={submit}>
+      <Button type="submit" className="w-full">
         Sign in
       </Button>
 
       <div className="flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <span className="text-overline-1 text-foreground">
+        <span className="text-body-md text-foreground">
           Don&rsquo;t have an account?
         </span>
         <Button asChild variant="secondary">
-          <Link href="/auth/sign-up">Create a workspace</Link>
+          <Link href="/auth/sign-up">Sign up</Link>
         </Button>
       </div>
     </AuthCard>

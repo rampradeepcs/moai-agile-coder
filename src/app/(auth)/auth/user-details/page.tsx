@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Input } from "@/components";
 import {
+  AuthActions,
   AuthCard,
   AuthHeading,
 } from "@/components/auth/auth-primitives";
@@ -12,7 +13,6 @@ function UserDetailsForm() {
   const router = useRouter();
   const email = useSearchParams().get("email") ?? "";
   const [form, setForm] = useState({
-    org: "",
     first: "",
     last: "",
     phone: "",
@@ -36,7 +36,7 @@ function UserDetailsForm() {
   };
 
   return (
-    <AuthCard>
+    <AuthCard onSubmit={submit}>
       <AuthHeading
         eyebrow="Step 2 of 3"
         title="Tell us about you"
@@ -44,18 +44,14 @@ function UserDetailsForm() {
       />
 
       <div className="flex w-full flex-col gap-4">
-        <Input
-          label="Organisation name"
-          value={form.org}
-          onChange={set("org")}
-          placeholder="Acme Inc."
-        />
         <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
           <Input
             label="First name"
             value={form.first}
             onChange={set("first")}
             placeholder="Ada"
+          name="first"
+          autoComplete="given-name"
             isInvalid={Boolean(errors.first)} errorMessage={errors.first}
           />
           <Input
@@ -63,6 +59,8 @@ function UserDetailsForm() {
             value={form.last}
             onChange={set("last")}
             placeholder="Lovelace"
+          name="last"
+          autoComplete="family-name"
           />
         </div>
         <Input
@@ -71,6 +69,8 @@ function UserDetailsForm() {
           value={form.phone}
           onChange={set("phone")}
           placeholder="+91 00000 00000"
+          name="phone"
+          autoComplete="tel"
         />
         <Input
           label="Password"
@@ -78,6 +78,8 @@ function UserDetailsForm() {
           value={form.password}
           onChange={set("password")}
           placeholder="At least 8 characters"
+          name="new-password"
+          autoComplete="new-password"
           isInvalid={Boolean(errors.password)} errorMessage={errors.password}
         />
         <Input
@@ -85,20 +87,19 @@ function UserDetailsForm() {
           type="password"
           value={form.confirm}
           onChange={set("confirm")}
-          onKeyDown={(e) => e.key === "Enter" && submit()}
           placeholder="Re-enter your password"
+          name="confirm-password"
+          autoComplete="new-password"
           isInvalid={Boolean(errors.confirm)} errorMessage={errors.confirm}
         />
       </div>
 
-      <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
-        <Button variant="secondary" className="flex-1" onClick={() => router.back()}>
+      <AuthActions>
+        <Button type="button" variant="secondary" onClick={() => router.back()}>
           Back
         </Button>
-        <Button className="flex-1" onClick={submit}>
-          Continue
-        </Button>
-      </div>
+        <Button type="submit">Continue</Button>
+      </AuthActions>
     </AuthCard>
   );
 }
