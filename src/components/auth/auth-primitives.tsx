@@ -66,7 +66,7 @@ export function AuthHeading({
       {eyebrow && (
         <div className="flex items-center gap-1">
           <span className="text-body-md text-muted-foreground">{eyebrow}</span>
-          <Image src="/auth/ai-sparkle.svg" alt="" width={14} height={14} />
+          <Image src="/auth/ai-sparkle.svg" alt="" width={14} height={14} loading="eager" />
         </div>
       )}
       <h1 className="text-2xl font-semibold text-foreground sm:text-head-1">
@@ -100,7 +100,7 @@ export function SocialSignIn({ onSelect }: { onSelect?: (id: string) => void }) 
         variant="secondary"
         className="w-full"
         onClick={() => onSelect?.("google")}
-        iconLeading={<Image src="/auth/google.svg" alt="" width={14} height={14} />}
+        iconLeading={<Image src="/auth/google.svg" alt="" width={14} height={14} loading="eager" />}
       >
         Continue with Google
       </Button>
@@ -121,27 +121,26 @@ export function SocialSignIn({ onSelect }: { onSelect?: (id: string) => void }) 
 }
 
 /*
- * Figma exports the same 460-byte placeholder vector for all three of these
- * instances no matter which node is requested, so only GitHub — which the
- * project already ships a matching glyph for — renders its real mark. Drop
- * real Microsoft and LinkedIn assets into /public/auth to finish the row.
+ * Figma's export returns the same placeholder vector for all three of these
+ * instances, so Microsoft and LinkedIn come from the brand assets supplied
+ * directly; GitHub uses the glyph the project already ships.
  */
 const SOCIAL_PROVIDERS: { id: string; label: string; icon: React.ReactNode }[] = [
   {
     id: "microsoft",
     label: "Microsoft",
-    icon: <Image src="/auth/wand.svg" alt="" width={14} height={14} />,
+    icon: <Image src="/auth/microsoft.svg" alt="" width={14} height={14} loading="eager" />,
   },
   { id: "github", label: "GitHub", icon: <GithubIcon className="size-3.5" /> },
   {
     id: "linkedin",
     label: "LinkedIn",
-    icon: <Image src="/auth/wand.svg" alt="" width={14} height={14} />,
+    icon: <Image src="/auth/linkedin.svg" alt="" width={14} height={14} loading="eager" />,
   },
 ];
 
 
-/** The wand mark the design puts on primary CTAs. */
+/** The wizard-staff mark the design puts on primary CTAs. */
 export function WandIcon() {
-  return <Image src="/auth/wand.svg" alt="" width={14} height={14} />;
+  return <Image src="/auth/wizard-stick.png" alt="" width={14} height={14} loading="eager" />;
 }

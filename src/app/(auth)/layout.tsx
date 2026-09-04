@@ -32,6 +32,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         width={60}
         height={60}
         className="pointer-events-none absolute top-[211px] left-20 hidden lg:block"
+        loading="eager"
       />
       <Image
         aria-hidden
@@ -40,6 +41,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         width={79}
         height={76}
         className="pointer-events-none absolute right-[70px] bottom-[70px] hidden lg:block"
+        loading="eager"
       />
 
       <div className="relative w-full max-w-[600px]">{children}</div>
