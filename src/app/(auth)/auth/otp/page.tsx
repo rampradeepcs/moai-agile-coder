@@ -7,8 +7,13 @@ import { ArrowLeft, Info } from "lucide-react";
 import { Button, OtpInput } from "@/components";
 import { AuthCard, AuthHeading } from "@/components/auth/auth-primitives";
 
-/** Demo code; anything else lands on the "Wrong OTP" state from the design. */
-const VALID = "123456";
+/*
+ * There is no backend to check a code against, so any complete 6-digit entry
+ * is accepted — a prototype should not dead-end the person walking through it.
+ * `000000` is reserved so the "Wrong OTP" state from the design stays
+ * reachable for review.
+ */
+const REJECTED_CODE = "000000";
 const COUNTDOWN = 71; // 01:11 in the design
 
 function OtpFlow() {
@@ -33,12 +38,16 @@ function OtpFlow() {
   ).padStart(2, "0")}`;
 
   const verify = (value = code) => {
-    if (value === VALID) {
-      setError(null);
-      router.push(isReset ? "/auth/reset-password" : "/auth/onboarding");
-    } else {
-      setError("Wrong OTP");
+    if (value.length < 6) {
+      setError("Enter all 6 digits");
+      return;
     }
+    if (value === REJECTED_CODE) {
+      setError("Wrong OTP");
+      return;
+    }
+    setError(null);
+    router.push(isReset ? "/auth/reset-password" : "/auth/onboarding");
   };
 
   return (

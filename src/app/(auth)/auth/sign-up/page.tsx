@@ -12,8 +12,12 @@ import {
   WandIcon,
 } from "@/components/auth/auth-primitives";
 
-/** Addresses already on the demo workspace, used for the "exists" state. */
-const TAKEN = ["ram@moaiconsulting.co.in", "ada@wizkraft.dev"];
+/*
+ * Any valid address signs up — there is no backend to check against. An
+ * address containing "taken" is reserved so the "already exists" state from
+ * the design stays reachable for review.
+ */
+const TAKEN_EMAIL_MARKER = "taken";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -26,7 +30,7 @@ export default function SignUpPage() {
       setError("Enter a valid email id");
       return;
     }
-    if (TAKEN.includes(value.toLowerCase())) {
+    if (value.toLowerCase().includes(TAKEN_EMAIL_MARKER)) {
       setError("This email already exists. Try signing in instead.");
       return;
     }

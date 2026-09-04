@@ -9,10 +9,14 @@ import {
   AuthHeading,
 } from "@/components/auth/auth-primitives";
 
-/** Demo accounts; anything else produces the "not registered" state. */
-const REGISTERED: Record<string, string> = {
-  "ram@moaiconsulting.co.in": "wizkraft",
-};
+/*
+ * No backend to authenticate against, so any well-formed credentials sign in.
+ * These two reserved inputs keep the designed error states reachable:
+ *   an address containing "unknown" -> "This email is not registered"
+ *   the password "wrong"            -> "Incorrect password"
+ */
+const UNKNOWN_EMAIL_MARKER = "unknown";
+const REJECTED_PASSWORD = "wrong";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -26,11 +30,15 @@ export default function SignInPage() {
       setErrors({ email: "Invalid email id" });
       return;
     }
-    if (!(value in REGISTERED)) {
+    if (value.includes(UNKNOWN_EMAIL_MARKER)) {
       setErrors({ email: "This email is not registered" });
       return;
     }
-    if (password !== REGISTERED[value]) {
+    if (!password) {
+      setErrors({ password: "Enter your password" });
+      return;
+    }
+    if (password === REJECTED_PASSWORD) {
       setErrors({ password: "Incorrect password" });
       return;
     }
