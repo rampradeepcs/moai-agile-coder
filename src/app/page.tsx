@@ -10,6 +10,13 @@ import { panelClasses } from "@/components/shared";
 
 const NAV_LINKS = ["Product", "Pricing", "Docs", "Changelog"];
 
+const FOOTER_LINKS = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  // No contact page exists yet, so this stays a placeholder.
+  { label: "Contact", href: "#" },
+] as const;
+
 const SUGGESTIONS = [
   "Develop a fitness coaching mobile app…",
   "Build an AI-powered agile workspace…",
@@ -200,13 +207,13 @@ export default function LandingPage() {
           <Logo />
           <p className="text-sm text-muted-foreground">© 2026 WizKraft</p>
           <nav className="flex items-center gap-4" aria-label="Footer">
-            {["Privacy", "Terms", "Contact"].map((link) => (
+            {FOOTER_LINKS.map(({ label, href }) => (
               <Link
-                key={link}
-                href="#"
+                key={label}
+                href={href}
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
-                {link}
+                {label}
               </Link>
             ))}
           </nav>
