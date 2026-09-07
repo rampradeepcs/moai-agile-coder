@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { toast } from "sonner";
 import { currentUser } from "@/lib/data";
 import { Button } from "@/components/ui/button";
@@ -7,8 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UserAvatar } from "@/components/work/user-avatar";
 import { SettingsCard, SettingsRow } from "./shared";
+import { ChangePasswordDialog } from "./change-password-dialog";
 
 export function AccountSettings() {
+  const [passwordOpen, setPasswordOpen] = React.useState(false);
+  const [changedNow, setChangedNow] = React.useState(false);
+
   return (
     <div className="flex flex-col gap-4">
       <SettingsCard
@@ -52,9 +57,9 @@ export function AccountSettings() {
       <SettingsCard title="Security" description="Sign-in and session controls for your account.">
         <SettingsRow
           title="Password"
-          description="Last changed 3 months ago."
+          description={changedNow ? "Last changed just now." : "Last changed 3 months ago."}
           control={
-            <Button variant="outline" size="sm" onClick={() => toast("Password reset email sent")}>
+            <Button variant="outline" size="sm" onClick={() => setPasswordOpen(true)}>
               Change password
             </Button>
           }
@@ -94,6 +99,11 @@ export function AccountSettings() {
           }
         />
       </SettingsCard>
+      <ChangePasswordDialog
+        open={passwordOpen}
+        onOpenChange={setPasswordOpen}
+        onChanged={() => setChangedNow(true)}
+      />
     </div>
   );
 }
