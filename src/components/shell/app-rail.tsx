@@ -14,7 +14,6 @@ import {
   Palette,
   PanelLeftClose,
   PanelLeftOpen,
-  Settings,
   Sparkles,
   Users,
   X,
@@ -209,13 +208,6 @@ export function AppRail() {
                 Subscription
               </Link>
               <Link
-                href="/settings"
-                className={cn(menuItem, pathname.startsWith("/settings") && "bg-brand-subtle text-brand")}
-              >
-                <Settings className="size-4 shrink-0" aria-hidden />
-                Settings
-              </Link>
-              <Link
                 href="/design-system"
                 className={cn(menuItem, pathname.startsWith("/design-system") && "bg-brand-subtle text-brand")}
               >
@@ -347,10 +339,6 @@ export function AppRail() {
                 <CreditCard className="size-4.5" aria-hidden />
               </RailIcon>
 
-              <RailIcon label="Settings" href="/settings" active={pathname.startsWith("/settings")}>
-                <Settings className="size-4.5" aria-hidden />
-              </RailIcon>
-
               <RailIcon
                 label="Design system"
                 href="/design-system"
@@ -438,8 +426,10 @@ export function AppRail() {
                 <span className="text-xs font-normal text-muted-foreground">{currentUser.email}</span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem asChild><Link href="/settings">Settings</Link></DropdownMenuItem>
               <DropdownMenuItem asChild><Link href="/users">Workspace settings</Link></DropdownMenuItem>
               <DropdownMenuItem>Email preferences</DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem variant="destructive" asChild><Link href="/auth/sign-in">Sign out</Link></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
