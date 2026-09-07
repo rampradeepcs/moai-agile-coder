@@ -2,7 +2,8 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, Input } from "@/components";
+import { Button, Input, PasswordCriteria } from "@/components";
+import { passwordError } from "@/lib/password";
 import {
   AuthActions,
   AuthCard,
@@ -27,8 +28,8 @@ function UserDetailsForm() {
   const submit = () => {
     const next: Record<string, string> = {};
     if (!form.first.trim()) next.first = "Enter your first name";
-    if (!form.password) next.password = "Choose a password";
-    else if (form.password.length < 8) next.password = "Use at least 8 characters";
+    const passwordProblem = passwordError(form.password);
+    if (passwordProblem) next.password = passwordProblem;
     if (form.confirm !== form.password) next.confirm = "Passwords do not match";
     setErrors(next);
     if (Object.keys(next).length === 0)
@@ -72,16 +73,20 @@ function UserDetailsForm() {
           name="phone"
           autoComplete="tel"
         />
-        <Input
-          label="Password"
-          type="password"
-          value={form.password}
-          onChange={set("password")}
-          placeholder="At least 8 characters"
-          name="new-password"
-          autoComplete="new-password"
-          isInvalid={Boolean(errors.password)} errorMessage={errors.password}
-        />
+        <div className="flex w-full flex-col gap-3">
+          <Input
+            label="Password"
+            type="password"
+            value={form.password}
+            onChange={set("password")}
+            placeholder="Choose a password"
+            name="new-password"
+            autoComplete="new-password"
+            aria-describedby="password-criteria"
+            isInvalid={Boolean(errors.password)} errorMessage={errors.password}
+          />
+          <PasswordCriteria id="password-criteria" value={form.password} />
+        </div>
         <Input
           label="Confirm password"
           type="password"

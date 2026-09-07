@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button, Input } from "@/components";
+import { Button, Input, PasswordCriteria } from "@/components";
+import { passwordError } from "@/lib/password";
 import {
   AuthActions,
   AuthCard,
@@ -18,7 +19,8 @@ export default function ResetPasswordPage() {
 
   const submit = () => {
     const next: typeof errors = {};
-    if (password.length < 8) next.password = "Use at least 8 characters";
+    const passwordProblem = passwordError(password);
+    if (passwordProblem) next.password = passwordProblem;
     if (confirm !== password) next.confirm = "Passwords do not match";
     setErrors(next);
     if (Object.keys(next).length === 0) router.push("/auth/sign-in");
@@ -32,16 +34,20 @@ export default function ResetPasswordPage() {
       />
 
       <div className="flex w-full flex-col gap-4">
-        <Input
-          type="password"
-          label="New password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="At least 8 characters"
-          name="new-password"
-          autoComplete="new-password"
-          isInvalid={Boolean(errors.password)} errorMessage={errors.password}
-        />
+        <div className="flex w-full flex-col gap-3">
+          <Input
+            type="password"
+            label="New password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Choose a password"
+            name="new-password"
+            autoComplete="new-password"
+            aria-describedby="password-criteria"
+            isInvalid={Boolean(errors.password)} errorMessage={errors.password}
+          />
+          <PasswordCriteria id="password-criteria" value={password} />
+        </div>
         <Input
           type="password"
           label="Confirm new password"

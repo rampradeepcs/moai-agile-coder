@@ -130,3 +130,6 @@ export type {
   ProgressProps,
   ProgressSize,
 } from "./application/progress/progress";
+
+export { PasswordCriteria } from "./application/password-criteria/password-criteria";
+export type { PasswordCriteriaProps } from "./application/password-criteria/password-criteria";
