@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, Input, PasswordCriteria } from "@/components";
+import { Button, Input, PasswordCriteria, PasswordInput } from "@/components";
 import { passwordError } from "@/lib/password";
 import {
   AuthActions,
@@ -74,9 +74,8 @@ function UserDetailsForm() {
           autoComplete="tel"
         />
         <div className="flex w-full flex-col gap-3">
-          <Input
+          <PasswordInput
             label="Password"
-            type="password"
             value={form.password}
             onChange={set("password")}
             placeholder="Choose a password"
@@ -87,9 +86,8 @@ function UserDetailsForm() {
           />
           <PasswordCriteria id="password-criteria" value={form.password} />
         </div>
-        <Input
+        <PasswordInput
           label="Confirm password"
-          type="password"
           value={form.confirm}
           onChange={set("confirm")}
           placeholder="Re-enter your password"

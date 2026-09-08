@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button, Input, PasswordCriteria } from "@/components";
+import { Button, PasswordCriteria, PasswordInput } from "@/components";
 import { passwordError } from "@/lib/password";
 import {
   AuthActions,
@@ -35,8 +35,7 @@ export default function ResetPasswordPage() {
 
       <div className="flex w-full flex-col gap-4">
         <div className="flex w-full flex-col gap-3">
-          <Input
-            type="password"
+          <PasswordInput
             label="New password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -48,8 +47,7 @@ export default function ResetPasswordPage() {
           />
           <PasswordCriteria id="password-criteria" value={password} />
         </div>
-        <Input
-          type="password"
+        <PasswordInput
           label="Confirm new password"
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}

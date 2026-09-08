@@ -1,10 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { EyeIcon, EyeOffIcon, KeyRoundIcon } from "lucide-react";
+import { KeyRoundIcon } from "lucide-react";
 import { toast } from "sonner";
 
-import { Button, Input, Modal, ModalClose, PasswordCriteria } from "@/components";
+import {
+  Button,
+  Modal,
+  ModalClose,
+  PasswordCriteria,
+  PasswordInput,
+} from "@/components";
 import { passwordError } from "@/lib/password";
 
 /*
@@ -107,98 +113,50 @@ export function ChangePasswordDialog({
         }}
         className="flex flex-col gap-4"
       >
-        <PasswordField
+        <PasswordInput
           label="Current password"
           name="current-password"
           autoComplete="current-password"
           value={current}
-          onChange={(v) => {
-            setCurrent(v);
+          onChange={(event) => {
+            setCurrent(event.target.value);
             if (errors.current) setErrors((e) => ({ ...e, current: undefined }));
           }}
-          error={errors.current}
+          isInvalid={Boolean(errors.current)}
+          errorMessage={errors.current}
           autoFocus
         />
 
         <div className="flex flex-col gap-3">
-          <PasswordField
+          <PasswordInput
             label="New password"
             name="new-password"
             autoComplete="new-password"
             value={next}
-            onChange={(v) => {
-              setNext(v);
+            onChange={(event) => {
+              setNext(event.target.value);
               if (errors.next) setErrors((e) => ({ ...e, next: undefined }));
             }}
-            error={errors.next}
-            describedBy="change-password-criteria"
+            isInvalid={Boolean(errors.next)}
+            errorMessage={errors.next}
+            aria-describedby="change-password-criteria"
           />
           <PasswordCriteria id="change-password-criteria" value={next} />
         </div>
 
-        <PasswordField
+        <PasswordInput
           label="Confirm new password"
           name="confirm-password"
           autoComplete="new-password"
           value={confirm}
-          onChange={(v) => {
-            setConfirm(v);
+          onChange={(event) => {
+            setConfirm(event.target.value);
             if (errors.confirm) setErrors((e) => ({ ...e, confirm: undefined }));
           }}
-          error={errors.confirm}
+          isInvalid={Boolean(errors.confirm)}
+          errorMessage={errors.confirm}
         />
       </form>
     </Modal>
-  );
-}
-
-/** A password input with a reveal toggle. */
-function PasswordField({
-  label,
-  name,
-  autoComplete,
-  value,
-  onChange,
-  error,
-  describedBy,
-  autoFocus,
-}: {
-  label: string;
-  name: string;
-  autoComplete: string;
-  value: string;
-  onChange: (value: string) => void;
-  error?: string;
-  describedBy?: string;
-  autoFocus?: boolean;
-}) {
-  const [revealed, setRevealed] = React.useState(false);
-
-  return (
-    <Input
-      label={label}
-      name={name}
-      autoComplete={autoComplete}
-      type={revealed ? "text" : "password"}
-      value={value}
-      onChange={(event) => onChange(event.target.value)}
-      isInvalid={Boolean(error)}
-      errorMessage={error}
-      aria-describedby={describedBy}
-      autoFocus={autoFocus}
-      addonTrailing={
-        <button
-          type="button"
-          onClick={() => setRevealed((r) => !r)}
-          // The field's own label already names it; this only needs to say
-          // what the control does.
-          aria-label={revealed ? `Hide ${label.toLowerCase()}` : `Show ${label.toLowerCase()}`}
-          aria-pressed={revealed}
-          className="grid size-6 cursor-pointer place-items-center rounded text-fg-tertiary transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none"
-        >
-          {revealed ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
-        </button>
-      }
-    />
   );
 }

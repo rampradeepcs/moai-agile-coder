@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button, Input } from "@/components";
+import { Button, Input, PasswordInput } from "@/components";
 import {
   AuthCard,
   AuthHeading,
@@ -68,8 +68,7 @@ export default function SignInPage() {
           autoComplete="email"
           isInvalid={Boolean(errors.email)} errorMessage={errors.email}
         />
-        <Input
-          type="password"
+        <PasswordInput
           label="Password"
           value={password}
           onChange={(e) => {

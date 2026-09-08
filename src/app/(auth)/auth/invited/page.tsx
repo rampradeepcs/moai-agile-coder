@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Input, PasswordCriteria } from "@/components";
+import { Button, Input, PasswordCriteria, PasswordInput } from "@/components";
 import { passwordError } from "@/lib/password";
 import {
   AuthCard,
@@ -61,9 +61,8 @@ export default function InvitedUserPage() {
           autoComplete="family-name"
         />
         <div className="flex w-full flex-col gap-3">
-          <Input
+          <PasswordInput
             label="Password"
-            type="password"
             value={form.password}
             onChange={set("password")}
             placeholder="Choose a password"
@@ -74,9 +73,8 @@ export default function InvitedUserPage() {
           />
           <PasswordCriteria id="password-criteria" value={form.password} />
         </div>
-        <Input
+        <PasswordInput
           label="Confirm password"
-          type="password"
           value={form.confirm}
           onChange={set("confirm")}
           placeholder="Re-enter your password"

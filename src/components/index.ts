@@ -133,3 +133,6 @@ export type {
 
 export { PasswordCriteria } from "./application/password-criteria/password-criteria";
 export type { PasswordCriteriaProps } from "./application/password-criteria/password-criteria";
+
+export { PasswordInput } from "./base/inputs/password-input";
+export type { PasswordInputProps } from "./base/inputs/password-input";
