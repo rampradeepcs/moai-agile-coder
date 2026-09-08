@@ -4,27 +4,17 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import {
-  Cable,
-  Settings2,
-  ShieldCheck,
-  Sparkles,
-  UserRound,
-} from "lucide-react";
+import { Settings2, ShieldCheck, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PageHeader } from "@/components/shared";
 import { GeneralSettings } from "@/components/settings/general";
 import { AccountSettings } from "@/components/settings/account";
 import { PrivacySettings } from "@/components/settings/privacy";
-import { SkillsSettings } from "@/components/settings/skills";
-import { ConnectorsSettings } from "@/components/settings/connectors";
 
 const TABS = [
   { id: "general", label: "General", icon: Settings2, component: GeneralSettings },
   { id: "account", label: "Account", icon: UserRound, component: AccountSettings },
   { id: "privacy", label: "Privacy", icon: ShieldCheck, component: PrivacySettings },
-  { id: "skills", label: "Skills", icon: Sparkles, component: SkillsSettings },
-  { id: "connectors", label: "Connectors", icon: Cable, component: ConnectorsSettings },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
