@@ -9,6 +9,8 @@ const logoIcons: Record<string, LucideIcon> = {
 };
 
 const sizes = {
+  /** The 16px tile the left navigation renders beside a project name. */
+  xs: { box: "size-4 rounded", icon: "size-2.5" },
   sm: { box: "size-6 rounded-lg", icon: "size-3.5" },
   md: { box: "size-8 rounded-xl", icon: "size-4" },
   lg: { box: "size-10 rounded-xl", icon: "size-5" },

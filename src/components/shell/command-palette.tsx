@@ -37,6 +37,9 @@ import {
 import { projects, workItems } from "@/lib/data";
 import { TypeBadge } from "@/components/work/badges";
 
+/** Dispatch on `document` to open the palette from anywhere. */
+export const COMMAND_PALETTE_EVENT = "wizkraft:open-command-palette";
+
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -53,8 +56,14 @@ export function CommandPalette() {
         setOpen((o) => !o);
       }
     };
+    // The left navigation's search control opens the same palette.
+    const openFromNav = () => setOpen(true);
     document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener(COMMAND_PALETTE_EVENT, openFromNav);
+    return () => {
+      document.removeEventListener("keydown", down);
+      document.removeEventListener(COMMAND_PALETTE_EVENT, openFromNav);
+    };
   }, []);
 
   const go = (href: string) => {
