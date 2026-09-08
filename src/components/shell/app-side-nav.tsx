@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { toast } from "sonner";
 
 import { currentUser, projects } from "@/lib/data";
 import { ProjectLogo } from "@/components/work/project-logo";
@@ -15,12 +16,15 @@ import {
 import {
   ConnectorsIcon,
   DashboardIcon,
-  GroupsIcon,
   NewChatIcon,
-  ProjectsIcon,
+  FolderAddIcon,
+  FolderIcon,
+  ShareIcon,
   SkillsIcon,
+  StarIcon,
   WorkforceIcon,
 } from "@/components/application/side-nav/nav-icons";
+import { NewGroupDialog } from "./new-group-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,11 +37,21 @@ import { COMMAND_PALETTE_EVENT } from "./command-palette";
 import { ThemeToggle } from "./theme-toggle";
 
 const COLLAPSED_KEY = "wizkraft-nav-collapsed";
+const GROUPS_KEY = "wizkraft-project-groups";
 const ACTIVE_KEY = "wizkraft-active-projects";
 const FAVOURITES_KEY = "wizkraft-favourites";
 
-/** Figma groups projects by kind; the data carries the platform string. */
-const isMobile = (platform: string) => platform.toLowerCase().includes("mobile");
+/**
+ * A group someone made themselves. Favourites and All projects are not in this
+ * list — they are the two built-in views and cannot be edited or removed.
+ */
+interface ProjectGroup {
+  id: string;
+  name: string;
+  slugs: string[];
+}
+
+const NO_GROUPS: ProjectGroup[] = [];
 
 const projectHref = (slug: string) => `/apps/${slug}/dashboard`;
 
@@ -118,10 +132,12 @@ function usePersisted<T>(key: string, fallback: T) {
  */
 export function AppSideNav() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [collapsed, setCollapsed] = usePersisted(COLLAPSED_KEY, false);
+  const [collapsed, setCollapsed] = usePersisted(COLLAPSED_KEY, true);
   const [favourites, setFavourites] = usePersisted(FAVOURITES_KEY, DEFAULT_FAVOURITES);
   const [storedTabs, setStoredTabs] = usePersisted(ACTIVE_KEY, NO_TABS);
+  const [groups, setGroups] = usePersisted<ProjectGroup[]>(GROUPS_KEY, NO_GROUPS);
+  // The project awaiting a home once the new group is named.
+  const [pendingSlug, setPendingSlug] = React.useState<string | null>(null);
 
   // Visiting a project puts it in Active tabs, as the design shows.
   const slugInPath = pathname.match(/^\/apps\/([^/]+)/)?.[1];
@@ -148,6 +164,35 @@ export function AppSideNav() {
     );
   };
 
+  const moveToGroup = (slug: string, groupId: string) => {
+    setGroups(
+      groups.map((group) => ({
+        ...group,
+        // A project belongs to one group, so leaving the old one is implied.
+        slugs:
+          group.id === groupId
+            ? [...group.slugs.filter((s) => s !== slug), slug]
+            : group.slugs.filter((s) => s !== slug),
+      })),
+    );
+  };
+
+  const createGroupWith = (name: string) => {
+    const group: ProjectGroup = {
+      id: `g${Date.now().toString(36)}`,
+      name,
+      slugs: pendingSlug ? [pendingSlug] : [],
+    };
+    setGroups([
+      ...groups.map((g) =>
+        pendingSlug ? { ...g, slugs: g.slugs.filter((s) => s !== pendingSlug) } : g,
+      ),
+      group,
+    ]);
+    toast.success(`Group "${name}" created`);
+    setPendingSlug(null);
+  };
+
   const toEntry = (slug: string): SideNavEntry | null => {
     const project = projects.find((p) => p.slug === slug);
     if (!project) return null;
@@ -158,7 +203,49 @@ export function AppSideNav() {
       adornment: <ProjectLogo project={project} size="xs" />,
       favourite: favourites.includes(project.slug),
       onToggleFavourite: () => toggleFavourite(project.slug),
-      active: activeSlugs.includes(project.slug),
+      // The data marks unseen work finished by an agent — exactly the design's
+      // "show the AI icon once the task is complete".
+      taskComplete: Boolean(project.aiActivity),
+      menu: {
+        label: "More",
+        items: [
+          {
+            id: "share",
+            label: "Share project",
+            icon: ShareIcon,
+            onSelect: () => toast.success(`Share link for ${project.name} copied`),
+          },
+          {
+            id: "favourite",
+            label: favourites.includes(project.slug) ? "Unfavourite" : "Favourite",
+            icon: StarIcon,
+            onSelect: () => toggleFavourite(project.slug),
+          },
+          {
+            id: "move",
+            label: "Move to group",
+            icon: FolderIcon,
+            items: [
+              ...groups.map((group) => ({
+                id: group.id,
+                label: group.name,
+                icon: FolderIcon,
+                onSelect: () => {
+                  moveToGroup(project.slug, group.id);
+                  toast.success(`${project.name} moved to ${group.name}`);
+                },
+              })),
+              {
+                id: "new-group",
+                label: "New group",
+                icon: FolderAddIcon,
+                separatorBefore: groups.length > 0,
+                onSelect: () => setPendingSlug(project.slug),
+              },
+            ],
+          },
+        ],
+      },
     };
   };
 
@@ -172,25 +259,16 @@ export function AppSideNav() {
       entries: entries(projects.filter((p) => favourites.includes(p.slug))),
       emptyLabel: "Star a project to pin it here.",
     },
-    {
-      id: "saas",
-      label: "SaaS applications",
-      icon: GroupsIcon,
-      href: "/apps",
-      entries: entries(projects.filter((p) => !isMobile(p.platform))),
-    },
-    {
-      id: "mobile",
-      label: "Mobile applications",
-      icon: GroupsIcon,
-      href: "/apps",
-      entries: entries(projects.filter((p) => isMobile(p.platform))),
-      defaultOpen: false,
-    },
+    // Groups people made themselves sit between the two built-in views.
+    ...groups.map((group) => ({
+      id: group.id,
+      label: group.name,
+      entries: entries(projects.filter((p) => group.slugs.includes(p.slug))),
+      emptyLabel: "Move a project here from its menu.",
+    })),
     {
       id: "all",
       label: "All projects",
-      icon: ProjectsIcon,
       href: "/apps",
       entries: entries(projects),
     },
@@ -203,42 +281,36 @@ export function AppSideNav() {
   ];
 
   return (
+    <>
     <SideNav
       collapsed={collapsed}
       onCollapsedChange={setCollapsed}
       onSearch={() => document.dispatchEvent(new CustomEvent(COMMAND_PALETTE_EVENT))}
       isActive={(href) => {
-        // Toolkit links differ only by query string, so a pathname-only
-        // comparison would light both of them up on /settings — or neither.
-        const [path, query] = href.split("?");
-        if (query) {
-          const [key, value] = query.split("=");
-          return pathname.replace(/\/$/, "") === path && searchParams.get(key) === value;
-        }
-        // /apps is the index; its children have their own rows.
-        if (path === "/apps") return pathname.replace(/\/$/, "") === "/apps";
-        return pathname === path || pathname.startsWith(`${path}/`);
+        // Every destination is a real path now, so no query matching — and so
+        // no useSearchParams in the shell, which would put every app route
+        // behind a client-only Suspense boundary.
+        // /apps is the index; its children have rows of their own.
+        if (href === "/apps") return pathname.replace(/\/$/, "") === "/apps";
+        return pathname === href || pathname.startsWith(`${href}/`);
       }}
       primary={[
         { id: "dashboard", label: "Dashboard", href: "/dashboard", icon: DashboardIcon },
-        { id: "new-chat", label: "New chat", href: "/apps/new", icon: NewChatIcon, emphasis: true },
+        { id: "new-chat", label: "New chat", href: "/apps/new", icon: NewChatIcon },
       ]}
       sections={sections}
+      collapsedEntries={entries(
+        projects.filter((p) =>
+          activeSlugs.length > 0
+            ? activeSlugs.includes(p.slug)
+            : favourites.includes(p.slug),
+        ),
+      )}
       secondary={[
         { id: "workforce", label: "Workforce", href: "/users", icon: WorkforceIcon },
+        { id: "skills", label: "Skills", href: "/skills", icon: SkillsIcon },
+        { id: "connectors", label: "Connectors", href: "/connectors", icon: ConnectorsIcon },
       ]}
-      toolkit={{
-        label: "AI Toolkit",
-        links: [
-          { id: "skills", label: "Skills", href: "/settings?tab=skills", icon: SkillsIcon },
-          {
-            id: "connectors",
-            label: "Connectors",
-            href: "/settings?tab=connectors",
-            icon: ConnectorsIcon,
-          },
-        ],
-      }}
       footer={
         <div className={collapsed ? "flex flex-col items-center gap-2" : "flex items-center gap-2"}>
           <DropdownMenu>
@@ -285,6 +357,13 @@ export function AppSideNav() {
         </div>
       }
     />
+    <NewGroupDialog
+      open={pendingSlug !== null}
+      onOpenChange={(open) => !open && setPendingSlug(null)}
+      existingNames={groups.map((g) => g.name)}
+      onCreate={createGroupWith}
+    />
+    </>
   );
 }
 

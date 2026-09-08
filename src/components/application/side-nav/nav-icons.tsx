@@ -238,3 +238,59 @@ export function SparklesIcon(props: NavIconProps) {
     </svg>
   );
 }
+
+export function ShareIcon(props: NavIconProps) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden {...props}>
+      <g transform="translate(0.867 0.927)">
+      <g>
+      <path d="M10.44 3.1862C11.7733 4.11287 12.6933 5.5862 12.88 7.28619" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M1.45996 7.32005C1.63329 5.62672 2.53996 4.15339 3.85996 3.22005" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4.59326 13.0326C5.36659 13.4259 6.24657 13.6459 7.17323 13.6459C8.06657 13.6459 8.90657 13.4459 9.6599 13.0793" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M7.1733 4.20667C8.1969 4.20667 9.02663 3.37691 9.02663 2.35333C9.02663 1.32977 8.1969 0.5 7.1733 0.5C6.14977 0.5 5.31999 1.32977 5.31999 2.35333C5.31999 3.37691 6.14977 4.20667 7.1733 4.20667Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M2.35333 12.3525C3.3769 12.3525 4.20667 11.5227 4.20667 10.4992C4.20667 9.47559 3.3769 8.64585 2.35333 8.64585C1.32977 8.64585 0.5 9.47559 0.5 10.4992C0.5 11.5227 1.32977 12.3525 2.35333 12.3525Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M11.9133 12.3525C12.9369 12.3525 13.7666 11.5227 13.7666 10.4992C13.7666 9.47559 12.9369 8.64585 11.9133 8.64585C10.8898 8.64585 10.06 9.47559 10.06 10.4992C10.06 11.5227 10.8898 12.3525 11.9133 12.3525Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      </g>
+    </svg>
+  );
+}
+
+export function FolderIcon(props: NavIconProps) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden {...props}>
+      <g transform="translate(1.043 0.843)">
+      <g>
+      <path d="M13.4029 8.67982L13.1362 12.0132C13.0362 13.0332 12.9562 13.8132 11.1496 13.8132H2.76291C0.956241 13.8132 0.876241 13.0332 0.776241 12.0132L0.509574 8.67982C0.456241 8.12649 0.629574 7.61315 0.942908 7.21982C0.949574 7.21315 0.949574 7.21315 0.956241 7.20649C1.32291 6.75982 1.87624 6.47982 2.49624 6.47982H11.4162C12.0362 6.47982 12.5829 6.75982 12.9429 7.19315C12.9496 7.19982 12.9562 7.20649 12.9562 7.21315C13.2829 7.60649 13.4629 8.11982 13.4029 8.67982Z" stroke="currentColor" stroke-miterlimit="10"/>
+      <path d="M1.28957 6.76669V3.33333C1.28957 1.06667 1.85623 0.5 4.1229 0.5H4.96957C5.81623 0.5 6.00957 0.753333 6.32957 1.18L7.17623 2.31333C7.38957 2.59333 7.51623 2.76667 8.0829 2.76667H9.7829C12.0496 2.76667 12.6162 3.33333 12.6162 5.6V6.79335" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5.24293 10.4798H8.66963" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      </g>
+    </svg>
+  );
+}
+
+export function FolderAddIcon(props: NavIconProps) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden {...props}>
+      <g transform="translate(0.833 0.833)">
+      <g>
+      <path d="M7.20673 10.1667V6.83333" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8.83333 8.5H5.5" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13.8333 6.5V10.5C13.8333 13.1667 13.1667 13.8333 10.5 13.8333H3.83333C1.16667 13.8333 0.5 13.1667 0.5 10.5V3.83333C0.5 1.16667 1.16667 0.5 3.83333 0.5H4.83333C5.83333 0.5 6.05333 0.793333 6.43333 1.3L7.43333 2.63333C7.68667 2.96667 7.83333 3.16667 8.5 3.16667H10.5C13.1667 3.16667 13.8333 3.83333 13.8333 6.5Z" stroke="currentColor" stroke-miterlimit="10"/>
+      </g>
+      </g>
+    </svg>
+  );
+}
+
+export function ChevronRightIcon(props: NavIconProps) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden {...props}>
+      <g>
+      <path d="M5.94 13.28L10.2867 8.93333C10.8 8.42 10.8 7.58 10.2867 7.06667L5.94 2.72" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path opacity="0" d="M0.5 15.5L0.5 0.5L15.5 0.5L15.5 15.5L0.5 15.5Z" stroke="currentColor"/>
+      </g>
+    </svg>
+  );
+}

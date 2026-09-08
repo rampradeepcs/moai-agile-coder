@@ -6,10 +6,33 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Tooltip } from "@/components/base/tooltips/tooltip";
 import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   ChevronDownIcon,
   ChevronUpIcon,
   CollapseIcon,
   ExpandIcon,
+  ChevronRightIcon,
   MoreIcon,
   SearchIcon,
   SparklesIcon,
@@ -39,8 +62,17 @@ export interface SideNavLink {
   label: string;
   href: string;
   icon: NavIconComponent;
-  /** Renders as the filled brand row the design gives the primary action. */
-  emphasis?: boolean;
+}
+
+export interface SideNavMenuItem {
+  id: string;
+  label: string;
+  icon?: NavIconComponent;
+  onSelect?: () => void;
+  /** Nested items render as a submenu. */
+  items?: SideNavMenuItem[];
+  /** Draws a rule above this item. */
+  separatorBefore?: boolean;
 }
 
 export interface SideNavEntry {
@@ -51,10 +83,16 @@ export interface SideNavEntry {
   adornment?: React.ReactNode;
   favourite?: boolean;
   onToggleFavourite?: () => void;
-  /** Shows the AI-activity sparkle, as the design does on live tabs. */
-  active?: boolean;
-  /** Adds the overflow control revealed on the selected row. */
-  onMore?: () => void;
+  /**
+   * An agent has finished something here and nobody has looked yet. Shows the
+   * animated AI mark — in the rail as well as the expanded row.
+   */
+  taskComplete?: boolean;
+  /**
+   * Row actions. Rendered twice from one definition — as a right-click menu on
+   * the row, and behind the overflow control that appears on hover.
+   */
+  menu?: { label: string; items: SideNavMenuItem[] };
 }
 
 export interface SideNavSection {
@@ -64,6 +102,7 @@ export interface SideNavSection {
   icon?: NavIconComponent;
   href?: string;
   entries: SideNavEntry[];
+  /** Sections start closed, as the design's first-time state shows them. */
   defaultOpen?: boolean;
   /** Message shown instead of rows when the section is empty. */
   emptyLabel?: string;
@@ -75,8 +114,12 @@ export interface SideNavProps {
   sections: SideNavSection[];
   /** Rows that sit between the sections and the toolkit, e.g. Workforce. */
   secondary?: SideNavLink[];
-  /** The AI TOOLKIT group. */
-  toolkit?: { label: string; links: SideNavLink[] };
+  /**
+   * Shown in the collapsed rail in place of the sections. The rail has room
+   * for destinations, not for groups that only exist to be expanded, so this
+   * is the projects worth a one-click return — the open ones.
+   */
+  collapsedEntries?: SideNavEntry[];
   collapsed?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
   onSearch?: () => void;
@@ -89,13 +132,13 @@ export interface SideNavProps {
 
 const ROW = "flex h-8 w-full items-center gap-2 rounded-lg px-3 text-caption-1 transition-colors";
 const SECTION_LABEL =
-  "min-w-0 flex-1 truncate text-[10px] leading-[18px] tracking-[0.2px] text-muted-foreground uppercase";
+  "min-w-0 flex-1 truncate text-[10px] leading-[18px] tracking-[0.2px] text-gray-600 uppercase";
 
 export function SideNav({
   primary,
   sections,
   secondary = [],
-  toolkit,
+  collapsedEntries = [],
   collapsed = false,
   onCollapsedChange,
   onSearch,
@@ -130,54 +173,32 @@ export function SideNav({
             collapsed ? "items-center gap-8 overflow-visible" : "gap-6 overflow-y-auto",
           )}
         >
-          <div className={cn("flex flex-col", collapsed ? "items-center gap-4" : "w-full gap-2")}>
-            {primary.map((link) => (
+          {/* Dashboard, New chat, Workforce, Skills and Connectors are one block. */}
+          <div className={cn("flex flex-col", collapsed ? "items-center gap-2.5" : "w-full gap-2")}>
+            {[...primary, ...secondary].map((link) => (
               <NavRow key={link.id} link={link} collapsed={collapsed} active={isActive(link.href)} />
             ))}
           </div>
 
-          {!collapsed &&
-            sections.map((section) => (
-              <Section key={section.id} section={section} isActive={isActive} />
-            ))}
-
-          {collapsed && (
-            <div className="flex flex-col items-center gap-4">
-              {sections
-                .filter((s) => s.icon && s.href)
-                .map((s) => (
-                  <NavRow
-                    key={s.id}
-                    link={{ id: s.id, label: s.label, href: s.href!, icon: s.icon! }}
-                    collapsed
-                    active={isActive(s.href!)}
-                  />
-                ))}
+          {!collapsed && (
+            <div className="flex w-full flex-col gap-2.5">
+              {sections.map((section) => (
+                <Section key={section.id} section={section} isActive={isActive} />
+              ))}
             </div>
           )}
 
-          <div className={cn("flex flex-col", collapsed ? "items-center gap-4" : "w-full gap-2")}>
-            {secondary.map((link) => (
-              <NavRow key={link.id} link={link} collapsed={collapsed} active={isActive(link.href)} />
-            ))}
-          </div>
-
-          {toolkit &&
-            (collapsed ? (
-              <div className="flex flex-col items-center gap-4">
-                {toolkit.links.map((link) => (
-                  <NavRow key={link.id} link={link} collapsed active={isActive(link.href)} />
-                ))}
-              </div>
-            ) : (
-              <Disclosure label={toolkit.label} defaultOpen>
-                <div className="flex w-full flex-col gap-2 px-1.5">
-                  {toolkit.links.map((link) => (
-                    <NavRow key={link.id} link={link} active={isActive(link.href)} />
-                  ))}
-                </div>
-              </Disclosure>
-            ))}
+          {collapsed && collapsedEntries.length > 0 && (
+            <div className="flex flex-col items-center gap-2.5">
+              {collapsedEntries.map((entry) => (
+                <CollapsedEntry
+                  key={entry.id}
+                  entry={entry}
+                  active={isActive(entry.href)}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {footer}
@@ -216,12 +237,14 @@ function Header({
         <BrandMark />
         <span className="truncate text-body-lg text-foreground">wizkraft.ai</span>
       </Link>
-      {onSearch && (
-        <IconButton label="Search" onClick={onSearch}>
-          <SearchIcon className="size-4" />
-        </IconButton>
-      )}
-      {toggle}
+      <div className="flex shrink-0 items-center gap-4">
+        {onSearch && (
+          <IconButton label="Search" onClick={onSearch}>
+            <SearchIcon className="size-4" />
+          </IconButton>
+        )}
+        {toggle}
+      </div>
     </div>
   );
 }
@@ -248,9 +271,6 @@ function NavRow({
   active?: boolean;
 }) {
   const Icon = link.icon;
-  // Only the primary action carries the solid green fill; the design marks the
-  // current row with the 10% brand tint instead, so two rows never compete.
-  const filled = link.emphasis;
 
   if (collapsed) {
     return (
@@ -262,11 +282,9 @@ function NavRow({
           className={cn(
             "grid size-8 shrink-0 place-items-center rounded-lg border border-gray-alpha10 transition-colors",
             "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
-            filled
+            active
               ? "bg-brand-600 text-gray-900"
-              : active
-                ? "bg-brand-600/10 text-foreground"
-                : "text-foreground hover:bg-background",
+              : "bg-sidebar text-foreground hover:bg-brand-600/10",
           )}
         >
           <Icon className="size-4" />
@@ -282,11 +300,9 @@ function NavRow({
       className={cn(
         ROW,
         "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
-        filled
+        active
           ? "bg-brand-600 text-gray-900"
-          : active
-            ? "bg-brand-600/10 text-foreground"
-            : "text-foreground hover:bg-background",
+          : "text-foreground hover:bg-brand-600/10",
       )}
     >
       <Icon className="size-4 shrink-0" />
@@ -295,24 +311,73 @@ function NavRow({
   );
 }
 
-function EntryRow({ entry, active }: { entry: SideNavEntry; active?: boolean }) {
+/** A project in the collapsed rail: its logo in the same 32px well as a nav icon. */
+function CollapsedEntry({ entry, active }: { entry: SideNavEntry; active?: boolean }) {
+  return (
+    <Tooltip title={entry.label} side="right">
+      <Link
+        href={entry.href}
+        aria-label={entry.label}
+        aria-current={active ? "page" : undefined}
+        className={cn(
+          "relative grid size-8 shrink-0 place-items-center rounded-lg border border-gray-alpha10 transition-colors",
+          "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
+          active ? "bg-brand-600" : "bg-sidebar hover:bg-brand-600/10",
+        )}
+      >
+        {entry.adornment}
+        {entry.taskComplete && (
+          <SparklesIcon className="ai-task-complete absolute -top-1 -right-1 size-3 text-brand-600" />
+        )}
+      </Link>
+    </Tooltip>
+  );
+}
+
+function EntryRow(props: { entry: SideNavEntry; active?: boolean }) {
+  const { entry } = props;
+  if (!entry.menu) return <EntryRowBody {...props} />;
+  return (
+    <ContextMenu>
+      <ContextMenuTrigger asChild>
+        <div className="w-full">
+          <EntryRowBody {...props} />
+        </div>
+      </ContextMenuTrigger>
+      <MenuBody menu={entry.menu} variant="context" />
+    </ContextMenu>
+  );
+}
+
+function EntryRowBody({ entry, active }: { entry: SideNavEntry; active?: boolean }) {
   return (
     <div
       className={cn(
-        "group/entry flex h-8 w-full items-center gap-2 rounded-lg pr-3 pl-3.5 transition-colors",
-        active ? "bg-brand-600/10" : "hover:bg-background",
+        "group/entry flex h-8 w-full items-center gap-2 rounded-lg px-1.5 transition-colors",
+        active ? "bg-brand-600" : "hover:bg-brand-600/10",
       )}
     >
       <Link
         href={entry.href}
         aria-current={active ? "page" : undefined}
-        className="flex min-w-0 flex-1 items-center gap-2 rounded text-caption-1 text-foreground focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none"
+        className={cn(
+          "flex min-w-0 flex-1 items-center gap-2 rounded text-caption-1",
+          "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
+          active ? "text-gray-900" : "text-foreground",
+        )}
       >
         {entry.adornment}
         <span className="min-w-0 flex-1 truncate">{entry.label}</span>
       </Link>
 
-      {entry.active && <SparklesIcon className="size-3.5 shrink-0 text-brand-600" />}
+      {entry.taskComplete && (
+        <SparklesIcon
+          className={cn(
+            "ai-task-complete size-3.5 shrink-0",
+            active ? "text-gray-900" : "text-brand-600",
+          )}
+        />
+      )}
 
       {entry.onToggleFavourite && (
         <button
@@ -332,28 +397,117 @@ function EntryRow({ entry, active }: { entry: SideNavEntry; active?: boolean }) 
           )}
         >
           {entry.favourite ? (
-            <StarFilledIcon className="size-3.5 text-warning-600" />
+            <StarFilledIcon
+              className={cn("size-3.5", active ? "text-gray-900" : "text-warning-600")}
+            />
           ) : (
-            <StarIcon className="size-3.5 text-muted-foreground" />
+            <StarIcon
+              className={cn("size-3.5", active ? "text-gray-900" : "text-muted-foreground")}
+            />
           )}
         </button>
       )}
 
-      {entry.onMore && (
-        <button
-          type="button"
-          onClick={entry.onMore}
-          aria-label={`More options for ${entry.label}`}
-          className={cn(
-            "grid size-3.5 shrink-0 -rotate-90 place-items-center rounded text-muted-foreground transition-opacity",
-            "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
-            active ? "opacity-100" : "opacity-0 group-hover/entry:opacity-100 focus-visible:opacity-100",
-          )}
-        >
-          <MoreIcon className="size-3.5" />
-        </button>
+      {entry.menu && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              aria-label={`More options for ${entry.label}`}
+              onClick={(event) => event.stopPropagation()}
+              className={cn(
+                "grid size-3.5 shrink-0 -rotate-90 place-items-center rounded transition-opacity",
+                active ? "text-gray-900" : "text-muted-foreground",
+                "focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none",
+                active
+                  ? "opacity-100"
+                  : "opacity-0 group-hover/entry:opacity-100 focus-visible:opacity-100",
+              )}
+            >
+              <MoreIcon className="size-3.5" />
+            </button>
+          </DropdownMenuTrigger>
+          <MenuBody menu={entry.menu} variant="dropdown" />
+        </DropdownMenu>
       )}
     </div>
+  );
+}
+
+/**
+ * Renders a menu definition against either primitive set. Radix's context and
+ * dropdown menus share a shape, so the items are described once and the
+ * trigger decides which surface they appear on.
+ */
+function MenuBody({
+  menu,
+  variant,
+}: {
+  menu: NonNullable<SideNavEntry["menu"]>;
+  variant: "context" | "dropdown";
+}) {
+  const isContext = variant === "context";
+  const Content = isContext ? ContextMenuContent : DropdownMenuContent;
+  const Label = isContext ? ContextMenuLabel : DropdownMenuLabel;
+
+  return (
+    <Content className={"flex w-[250px] flex-col gap-2 rounded-[10px] border-gray-alpha10 bg-background px-1.5 py-4 shadow-[4px_8px_12px_rgba(0,0,0,0.14)]"}>
+      <Label className={"px-2.5 py-0 text-overline-1 font-normal text-gray-500"}>{menu.label}</Label>
+      {menu.items.map((item) => (
+        <MenuEntry key={item.id} item={item} variant={variant} />
+      ))}
+    </Content>
+  );
+}
+
+const MENU_ITEM =
+  "flex h-8 cursor-pointer items-center gap-2 rounded-lg px-3 text-caption-1 text-foreground focus:bg-brand-600/10 focus:text-foreground data-[state=open]:bg-brand-600/10";
+
+function MenuEntry({
+  item,
+  variant,
+}: {
+  item: SideNavMenuItem;
+  variant: "context" | "dropdown";
+}) {
+  const isContext = variant === "context";
+  const Item = isContext ? ContextMenuItem : DropdownMenuItem;
+  const Separator = isContext ? ContextMenuSeparator : DropdownMenuSeparator;
+  const Sub = isContext ? ContextMenuSub : DropdownMenuSub;
+  const SubTrigger = isContext ? ContextMenuSubTrigger : DropdownMenuSubTrigger;
+  const SubContent = isContext ? ContextMenuSubContent : DropdownMenuSubContent;
+  const Label = isContext ? ContextMenuLabel : DropdownMenuLabel;
+  const Icon = item.icon;
+
+  if (item.items) {
+    return (
+      <>
+        {item.separatorBefore && <Separator className="my-0 h-px bg-gray-alpha10" />}
+        <Sub>
+          <SubTrigger className={cn(MENU_ITEM, "[&_svg.lucide]:hidden")}>
+            {Icon && <Icon className="size-4 shrink-0" />}
+            <span className="min-w-0 flex-1 truncate">{item.label}</span>
+            <ChevronRightIcon className="size-4 shrink-0" />
+          </SubTrigger>
+          <SubContent className={"flex w-[250px] flex-col gap-2 rounded-[10px] border-gray-alpha10 bg-background px-1.5 py-4 shadow-[4px_8px_12px_rgba(0,0,0,0.14)]"}>
+            <Label className={"px-2.5 py-0 text-overline-1 font-normal text-gray-500"}>{item.label}</Label>
+            {item.items.map((child) => (
+              <MenuEntry key={child.id} item={child} variant={variant} />
+            ))}
+          </SubContent>
+        </Sub>
+      </>
+    );
+  }
+
+  return (
+    <>
+      {item.separatorBefore && <Separator className="my-0 h-px bg-gray-alpha10" />}
+      <Item className={MENU_ITEM} onSelect={item.onSelect}>
+        {Icon && <Icon className="size-4 shrink-0" />}
+        <span className="min-w-0 flex-1 truncate">{item.label}</span>
+      </Item>
+    </>
   );
 }
 
@@ -369,7 +523,7 @@ function Section({
   const Icon = section.icon;
   return (
     <Disclosure
-      defaultOpen={section.defaultOpen ?? true}
+      defaultOpen={section.defaultOpen ?? false}
       label={
         Icon ? (
           <>
@@ -384,7 +538,7 @@ function Section({
       }
       plain={!Icon}
     >
-      <div className="flex w-full flex-col gap-2 px-1.5">
+      <div className="flex w-full flex-col gap-0.5 px-1.5">
         {section.entries.length === 0 ? (
           <p className="px-3 pb-1 text-caption-1 text-muted-foreground">
             {section.emptyLabel ?? "Nothing here yet."}
@@ -402,7 +556,7 @@ function Section({
 /** The collapsible block the design draws on the raised #f9f9fa ground. */
 function Disclosure({
   label,
-  defaultOpen = true,
+  defaultOpen = false,
   plain = false,
   children,
 }: {
@@ -416,19 +570,28 @@ function Disclosure({
   const id = React.useId();
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-lg bg-surface-raised pb-1.5">
+    <div
+      className={cn(
+        "flex w-full flex-col gap-0.5 rounded-lg",
+        // Closed sections sit flat on the menu; the raised ground appears only
+        // once a section has content to hold.
+        open && "bg-surface-raised pb-1.5",
+      )}
+    >
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-controls={id}
-        className="flex h-8 w-full cursor-pointer items-center gap-2 rounded-lg px-3 focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none"
+        // `text-left` is load-bearing: a <button> centres its text by default,
+        // which pushed every section label off the rows' left edge.
+        className="flex h-8 w-full cursor-pointer items-center gap-2 rounded-lg px-3 text-left focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none"
       >
         {plain ? <span className={SECTION_LABEL}>{label}</span> : label}
         {open ? (
-          <ChevronUpIcon className="size-4 shrink-0 text-foreground" />
+          <ChevronUpIcon className="size-3 shrink-0 text-foreground" />
         ) : (
-          <ChevronDownIcon className="size-4 shrink-0 text-foreground" />
+          <ChevronDownIcon className="size-3 shrink-0 text-foreground" />
         )}
       </button>
       <div id={id} hidden={!open}>
@@ -454,7 +617,7 @@ function IconButton({
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="grid size-4 shrink-0 cursor-pointer place-items-center rounded text-foreground transition-colors hover:text-brand-700 focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none"
+      className="grid size-[30px] shrink-0 cursor-pointer place-items-center rounded-lg text-foreground transition-colors hover:bg-brand-600/10 focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none"
     >
       {children}
     </button>
