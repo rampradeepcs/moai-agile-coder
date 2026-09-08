@@ -6,43 +6,64 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
 import { CheckCircle2 } from "lucide-react";
+import { NewChatIntro } from "@/components/chat/new-chat-intro";
+import { SaveIcon } from "@/components/chat/chat-icons";
 import { Button } from "@/components/ui/button";
 import { DocgenStepper } from "@/components/docgen/stepper";
 import { ChatFlow } from "@/components/docgen/chat-flow";
 import { RequirementDoc } from "@/components/docgen/requirement-doc";
 import { DesignDoc } from "@/components/docgen/design-doc";
 
-type Phase = "chat" | "reqdoc" | "designdoc" | "done";
+type Phase = "intro" | "chat" | "reqdoc" | "designdoc" | "done";
 
 export default function NewAppPage() {
   const router = useRouter();
-  const [phase, setPhase] = React.useState<Phase>("chat");
+  const [phase, setPhase] = React.useState<Phase>("intro");
   // 0 Basic details · 1 Requirement gatherings · 2 Requirement doc · 3 Design doc
   const [stepperIndex, setStepperIndex] = React.useState(0);
 
   return (
-    <div className="flex h-svh min-h-0 flex-col">
-      {/* Header */}
-      <header className="flex items-center justify-between gap-4 border-b px-6 py-3">
-        <div className="min-w-0 flex-1 overflow-x-auto">
-          <DocgenStepper current={stepperIndex} />
+    <div className="flex min-h-0 flex-1 flex-col p-4">
+      <header className="flex flex-col items-center gap-4">
+        <div className="flex w-full items-start justify-between gap-4">
+          <p className="text-button-1 text-foreground">New Chat</p>
+          <div className="flex shrink-0 items-center gap-2">
+            <Button variant="ghost" asChild>
+              <Link href="/apps">Cancel</Link>
+            </Button>
+            <button
+              type="button"
+              onClick={() => toast.success("Draft saved — pick it up anytime from Apps")}
+              className="flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-[10px] border border-gray-alpha10 bg-card px-5 text-button-1 text-gray-300 transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-brand-600/50 focus-visible:outline-none"
+            >
+              <SaveIcon className="size-3.5" />
+              Save as draft
+            </button>
+          </div>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/apps">Cancel</Link>
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => toast.success("Draft saved — pick it up anytime from Apps")}
-          >
-            Save as draft
-          </Button>
+        <div className="w-full overflow-x-auto">
+          <DocgenStepper current={stepperIndex} className="mx-auto w-fit" />
         </div>
       </header>
 
       {/* Body */}
       <AnimatePresence mode="wait">
+        {phase === "intro" && (
+          <motion.div
+            key="intro"
+            className="flex min-h-0 flex-1 flex-col"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <NewChatIntro
+              onStart={() => {
+                setStepperIndex(1);
+                setPhase("chat");
+              }}
+            />
+          </motion.div>
+        )}
+
         {phase === "chat" && (
           <motion.div
             key="chat"

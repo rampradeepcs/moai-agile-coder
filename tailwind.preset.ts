@@ -227,6 +227,7 @@ const preset = {
         "head-1": ["2rem", { lineHeight: "2.5rem" }],          // 32/40 SemiBold
         "body-lg": ["1rem", { lineHeight: "1.5rem" }],         // 16/24 Regular
         "body-md": ["0.875rem", { lineHeight: "1.375rem" }],   // 14/22 Regular
+        "body-sm": ["0.8125rem", { lineHeight: "1.25rem" }],   // 13/20 Regular
         "button-1": ["0.875rem", { lineHeight: "1.25rem" }],   // 14/20 Medium
         "caption-1": ["0.75rem", { lineHeight: "1.125rem" }],  // 12/18 Regular
         "overline-1": ["0.6875rem", { lineHeight: "1rem" }],   // 11/16 Regular
