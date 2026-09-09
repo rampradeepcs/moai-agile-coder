@@ -554,6 +554,56 @@
     animation: wk-book-open 1220ms cubic-bezier(0.61, 0.02, 0.32, 1) forwards;
   }
 
+  /* Sign In <-> Sign Up switch: the SAME physical book closes over the
+     current card, its hidden content is swapped, then it reopens — never
+     the entrance fall. Reuses the identical rotateY hinge/perspective as
+     the entrance's open above, just reversible, so it reads as turning to a
+     different page rather than a fresh appearance. Mutually exclusive with
+     is-falling/is-opening (never combined), so it overrides the base
+     .wk-book-scene's fall-offset/opacity/filter with the book's resting,
+     fully-opaque, no-shadow-filter state.
+     Durations are deliberately gentle rather than snappy, and both halves
+     share one symmetric ease-in-out curve (slow start, faster middle, slow
+     settle) so closing and opening feel like the same motion in reverse,
+     not two differently-shaped moves stitched together. */
+  .wk-book-scene.is-transition {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .wk-book-scene.is-transition-closing .wk-book-cover-rotate {
+    animation: wk-book-transition-close 720ms cubic-bezier(0.45, 0, 0.55, 1) forwards;
+  }
+  .wk-book-scene.is-transition-opening .wk-book-cover-rotate {
+    animation: wk-book-transition-open 720ms cubic-bezier(0.45, 0, 0.55, 1) forwards;
+  }
+  @keyframes wk-book-transition-close {
+    0% {
+      transform: rotateY(-112deg);
+      filter: drop-shadow(-6px 6px 14px rgba(10, 40, 25, 0.12));
+    }
+    45% {
+      filter: drop-shadow(-16px 14px 20px rgba(10, 40, 25, 0.32));
+    }
+    100% {
+      transform: rotateY(0deg);
+      filter: drop-shadow(0 4px 8px rgba(10, 40, 25, 0.1));
+    }
+  }
+  @keyframes wk-book-transition-open {
+    0% {
+      transform: rotateY(0deg);
+      filter: drop-shadow(0 4px 8px rgba(10, 40, 25, 0.1));
+    }
+    55% {
+      filter: drop-shadow(-16px 14px 20px rgba(10, 40, 25, 0.32));
+    }
+    100% {
+      transform: rotateY(-112deg);
+      filter: drop-shadow(-6px 6px 14px rgba(10, 40, 25, 0.12));
+    }
+  }
+
   /* Card + per-row reveal */
   .wk-card-wrap {
     opacity: 0;

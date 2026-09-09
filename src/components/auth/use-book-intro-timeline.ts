@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
-
-export type BookCoverPhase = "idle" | "falling" | "opening";
+import type { BookCoverPhase } from "@/components/auth/book-cover";
 
 /*
- * Book -> card entrance timeline, shared by every auth page that opens with
- * the spellbook intro. Constants ported 1:1 from the standalone prototype
- * this animation was built and tuned in.
+ * Book -> card entrance timeline: the one-time fall-in-and-open played when
+ * the `(book)` auth layout first mounts. Constants ported 1:1 from the
+ * standalone prototype this animation was built and tuned in. This never
+ * re-runs on a Sign In <-> Sign Up switch — see that layout's own
+ * `runTransitionTo` for the close/reopen state transition instead.
  */
 const FALL_MS = 1070; // fall + settle, one eased keyframe animation
 const PAUSE_MS = 120; // brief beat before the cover lifts
