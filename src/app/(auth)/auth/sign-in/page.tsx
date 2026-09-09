@@ -3,11 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button, Input, PasswordInput } from "@/components";
-import {
-  AuthCard,
-  AuthHeading,
-} from "@/components/auth/auth-primitives";
+import { Button, PasswordInput } from "@/components";
+import { AuthCard, AuthHeading } from "@/components/auth/auth-primitives";
+import { BookCover } from "@/components/auth/book-cover";
+import { MagicEmailInput } from "@/components/auth/magic-email-input";
+import { rowDelay, useBookIntroTimeline } from "@/components/auth/use-book-intro-timeline";
+import { cn } from "@/lib/utils";
 
 /*
  * No backend to authenticate against, so any well-formed credentials sign in.
@@ -23,6 +24,8 @@ export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+
+  const { bookPhase, bookHidden, cardRevealing, cardFinal } = useBookIntroTimeline();
 
   const submit = () => {
     const value = email.trim().toLowerCase();
@@ -47,59 +50,84 @@ export default function SignInPage() {
   };
 
   return (
-    <AuthCard onSubmit={submit}>
-      <AuthHeading
-        eyebrow="Welcome back"
-        title="Sign in to WizKraft"
-        description="Pick up where you left off — your projects, sprints and AI agents are waiting."
-      />
+    <>
+      {!bookHidden && (
+        <div className="wk-book-stage" aria-hidden="true">
+          <BookCover phase={bookPhase} />
+        </div>
+      )}
 
-      <div className="flex w-full flex-col gap-4">
-        <Input
-          type="email"
-          label="Email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (errors.email) setErrors({});
-          }}
-          placeholder="you@company.com"
-          name="email"
-          autoComplete="email"
-          isInvalid={Boolean(errors.email)} errorMessage={errors.email}
-        />
-        <PasswordInput
-          label="Password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            if (errors.password) setErrors({});
-          }}
-          placeholder="Enter your password"
-          name="password"
-          autoComplete="current-password"
-          isInvalid={Boolean(errors.password)} errorMessage={errors.password}
-        />
-        <Link
-          href="/auth/forgot-password"
-          className="inline-flex min-h-11 w-fit items-center text-body-md text-foreground underline-offset-4 hover:underline"
-        >
-          Forgot password?
-        </Link>
+      <div
+        className={cn("wk-card-wrap", cardRevealing && "is-revealing", cardFinal && "is-final")}
+      >
+        <AuthCard onSubmit={submit}>
+          <div className="wk-row" style={rowDelay(120)}>
+            <AuthHeading
+              eyebrow="Welcome back"
+              title="Sign in to WizKraft"
+              description="Pick up where you left off — your projects, sprints and AI agents are waiting."
+            />
+          </div>
+
+          <div className="flex w-full flex-col gap-4">
+            <div className="wk-row" style={rowDelay(220)}>
+              <MagicEmailInput
+                label="Email"
+                value={email}
+                onChange={(value) => {
+                  setEmail(value);
+                  if (errors.email) setErrors({});
+                }}
+                placeholder="you@company.com"
+                name="email"
+                autoComplete="email"
+                isInvalid={Boolean(errors.email)}
+                errorMessage={errors.email}
+              />
+            </div>
+
+            <div className="wk-row" style={rowDelay(320)}>
+              <PasswordInput
+                label="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (errors.password) setErrors({});
+                }}
+                placeholder="Enter your password"
+                name="password"
+                autoComplete="current-password"
+                isInvalid={Boolean(errors.password)}
+                errorMessage={errors.password}
+              />
+            </div>
+
+            <div className="wk-row" style={rowDelay(380)}>
+              <Link
+                href="/auth/forgot-password"
+                className="inline-flex min-h-11 w-fit items-center text-body-md text-foreground underline-offset-4 hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+          </div>
+
+          <div className="wk-row" style={rowDelay(460)}>
+            <Button type="submit" className="w-full">
+              Sign in
+            </Button>
+          </div>
+
+          <div className="wk-row" style={rowDelay(540)}>
+            <div className="flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <span className="text-body-md text-foreground">Don&rsquo;t have an account?</span>
+              <Button asChild variant="secondary">
+                <Link href="/auth/sign-up">Sign up</Link>
+              </Button>
+            </div>
+          </div>
+        </AuthCard>
       </div>
-
-      <Button type="submit" className="w-full">
-        Sign in
-      </Button>
-
-      <div className="flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <span className="text-body-md text-foreground">
-          Don&rsquo;t have an account?
-        </span>
-        <Button asChild variant="secondary">
-          <Link href="/auth/sign-up">Sign up</Link>
-        </Button>
-      </div>
-    </AuthCard>
+    </>
   );
 }

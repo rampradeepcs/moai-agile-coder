@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button, Input } from "@/components";
+import { Button } from "@/components";
 import {
   AuthCard,
   AuthDivider,
@@ -11,6 +11,10 @@ import {
   SocialSignIn,
   WandIcon,
 } from "@/components/auth/auth-primitives";
+import { BookCover } from "@/components/auth/book-cover";
+import { MagicEmailInput } from "@/components/auth/magic-email-input";
+import { rowDelay, useBookIntroTimeline } from "@/components/auth/use-book-intro-timeline";
+import { cn } from "@/lib/utils";
 
 /*
  * Any valid address signs up — there is no backend to check against. An
@@ -23,6 +27,8 @@ export default function SignUpPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  const { bookPhase, bookHidden, cardRevealing, cardFinal } = useBookIntroTimeline();
 
   const submit = () => {
     const value = email.trim();
@@ -39,56 +45,86 @@ export default function SignUpPage() {
   };
 
   return (
-    <AuthCard onSubmit={submit}>
-      <AuthHeading
-        eyebrow="Step 1 of 3 · Start crafting"
-        title="Create free account"
-        description="Turn ideas into outcomes with AI-powered workflows."
-      />
+    <>
+      {!bookHidden && (
+        <div className="wk-book-stage" aria-hidden="true">
+          <BookCover phase={bookPhase} />
+        </div>
+      )}
 
-      <div className="flex w-full flex-col gap-4">
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (error) setError(null);
-          }}
-          placeholder="Enter email id"
-          aria-label="Email id"
-          name="email"
-          autoComplete="email"
-          isInvalid={Boolean(error ?? undefined)} errorMessage={error ?? undefined}
-        />
+      <div
+        className={cn(
+          "wk-card-wrap",
+          cardRevealing && "is-revealing",
+          cardFinal && "is-final",
+        )}
+      >
+        <AuthCard onSubmit={submit}>
+          <div className="wk-row" style={rowDelay(120)}>
+            <AuthHeading
+              eyebrow="Step 1 of 3 · Start crafting"
+              title="Create free account"
+              description="Turn ideas into outcomes with AI-powered workflows."
+            />
+          </div>
 
-        <Button type="submit" className="w-full" iconLeading={<WandIcon />}>
-          Start crafting
-        </Button>
+          <div className="flex w-full flex-col gap-4">
+            <div className="wk-row" style={rowDelay(220)}>
+              <MagicEmailInput
+                value={email}
+                onChange={(value) => {
+                  setEmail(value);
+                  if (error) setError(null);
+                }}
+                placeholder="Enter email id"
+                name="email"
+                autoComplete="email"
+                isInvalid={Boolean(error ?? undefined)}
+                errorMessage={error ?? undefined}
+              />
+            </div>
 
-        <AuthDivider />
-        <SocialSignIn />
+            <div className="wk-row" style={rowDelay(320)}>
+              <Button type="submit" className="w-full" iconLeading={<WandIcon />}>
+                Start crafting
+              </Button>
+            </div>
+
+            <div className="wk-row" style={rowDelay(400)}>
+              <AuthDivider />
+            </div>
+
+            <div className="wk-row" style={rowDelay(460)}>
+              <SocialSignIn />
+            </div>
+          </div>
+
+          <div className="wk-row" style={rowDelay(540)}>
+            <p className="text-caption-1 text-muted-foreground/80 text-center">
+              By continuing, you agree to our{" "}
+              <Link href="/terms" className="text-foreground underline underline-offset-2">
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link href="/privacy" className="text-foreground underline underline-offset-2">
+                Privacy Policy
+              </Link>
+              .
+            </p>
+          </div>
+
+          <div className="wk-row" style={rowDelay(600)}>
+            <div className="flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <span className="text-body-md text-foreground">
+                Already have an account?
+              </span>
+              <Button asChild variant="secondary">
+                <Link href="/auth/sign-in">Sign in</Link>
+              </Button>
+            </div>
+          </div>
+        </AuthCard>
       </div>
-
-      <p className="text-caption-1 text-muted-foreground/80 text-center">
-        By continuing, you agree to our{" "}
-        <Link href="/terms" className="text-foreground underline underline-offset-2">
-          Terms of Service
-        </Link>{" "}
-        and{" "}
-        <Link href="/privacy" className="text-foreground underline underline-offset-2">
-          Privacy Policy
-        </Link>
-        .
-      </p>
-
-      <div className="flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <span className="text-body-md text-foreground">
-          Already have an account?
-        </span>
-        <Button asChild variant="secondary">
-          <Link href="/auth/sign-in">Sign in</Link>
-        </Button>
-      </div>
-    </AuthCard>
+    </>
   );
 }
