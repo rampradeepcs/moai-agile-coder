@@ -5,8 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button, PasswordInput } from "@/components";
 import { AuthCard, AuthHeading } from "@/components/auth/auth-primitives";
+import { ChargingCtaButton } from "@/components/auth/charging-cta-button";
 import { MagicEmailInput } from "@/components/auth/magic-email-input";
 import { rowDelay } from "@/components/auth/use-book-intro-timeline";
+import { useCtaCharge } from "@/components/auth/use-cta-charge";
 
 /*
  * No backend to authenticate against, so any well-formed credentials sign in.
@@ -28,8 +30,10 @@ export function SignInCard({ onSwitchToSignUp }: { onSwitchToSignUp: () => void 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const { charging, trigger } = useCtaCharge();
 
   const submit = () => {
+    if (charging) return;
     const value = email.trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
       setErrors({ email: "Invalid email id" });
@@ -48,7 +52,7 @@ export function SignInCard({ onSwitchToSignUp }: { onSwitchToSignUp: () => void 
       return;
     }
     setErrors({});
-    router.push("/apps");
+    trigger(() => router.push("/apps"));
   };
 
   return (
@@ -105,9 +109,9 @@ export function SignInCard({ onSwitchToSignUp }: { onSwitchToSignUp: () => void 
       </div>
 
       <div className="wk-row" style={rowDelay(460)}>
-        <Button type="submit" className="w-full">
+        <ChargingCtaButton type="submit" className="w-full" charging={charging}>
           Sign in
-        </Button>
+        </ChargingCtaButton>
       </div>
 
       <div className="wk-row" style={rowDelay(540)}>

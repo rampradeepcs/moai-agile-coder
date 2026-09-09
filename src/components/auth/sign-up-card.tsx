@@ -11,8 +11,10 @@ import {
   SocialSignIn,
   WandIcon,
 } from "@/components/auth/auth-primitives";
+import { ChargingCtaButton } from "@/components/auth/charging-cta-button";
 import { MagicEmailInput } from "@/components/auth/magic-email-input";
 import { rowDelay } from "@/components/auth/use-book-intro-timeline";
+import { useCtaCharge } from "@/components/auth/use-cta-charge";
 
 /*
  * Any valid address signs up — there is no backend to check against. An
@@ -31,8 +33,10 @@ export function SignUpCard({ onSwitchToSignIn }: { onSwitchToSignIn: () => void 
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const { charging, trigger } = useCtaCharge();
 
   const submit = () => {
+    if (charging) return;
     const value = email.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
       setError("Enter a valid email id");
@@ -43,7 +47,7 @@ export function SignUpCard({ onSwitchToSignIn }: { onSwitchToSignIn: () => void 
       return;
     }
     setError(null);
-    router.push(`/auth/user-details?email=${encodeURIComponent(value)}`);
+    trigger(() => router.push(`/auth/user-details?email=${encodeURIComponent(value)}`));
   };
 
   return (
@@ -73,9 +77,14 @@ export function SignUpCard({ onSwitchToSignIn }: { onSwitchToSignIn: () => void 
         </div>
 
         <div className="wk-row" style={rowDelay(320)}>
-          <Button type="submit" className="w-full" iconLeading={<WandIcon />}>
+          <ChargingCtaButton
+            type="submit"
+            className="w-full"
+            iconLeading={<WandIcon />}
+            charging={charging}
+          >
             Start crafting
-          </Button>
+          </ChargingCtaButton>
         </div>
 
         <div className="wk-row" style={rowDelay(400)}>
